@@ -51,22 +51,22 @@ export function DialogueEditor({
       {rows.map((row, index) => (
         <div key={index} className="rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--surface)] p-3">
           <div className="mb-2 flex items-center justify-between">
-            <span className="studio-label">話者 {index + 1}</span>
+            <span className="studio-label">Speaker {index + 1}</span>
             <div className="flex gap-1">
-              <Pressable className="studio-btn grid size-7 place-items-center p-0" onClick={() => move(index, -1)} disabled={disabled || index === 0} aria-label="上へ"><ArrowUp size={12} /></Pressable>
-              <Pressable className="studio-btn grid size-7 place-items-center p-0" onClick={() => move(index, 1)} disabled={disabled || index === rows.length - 1} aria-label="下へ"><ArrowDown size={12} /></Pressable>
-              <Pressable className="studio-btn grid size-7 place-items-center p-0" onClick={() => preview(row.text)} disabled={disabled || !row.text.trim()} aria-label="ブラウザ音声で試聴"><Play size={12} /></Pressable>
-              <Pressable className="studio-btn grid size-7 place-items-center p-0 text-[var(--danger)]" onClick={() => onChange(rows.filter((_, rowIndex) => rowIndex !== index))} disabled={disabled || rows.length === 1} aria-label="削除"><Trash2 size={12} /></Pressable>
+              <Pressable className="studio-btn grid size-7 place-items-center p-0" onClick={() => move(index, -1)} disabled={disabled || index === 0} aria-label="Move up"><ArrowUp size={12} /></Pressable>
+              <Pressable className="studio-btn grid size-7 place-items-center p-0" onClick={() => move(index, 1)} disabled={disabled || index === rows.length - 1} aria-label="Move down"><ArrowDown size={12} /></Pressable>
+              <Pressable className="studio-btn grid size-7 place-items-center p-0" onClick={() => preview(row.text)} disabled={disabled || !row.text.trim()} aria-label="Preview with browser voice"><Play size={12} /></Pressable>
+              <Pressable className="studio-btn grid size-7 place-items-center p-0 text-[var(--danger)]" onClick={() => onChange(rows.filter((_, rowIndex) => rowIndex !== index))} disabled={disabled || rows.length === 1} aria-label="Delete"><Trash2 size={12} /></Pressable>
             </div>
           </div>
           <input className="studio-input mb-2 w-full" value={row.voice} onChange={(event) => update(index, { voice: event.target.value })} placeholder="Voice ID" disabled={disabled} />
-          <textarea className="studio-input min-h-20 w-full resize-y" value={row.text} onChange={(event) => update(index, { text: event.target.value })} placeholder="この話者のセリフ" disabled={disabled} />
+          <textarea className="studio-input min-h-20 w-full resize-y" value={row.text} onChange={(event) => update(index, { text: event.target.value })} placeholder="This speaker’s line" disabled={disabled} />
         </div>
       ))}
       <Pressable className="studio-btn inline-flex w-full items-center justify-center gap-1" onClick={() => onChange([...rows, { text: '', voice: '' }])} disabled={disabled}>
-        <Plus size={13} /> 話者行を追加
+        <Plus size={13} /> Add speaker row
       </Pressable>
-      <p className="text-[10px] text-[var(--text-muted)]">試聴はVoice IDとは別のブラウザ音声です。最終音声は生成後に確認できます。</p>
+      <p className="text-[10px] text-[var(--text-muted)]">Preview uses a browser voice separate from the Voice ID. You can check the final audio after generation.</p>
     </div>
   )
 }
@@ -96,19 +96,19 @@ export function NarrationEditor({
         const next = segments[index + 1]?.slice(0, 120)
         return (
           <div key={index} className="rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--surface)] p-3">
-            <div className="mb-2 flex items-center justify-between"><span className="studio-label">セグメント {index + 1}</span><span className="text-[10px] text-[var(--text-muted)]">{segment.length}文字</span></div>
+            <div className="mb-2 flex items-center justify-between"><span className="studio-label">Segment {index + 1}</span><span className="text-[10px] text-[var(--text-muted)]">{segment.length} chars</span></div>
             <textarea className="studio-input min-h-24 w-full resize-y" value={segment} onChange={(event) => update(index, event.target.value)} disabled={disabled} />
             {(previous || next) && (
               <div className="mt-2 grid gap-1 text-[10px] text-[var(--text-muted)]">
-                {previous && <p><span className="font-semibold">前文:</span> …{previous}</p>}
-                {next && <p><span className="font-semibold">次文:</span> {next}…</p>}
+                {previous && <p><span className="font-semibold">Previous:</span> …{previous}</p>}
+                {next && <p><span className="font-semibold">Next:</span> {next}…</p>}
               </div>
             )}
           </div>
         )
       })}
-      <Pressable className="studio-btn inline-flex w-full items-center justify-center gap-1" onClick={() => onChange(`${value}${value ? '\n\n' : ''}`)} disabled={disabled}><Plus size={13} /> セグメントを追加</Pressable>
-      <p className="text-[10px] text-[var(--text-muted)]">空行で分割します。送信時は前後の文脈を連続した原稿として保持するため、声の流れが切れにくくなります。</p>
+      <Pressable className="studio-btn inline-flex w-full items-center justify-center gap-1" onClick={() => onChange(`${value}${value ? '\n\n' : ''}`)} disabled={disabled}><Plus size={13} /> Add segment</Pressable>
+      <p className="text-[10px] text-[var(--text-muted)]">Split on blank lines. On submit, surrounding context is kept as one continuous script, so the voice flows more naturally.</p>
     </div>
   )
 }

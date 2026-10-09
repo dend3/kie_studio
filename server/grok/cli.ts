@@ -106,7 +106,7 @@ function runGrok(
       if (settled) return
       settled = true
       killProcessTree(child)
-      reject(new GrokCliError('Grok Build の応答がタイムアウトしました', 'timeout'))
+      reject(new GrokCliError('Grok Build response timed out', 'timeout'))
     }, timeoutMs)
 
     child.stdout?.on('data', (chunk: Buffer | string) => {
@@ -125,8 +125,8 @@ function runGrok(
       reject(
         new GrokCliError(
           notFound
-            ? 'Grok Build がインストールされていません'
-            : `Grok Build を起動できません: ${err.message}`,
+            ? 'Grok Build is not installed'
+            : `Could not start Grok Build: ${err.message}`,
           'unavailable',
         ),
       )
@@ -196,7 +196,7 @@ async function fetchGrokModelCatalog(): Promise<GrokModelCatalog> {
 
   const detail = text.trim() || `exit code ${code}`
   throw new GrokCliError(
-    `Grok CLI のモデル一覧を取得できませんでした: ${detail.slice(0, 500)}`,
+    `Could not fetch Grok CLI model list: ${detail.slice(0, 500)}`,
     'failed',
   )
 }
@@ -229,7 +229,7 @@ export async function resolveOptimizeGrokModel(
     return pickOptimizeGrokModel(catalog, override)
   } catch (e) {
     throw new GrokCliError(
-      e instanceof Error ? e.message : '最適化用モデルを解決できませんでした',
+      e instanceof Error ? e.message : 'Could not resolve the optimization model',
       'failed',
     )
   }
@@ -348,7 +348,7 @@ export async function optimizePromptWithGrok(params: {
   const status = await getGrokStatus()
   if (!status.available) {
     throw new GrokCliError(
-      'Grok Build がインストールされていません',
+      'Grok Build is not installed',
       'unavailable',
     )
   }
@@ -359,11 +359,11 @@ export async function optimizePromptWithGrok(params: {
     params.mode ?? (prompt ? 'optimize' : 'generate')
 
   if (mode === 'optimize' && !prompt) {
-    throw new GrokCliError('最適化にはプロンプトが必要です', 'empty')
+    throw new GrokCliError('A prompt is required for optimization', 'empty')
   }
   if (mode === 'generate' && !custom) {
     throw new GrokCliError(
-      'プロンプト生成にはカスタム指示（やりたいことのメモ）が必要です',
+      'Custom instructions (notes on what you want) are required for prompt generation',
       'empty',
     )
   }
@@ -412,7 +412,7 @@ export async function optimizePromptWithGrok(params: {
     if (result.code !== 0 && !result.stdout.trim()) {
       const detail = result.stderr.trim() || `exit code ${result.code}`
       throw new GrokCliError(
-        `Grok Build の実行に失敗しました: ${detail}`,
+        `Grok Build execution failed: ${detail}`,
         'failed',
       )
     }
@@ -420,7 +420,7 @@ export async function optimizePromptWithGrok(params: {
     const optimized = extractOptimized(result.stdout || result.stderr)
     if (!optimized) {
       throw new GrokCliError(
-        mode === 'generate' ? '生成結果が空でした' : '最適化結果が空でした',
+        mode === 'generate' ? 'Generation result was empty' : 'Optimization result was empty',
         'empty',
       )
     }
@@ -428,7 +428,7 @@ export async function optimizePromptWithGrok(params: {
   } catch (e) {
     if (e instanceof GrokCliError) throw e
     throw new GrokCliError(
-      e instanceof Error ? e.message : 'Grok Build の実行に失敗しました',
+      e instanceof Error ? e.message : 'Grok Build execution failed',
       'failed',
     )
   } finally {

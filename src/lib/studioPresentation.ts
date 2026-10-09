@@ -1,28 +1,28 @@
 import type { FieldSchema, ModelDefinition } from './models/types.ts'
 
 const FIELD_LABELS: Record<string, string> = {
-  prompt: 'プロンプト',
-  negative_prompt: 'ネガティブプロンプト',
-  negativeprompt: 'ネガティブプロンプト',
-  image_url: '入力画像',
-  image_urls: '参照画像',
-  input_url: '入力素材',
-  input_urls: '参照素材',
-  reference_image_url: '参照画像',
-  reference_image_urls: '参照画像',
-  video_url: '入力動画',
-  video_urls: '入力動画',
-  audio_url: '入力音声',
-  audio_urls: '入力音声',
-  aspect_ratio: 'アスペクト比',
-  aspectratio: 'アスペクト比',
-  resolution: '解像度',
-  duration: '長さ',
-  duration_seconds: '長さ',
-  quality: '品質',
-  seed: 'シード',
-  steps: 'ステップ数',
-  guidance_scale: 'ガイダンス',
+  prompt: 'Prompt',
+  negative_prompt: 'Negative prompt',
+  negativeprompt: 'Negative prompt',
+  image_url: 'Input image',
+  image_urls: 'Reference images',
+  input_url: 'Input asset',
+  input_urls: 'Reference assets',
+  reference_image_url: 'Reference image',
+  reference_image_urls: 'Reference images',
+  video_url: 'Input video',
+  video_urls: 'Input videos',
+  audio_url: 'Input audio',
+  audio_urls: 'Input audio',
+  aspect_ratio: 'Aspect ratio',
+  aspectratio: 'Aspect ratio',
+  resolution: 'Resolution',
+  duration: 'Duration',
+  duration_seconds: 'Duration',
+  quality: 'Quality',
+  seed: 'Seed',
+  steps: 'Steps',
+  guidance_scale: 'Guidance',
 }
 
 const CORE_FIELD_NAMES = new Set([
@@ -52,12 +52,12 @@ export function presentField(field: FieldSchema): FieldSchema {
   if (field.type === 'reference' && (name === 'input_url' || name === 'input_urls')) {
     const accept = field.accept ?? ''
     const label = /audio/i.test(accept)
-      ? '入力音声'
+      ? 'Input audio'
       : /video/i.test(accept) && /image/i.test(accept)
-        ? '参照素材'
+        ? 'Reference assets'
         : /video/i.test(accept)
-          ? '入力動画'
-          : '参照画像'
+          ? 'Input video'
+          : 'Reference images'
     return { ...field, label }
   }
   const label = FIELD_LABELS[name]
@@ -67,9 +67,9 @@ export function presentField(field: FieldSchema): FieldSchema {
 export function conciseFieldDescription(field: FieldSchema): string | null {
   if (isNsfwChecker(field)) return field.description ?? null
   const name = normalizedName(field.name)
-  if (name === 'prompt') return '作りたい内容を具体的に入力します'
+  if (name === 'prompt') return 'Describe what you want to create'
   if (name === 'negative_prompt' || name === 'negativeprompt') {
-    return '含めたくない要素を入力します'
+    return 'Enter elements to exclude'
   }
   return null
 }
@@ -77,15 +77,15 @@ export function conciseFieldDescription(field: FieldSchema): string | null {
 export function fieldConstraintHint(field: FieldSchema): string | null {
   const parts: string[] = []
   if (typeof field.maxLength === 'number') {
-    parts.push(`最大${field.maxLength.toLocaleString('ja-JP')}文字`)
+    parts.push(`Max ${field.maxLength.toLocaleString('ja-JP')} characters`)
   }
   if (field.type === 'number') {
     if (typeof field.min === 'number' && typeof field.max === 'number') {
-      parts.push(`${field.min}〜${field.max}`)
+      parts.push(`${field.min}–${field.max}`)
     } else if (typeof field.min === 'number') {
-      parts.push(`${field.min}以上`)
+      parts.push(`≥ ${field.min}`)
     } else if (typeof field.max === 'number') {
-      parts.push(`${field.max}以下`)
+      parts.push(`≤ ${field.max}`)
     }
   }
   return parts.length > 0 ? parts.join(' · ') : null
@@ -116,7 +116,7 @@ export function modelInputSummary(model: ModelDefinition): string {
   const image = /image/i.test(accepts)
   const video = /video/i.test(accepts)
   const audio = /audio/i.test(accepts)
-  const media = [image ? '画像' : '', video ? '動画' : '', audio ? '音声' : '']
+  const media = [image ? 'Image' : '', video ? 'Video' : '', audio ? 'Audio' : '']
     .filter(Boolean)
-  return media.length > 0 ? `${media.join('・')}入力` : 'テキスト入力'
+  return media.length > 0 ? `${media.join(' · ')} input` : 'Text input'
 }

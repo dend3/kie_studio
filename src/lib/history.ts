@@ -400,17 +400,17 @@ export function parseHistoryJson(raw: string): HistoryItem[] {
   try {
     data = JSON.parse(raw)
   } catch {
-    throw new Error('JSON として読み込めませんでした')
+    throw new Error('Could not parse as JSON')
   }
   const items = Array.isArray(data)
     ? data
     : (data as { items?: unknown })?.items
   if (!Array.isArray(items)) {
-    throw new Error('履歴データの形式が正しくありません')
+    throw new Error('Invalid history data format')
   }
   const valid = normalizeHistoryItems(items, 'import')
   if (valid.length === 0) {
-    throw new Error('インポートできる履歴がありませんでした')
+    throw new Error('No importable history items found')
   }
   return valid
 }

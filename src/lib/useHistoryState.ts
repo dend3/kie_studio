@@ -65,7 +65,7 @@ export function useHistoryState({
   const handleHistoryPersistError = useCallback(
     (error: unknown) => {
       setFormError(
-        error instanceof Error ? error.message : '履歴の保存に失敗しました',
+        error instanceof Error ? error.message : 'Failed to save history',
       )
     },
     [setFormError],
@@ -87,8 +87,8 @@ export function useHistoryState({
     (error: unknown) => {
       setFormError(
         error instanceof Error
-          ? `履歴の移行に失敗しました: ${error.message}`
-          : '履歴の移行に失敗しました',
+          ? `Failed to migrate history: ${error.message}`
+          : 'Failed to migrate history',
       )
     },
     [setFormError],
@@ -171,7 +171,7 @@ export function useHistoryState({
   function togglePin(taskId: string) {
     const result = togglePinInList(history, taskId)
     if (result.rejected === 'pin-limit') {
-      setFormError(`ピン留めは最大${MAX_PINNED}件までです`)
+      setFormError(`You can pin up to ${MAX_PINNED} items`)
       return
     }
     startTransition(async () => {
@@ -182,7 +182,7 @@ export function useHistoryState({
         queryClient.setQueryData(['history'], response.data.items)
       } catch (error) {
         setFormError(
-          error instanceof Error ? error.message : '履歴の保存に失敗しました',
+          error instanceof Error ? error.message : 'Failed to save history',
         )
       }
     })
@@ -207,10 +207,10 @@ export function useHistoryState({
         const res = await importHistoryApi(items)
         setHistory(res.data.items)
         queryClient.setQueryData(['history'], res.data.items)
-        setFormNotice(`履歴をインポートしました（${res.data.items.length} 件）`)
+        setFormNotice(`Imported ${res.data.items.length} history items`)
       } catch (e) {
         setFormError(
-          e instanceof Error ? e.message : '履歴のインポートに失敗しました',
+          e instanceof Error ? e.message : 'Failed to import history',
         )
       }
     })()
@@ -230,7 +230,7 @@ export function useHistoryState({
         queryClient.setQueryData(['history'], response.data.items)
       } catch (error) {
         setFormError(
-          error instanceof Error ? error.message : '履歴の削除に失敗しました',
+          error instanceof Error ? error.message : 'Failed to delete history',
         )
         try {
           const recovered = await fetchHistory()
@@ -252,7 +252,7 @@ export function useHistoryState({
         queryClient.setQueryData(['history'], response.data.items)
       } catch (error) {
         setFormError(
-          error instanceof Error ? error.message : '履歴の削除に失敗しました',
+          error instanceof Error ? error.message : 'Failed to delete history',
         )
         try {
           const recovered = await fetchHistory()

@@ -71,7 +71,7 @@ export function useQuickAction({
           style: typeof metadata.tags === 'string' ? metadata.tags : '',
           title: media.title ?? '',
           model: typeof metadata.modelName === 'string' ? metadata.modelName : 'V5',
-        }, '元の曲を引き継ぎました。内容を確認してから送信してください')
+        }, 'Original song carried over. Review it, then send')
         break
       case 'suno-replace-section':
         openWorkflow('audio', 'suno/replace-section', {
@@ -83,52 +83,52 @@ export function useQuickAction({
           tags: typeof metadata.tags === 'string' ? metadata.tags : '',
           title: media.title ?? 'Edited section',
           _duration: media.duration ?? 0,
-        }, '選択区間を引き継ぎました。置換内容を入力してから送信してください')
+        }, 'Selected section carried over. Enter the replacement, then send')
         break
       case 'suno-upload-extend':
         openWorkflow('audio', 'suno/upload-extend', {
           uploadUrl: url,
           continueAt: Math.max(0, (media.duration ?? 1) - 1),
           prompt: '',
-        }, '音源を引き継ぎました。続きを確認してから送信してください')
+        }, 'Audio carried over. Review the continuation, then send')
         break
       case 'runway-aleph':
-        openWorkflow('video', 'runway/aleph', { _parentTaskId: item.taskId, videoUrl: url, prompt: '' }, '元動画を引き継ぎました。変更内容を入力してから送信してください')
+        openWorkflow('video', 'runway/aleph', { _parentTaskId: item.taskId, videoUrl: url, prompt: '' }, 'Original video carried over. Enter your changes, then send')
         break
       case 'runway-extend':
         openWorkflow('video', 'runway/extend', {
           taskId: item.taskId,
           videoId: media.providerAssetId ?? '',
           prompt: '',
-        }, '元動画を引き継ぎました。延長内容を確認してから送信してください')
+        }, 'Original video carried over. Review the extension, then send')
         break
       case 'veo-extend':
-        openWorkflow('video', 'veo/extend', { taskId: item.taskId, prompt: '' }, '元動画を引き継ぎました。延長内容を確認してから送信してください')
+        openWorkflow('video', 'veo/extend', { taskId: item.taskId, prompt: '' }, 'Original video carried over. Review the extension, then send')
         break
       case 'veo-1080p':
-        openWorkflow('video', 'veo/1080p', { taskId: item.taskId, index: 0 }, '元タスクを引き継ぎました。確認後に1080p処理を送信してください')
+        openWorkflow('video', 'veo/1080p', { taskId: item.taskId, index: 0 }, 'Original task carried over. Review, then submit the 1080p job')
         break
       case 'veo-4k':
-        openWorkflow('video', 'veo/4k', { taskId: item.taskId, index: 0 }, '元タスクを引き継ぎました。確認後に4K処理を送信してください')
+        openWorkflow('video', 'veo/4k', { taskId: item.taskId, index: 0 }, 'Original task carried over. Review, then submit the 4K job')
         break
       case 'lip-sync':
         openWorkflow('video', 'market/volcengine-lip-sync', {
           video_url: url,
           audio_url: options.audioUrl,
-        }, '動画と音声を引き継ぎました。尺の扱いを確認してから送信してください')
+        }, 'Video and audio carried over. Check duration handling, then send')
         break
       case 'market-upscale':
         if (media.kind === 'video') {
-          openWorkflow('video', 'topaz/video-upscale', { video_url: url }, '元動画を引き継ぎました。倍率を確認してから送信してください')
+          openWorkflow('video', 'topaz/video-upscale', { video_url: url }, 'Original video carried over. Check the scale factor, then send')
         } else {
-          openWorkflow('image', 'topaz/image-upscale', { image_url: url }, '元画像を引き継ぎました。倍率を確認してから送信してください')
+          openWorkflow('image', 'topaz/image-upscale', { image_url: url }, 'Original image carried over. Check the scale factor, then send')
         }
         break
       case 'market-edit':
         if (media.kind === 'video') {
-          openWorkflow('video', 'wan/2-7-videoedit', { video_url: url, prompt: '' }, '元動画を引き継ぎました。編集内容を入力してから送信してください')
+          openWorkflow('video', 'wan/2-7-videoedit', { video_url: url, prompt: '' }, 'Original video carried over. Enter your edits, then send')
         } else {
-          openWorkflow('image', 'google/nano-banana-edit', { image_urls: [url], prompt: '' }, '元画像を引き継ぎました。編集内容を入力してから送信してください')
+          openWorkflow('image', 'google/nano-banana-edit', { image_urls: [url], prompt: '' }, 'Original image carried over. Enter your edits, then send')
         }
         break
       default: {

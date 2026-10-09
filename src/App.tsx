@@ -185,14 +185,14 @@ export default function App() {
       pendingRestoreRef.current = null
       setValues(mergeInputWithDefaults(selected.fields, pending.input))
       setFormError(null)
-      setFormNotice('履歴の入力をフォームに復元しました')
+      setFormNotice('History inputs restored to the form')
     } else if (pending && models.length > 0) {
       // 復元先モデルがカタログから消えている
       pendingRestoreRef.current = null
       setValues(buildDefaultValues(selected.fields))
       setFormNotice(null)
       setFormError(
-        '復元しようとしたモデルが現在のカタログに見つかりませんでした',
+        'The model to restore was not found in the current catalog',
       )
     } else {
       setValues(buildDefaultValues(selected.fields))
@@ -298,7 +298,7 @@ export default function App() {
       setValues(mergeInputWithDefaults(selected.fields, h.input))
       setFormError(null)
       setFieldErrors({})
-      setFormNotice('履歴の入力をフォームに復元しました')
+      setFormNotice('History inputs restored to the form')
       window.requestAnimationFrame(() => {
         document
           .getElementById('model-select')
@@ -311,12 +311,12 @@ export default function App() {
     // ここで弾いて pendingRestoreRef を残留させない。
     if (category === h.category && !models.some((m) => m.id === h.modelId)) {
       setFormError(
-        'この履歴のモデルは現在のカタログに見つかりませんでした',
+        "This history item's model was not found in the current catalog",
       )
       return
     }
     pendingRestoreRef.current = { modelId: h.modelId, input: h.input }
-    setFormNotice('履歴の入力をフォームに復元しています…')
+    setFormNotice('Restoring history inputs to the form…')
     if (category !== h.category) setCategory(h.category)
     setModelId(h.modelId)
   }
@@ -343,7 +343,7 @@ export default function App() {
     const refFields = selected.fields.filter((f) => f.type === 'reference')
     if (refFields.length === 0) {
       setFormError(
-        '現在のモデルには画像/動画の入力フィールドがありません。Image to Image 系のモデルに切り替えてから使ってください',
+        'The current model has no image/video input fields. Switch to an Image to Image model first',
       )
       return
     }
@@ -358,8 +358,8 @@ export default function App() {
     if (!target) {
       setFormError(
         isVideo
-          ? '現在のモデルは動画入力に対応していません。対応モデルに切り替えてから使ってください'
-          : '現在のモデルは画像入力に対応していません。対応モデルに切り替えてから使ってください',
+          ? 'The current model does not support video input. Switch to a supported model first'
+          : 'The current model does not support image input. Switch to a supported model first',
       )
       return
     }
@@ -369,7 +369,7 @@ export default function App() {
     if (current.includes(url)) return
     const max = target.maxItems ?? 8
     if (current.length >= max) {
-      setFormError(`${target.label} は最大 ${max} 件までです`)
+      setFormError(`${target.label} allows up to ${max} items`)
       return
     }
     handleFieldChange(target.name, [...current, url])
@@ -385,7 +385,7 @@ export default function App() {
     if (!selected) return true
     if (!isFormDirty(selected.fields, values)) return true
     return window.confirm(
-      '入力内容が消えます。モデルまたはカテゴリを切り替えてもよろしいですか？',
+      'Your inputs will be lost. Switch model or category anyway?',
     )
   }
 
@@ -416,7 +416,7 @@ export default function App() {
       }
       chromeSubtitle={
         view === 'agent'
-          ? 'エージェント'
+          ? 'Agent'
           : 'kie.ai · IMAGE / VIDEO / AUDIO'
       }
       chromeMeta={
@@ -442,7 +442,7 @@ export default function App() {
           <Pressable
             onClick={() => setSettingsSheetOpen(true)}
             className="studio-btn shrink-0 self-stretch px-2.5"
-            aria-label="設定を開く"
+            aria-label="Open settings"
             scaleTo={0.96}
           >
             <Settings size={16} strokeWidth={2} aria-hidden />
@@ -453,7 +453,7 @@ export default function App() {
         <Suspense
           fallback={
             <div className="grid h-full place-items-center text-sm text-[var(--text-muted)]">
-              エージェントを読込中…
+              Loading agent…
             </div>
           }
         >
@@ -482,7 +482,7 @@ export default function App() {
             <div
               className="studio-skeleton h-12 w-full rounded-[var(--radius-md)]"
               role="status"
-              aria-label="モデルを読み込んでいます"
+              aria-label="Loading models"
             />
           ) : modelsQuery.isError ? (
             <p className="text-sm text-[var(--danger)]" role="alert">
@@ -515,7 +515,7 @@ export default function App() {
                   rel="noreferrer"
                   className="inline-flex min-h-8 items-center gap-1 self-start py-1 text-xs font-medium text-[var(--accent)]"
                 >
-                  ドキュメント
+                  Docs
                   <ExternalLink size={12} strokeWidth={2} aria-hidden />
                 </a>
               )}
@@ -540,7 +540,7 @@ export default function App() {
 
               {selected.provider === 'suno' && values.customMode !== false && selected.fields.some((field) => field.name === 'personaId') && (personasQuery.data?.length ?? 0) > 0 && (
                 <div className="rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--surface)] p-3">
-                  <label htmlFor="saved-persona" className="studio-label">素材棚 · Persona</label>
+                  <label htmlFor="saved-persona" className="studio-label">Assets · Persona</label>
                   <select
                     id="saved-persona"
                     className="studio-select mt-2 w-full"
@@ -548,7 +548,7 @@ export default function App() {
                     onChange={(event) => handleFieldChange('personaId', event.target.value)}
                     disabled={submitting}
                   >
-                    <option value="">Personaを使わない</option>
+                    <option value="">No persona</option>
                     {personasQuery.data?.map((saved) => (
                       <option key={saved.id} value={saved.personaId}>{saved.name}</option>
                     ))}
@@ -558,7 +558,7 @@ export default function App() {
 
               {selected.provider === 'suno' && selected.fields.some((field) => field.name === 'uploadUrl') && (audioAssetsQuery.data?.length ?? 0) > 0 && (
                 <div className="rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--surface)] p-3">
-                  <span className="studio-label">素材棚 · 外部音源</span>
+                  <span className="studio-label">Assets · External audio</span>
                   <div className="mt-2 flex gap-2 overflow-x-auto pb-1">
                     {audioAssetsQuery.data?.map((asset) => {
                       const expired = typeof asset.expiresAt === 'number' && asset.expiresAt <= Date.now()
@@ -573,7 +573,7 @@ export default function App() {
                           scaleTo={0.97}
                         >
                           <span className="line-clamp-1">{asset.name}</span>
-                          <span className="ml-1 text-[9px] opacity-70">{expired ? '期限切れ' : '選択'}</span>
+                          <span className="ml-1 text-[9px] opacity-70">{expired ? 'Expired' : 'Select'}</span>
                         </Pressable>
                       )
                     })}
@@ -602,30 +602,30 @@ export default function App() {
                   className="flex flex-wrap items-center gap-2 text-sm text-[var(--warning)]"
                   role="status"
                 >
-                  <span>API キー未設定のため生成できません。</span>
+                  <span>API key not set — cannot generate.</span>
                   <Pressable
                     onClick={() => setSettingsSheetOpen(true)}
                     className="studio-btn w-auto gap-1 px-3 text-xs"
                     scaleTo={0.96}
                   >
                     <Settings size={13} strokeWidth={2} aria-hidden />
-                    設定画面を開く
+                    Open settings
                   </Pressable>
                 </div>
               )}
 
               {pendingCount > 0 && (
                 <p className="text-xs text-[var(--warning)]" role="status">
-                  API受付済み {pendingTasks.filter((item) => item.state === 'waiting' || item.state === 'queuing').length} 件
-                  {' · '}生成中 {pendingTasks.filter((item) => item.state === 'generating' || item.state === 'unknown').length} 件
+                  Accepted {pendingTasks.filter((item) => item.state === 'waiting' || item.state === 'queuing').length}
+                  {' · '}Generating {pendingTasks.filter((item) => item.state === 'generating' || item.state === 'unknown').length}
                 </p>
               )}
 
               {submissionQueueItems.length > 0 && (
                 <div className="flex items-center justify-between gap-3 rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-xs">
                   <span role="status">
-                    未送信 {submissionQueueItems.filter((item) => item.state === 'unsent').length} 件
-                    {' · '}API受付済み {submissionQueueItems.filter((item) => item.state === 'accepted').length} 件
+                    Unsent {submissionQueueItems.filter((item) => item.state === 'unsent').length}
+                    {' · '}Accepted {submissionQueueItems.filter((item) => item.state === 'accepted').length}
                   </span>
                   {submissionQueueItems.some((item) => item.state === 'unsent') && (
                     <Pressable
@@ -633,7 +633,7 @@ export default function App() {
                       onClick={() => submissionQueue.cancelUnsent()}
                       scaleTo={0.97}
                     >
-                      未送信をキャンセル
+                      Cancel unsent
                     </Pressable>
                   )}
                 </div>
@@ -646,8 +646,8 @@ export default function App() {
                   </span>
                   <span className="shrink-0 tabular-nums">
                     {creditEstimate === null
-                      ? 'クレジット推定なし'
-                      : `約${creditEstimate} cr/回`}
+                      ? 'No credit estimate'
+                      : `≈${creditEstimate} cr/run`}
                   </span>
                 </div>
                 {formIssues.length > 0 && (
@@ -659,19 +659,19 @@ export default function App() {
                       requestAnimationFrame(() => focusFirstFieldError(currentFormErrors))
                     }}
                   >
-                    要確認: {formIssues.slice(0, 3).join('、')}
-                    {formIssues.length > 3 ? ` ほか${formIssues.length - 3}項目` : ''}
-                    <span className="ml-1">最初の項目へ</span>
+                    Review: {formIssues.slice(0, 3).join(', ')}
+                    {formIssues.length > 3 ? ` +${formIssues.length - 3} more` : ''}
+                    <span className="ml-1">Go to first issue</span>
                   </button>
                 )}
                 <div className="flex items-center justify-between gap-2">
                   <div
                     className="flex items-center gap-1"
                     role="group"
-                    aria-label="同時生成数"
+                    aria-label="Batch size"
                   >
                     <span className="mr-1 text-[11px] text-[var(--text-muted)]">
-                      同時生成
+                      Batch
                     </span>
                     {[1, 2, 3, 4].map((n) => (
                       <Pressable
@@ -706,20 +706,20 @@ export default function App() {
                     />
                   )}
                   {submitting
-                    ? '送信中…'
+                    ? 'Sending…'
                     : creditEstimate !== null
                       ? batchCount > 1
-                        ? `生成 ×${batchCount}（約${creditEstimate * batchCount} cr）`
-                        : `生成（約${creditEstimate} cr）`
+                        ? `Generate ×${batchCount} (≈${creditEstimate * batchCount} cr)`
+                        : `Generate (≈${creditEstimate} cr)`
                       : batchCount > 1
-                        ? `生成 ×${batchCount}`
-                        : '生成'}
+                        ? `Generate ×${batchCount}`
+                        : 'Generate'}
                 </Pressable>
               </div>
             </>
           ) : (
             <p className="text-sm text-[var(--text-muted)]">
-              モデルを選択してください
+              Select a model
             </p>
           )}
         </>
@@ -750,7 +750,7 @@ export default function App() {
           onClear={() => {
             if (
               !window.confirm(
-                'ピン留め以外の履歴をすべて削除しますか？この操作は取り消せません。',
+                'Delete all history except pinned items? This cannot be undone.',
               )
             ) {
               return

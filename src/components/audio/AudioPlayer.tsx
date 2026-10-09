@@ -140,7 +140,7 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
         onEnded={() => move(1)}
       />
       {active && (
-        <aside className="fixed right-3 bottom-3 left-3 z-[var(--z-modal)] mx-auto max-w-3xl rounded-[var(--radius-lg)] border border-[var(--border-strong)] bg-[var(--surface-raised)] p-3 shadow-[var(--shadow-lg)]" aria-label="オーディオプレイヤー">
+        <aside className="fixed right-3 bottom-3 left-3 z-[var(--z-modal)] mx-auto max-w-3xl rounded-[var(--radius-lg)] border border-[var(--border-strong)] bg-[var(--surface-raised)] p-3 shadow-[var(--shadow-lg)]" aria-label="Audio player">
           <div className="flex items-center gap-3">
             {active.previewUrl ? (
               <img src={active.previewUrl} alt="" className="size-11 rounded-[var(--radius-sm)] object-cover" />
@@ -149,8 +149,8 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
             )}
             <div className="min-w-0 flex-1">
               <div className="flex items-center justify-between gap-2">
-                <p className="truncate text-sm font-semibold">{active.title ?? '生成オーディオ'}</p>
-                <Pressable className="studio-btn grid size-8 place-items-center p-0" aria-label="プレイヤーを閉じる" onClick={() => {
+                <p className="truncate text-sm font-semibold">{active.title ?? 'Generated audio'}</p>
+                <Pressable className="studio-btn grid size-8 place-items-center p-0" aria-label="Close player" onClick={() => {
                   audioRef.current?.pause()
                   setActive(null)
                 }}>
@@ -167,17 +167,17 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
                   value={Math.min(currentTime, duration || active.duration || 0)}
                   onChange={(event) => seek(Number(event.target.value))}
                   className="min-w-0 flex-1 accent-[var(--accent)]"
-                  aria-label="再生位置"
+                  aria-label="Playback position"
                 />
                 <span className="w-9 font-mono text-[10px] text-[var(--text-muted)]">{formatTime(duration || active.duration || 0)}</span>
               </div>
             </div>
           </div>
           <div className="mt-2 flex items-center justify-center gap-2">
-            <Pressable className="studio-btn grid size-9 place-items-center p-0" onClick={() => move(-1)} disabled={tracks.length < 2} aria-label="前のトラック"><SkipBack size={16} /></Pressable>
-            <Pressable className="studio-btn-primary grid size-10 place-items-center p-0" onClick={toggle} aria-label={playing ? '一時停止' : '再生'}>{playing ? <Pause size={18} /> : <Play size={18} />}</Pressable>
-            <Pressable className="studio-btn grid size-9 place-items-center p-0" onClick={() => move(1)} disabled={tracks.length < 2} aria-label="次のトラック"><SkipForward size={16} /></Pressable>
-            <Pressable className="studio-btn grid size-9 place-items-center p-0" onClick={() => setMuted((value) => !value)} aria-label={muted ? 'ミュート解除' : 'ミュート'}>{muted ? <VolumeX size={16} /> : <Volume2 size={16} />}</Pressable>
+            <Pressable className="studio-btn grid size-9 place-items-center p-0" onClick={() => move(-1)} disabled={tracks.length < 2} aria-label="Previous track"><SkipBack size={16} /></Pressable>
+            <Pressable className="studio-btn-primary grid size-10 place-items-center p-0" onClick={toggle} aria-label={playing ? 'Pause' : 'Play'}>{playing ? <Pause size={18} /> : <Play size={18} />}</Pressable>
+            <Pressable className="studio-btn grid size-9 place-items-center p-0" onClick={() => move(1)} disabled={tracks.length < 2} aria-label="Next track"><SkipForward size={16} /></Pressable>
+            <Pressable className="studio-btn grid size-9 place-items-center p-0" onClick={() => setMuted((value) => !value)} aria-label={muted ? 'Unmute' : 'Mute'}>{muted ? <VolumeX size={16} /> : <Volume2 size={16} />}</Pressable>
             <input
               type="range"
               min={0}
@@ -190,7 +190,7 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
                 if (audioRef.current) audioRef.current.volume = next
               }}
               className="w-20 accent-[var(--accent)]"
-              aria-label="音量"
+              aria-label="Volume"
             />
           </div>
         </aside>

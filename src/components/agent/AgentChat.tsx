@@ -48,21 +48,21 @@ function toolSummary(part: ToolLikePart): string {
   }
   switch (name) {
     case 'list-workflows':
-      return `ワークフロー検索 ${field('capability') ?? field('q') ?? field('category') ?? ''}`.trim()
+      return `Workflow search ${field('capability') ?? field('q') ?? field('category') ?? ''}`.trim()
     case 'get-workflow-schema':
-      return `スキーマ確認 ${field('id') ?? ''}`.trim()
+      return `Schema check ${field('id') ?? ''}`.trim()
     case 'generate-media':
-      return `生成 ${field('title') ?? field('workflowId') ?? ''}`.trim()
+      return `Generation ${field('title') ?? field('workflowId') ?? ''}`.trim()
     case 'get-task-status':
-      return `状態確認 ${(field('taskId') ?? '').slice(0, 12)}…`
+      return `Status check ${(field('taskId') ?? '').slice(0, 12)}…`
     case 'search-history':
-      return `履歴検索 ${field('q') ?? ''}`.trim()
+      return `History search ${field('q') ?? ''}`.trim()
     case 'get-task-input':
-      return '入力の復元'
+      return 'Restore input'
     case 'get-credit-balance':
-      return '残高確認'
+      return 'Check balance'
     case 'optimize-prompt':
-      return 'プロンプト最適化'
+      return 'Prompt optimization'
     default:
       return name
   }
@@ -118,7 +118,7 @@ function ReasoningBlock({ text, streaming }: { text: string; streaming: boolean 
         className="flex w-full items-center gap-2 px-3 py-1.5 text-left text-[var(--text-muted)]"
       >
         <Brain size={13} aria-hidden />
-        <span>{streaming ? '思考中…' : '思考'}</span>
+        <span>{streaming ? 'Thinking…' : 'Thinking'}</span>
         <ChevronRight
           size={13}
           aria-hidden
@@ -148,7 +148,7 @@ function MessagePart({ part }: { part: ChatPart }) {
     return (
       <img
         src={part.url}
-        alt={part.filename ?? '添付'}
+        alt={part.filename ?? 'Attach'}
         className="max-h-48 rounded-[var(--radius-md)]"
       />
     )
@@ -286,11 +286,11 @@ function AgentChatSession({
         <div className="mx-auto grid max-w-3xl gap-4">
           {messages.length === 0 && (
             <div className="py-16 text-center">
-              <p className="studio-empty-title">エージェントに話しかけましょう</p>
+              <p className="studio-empty-title">Talk to your agent</p>
               <p className="studio-empty-body mt-2">
                 {migratedEmpty
-                  ? 'この会話の本文は旧エージェントに保存されていました。新しいメッセージから、ここへ記録します。'
-                  : '例: 「夕焼けの海の画像を作って」「この写真を動画にして」「曲の続きを作って」'}
+                  ? 'This conversation\u2019s messages were stored in the old agent. New messages will be recorded here.'
+                  : 'e.g. \u201cMake an image of a beach at sunset\u201d / \u201cTurn this photo into a video\u201d / \u201cContinue this song\u201d'}
               </p>
             </div>
           )}
@@ -300,7 +300,7 @@ function AgentChatSession({
           {responding && (
             <p className="flex items-center gap-2 px-1 text-xs text-[var(--text-muted)]">
               <Loader2 size={13} className="animate-spin" aria-hidden />
-              {status === 'streaming' ? '応答を生成中…' : '送信中…'}
+              {status === 'streaming' ? 'Generating response…' : 'Sending…'}
             </p>
           )}
           {status === 'error' && (
@@ -316,7 +316,7 @@ function AgentChatSession({
         <div className="mx-auto max-w-3xl">
           {sendError && (
             <p className="mb-2 text-xs text-[var(--danger)]" role="alert">
-              送信に失敗しました: {sendError}
+              Send failed: {sendError}
             </p>
           )}
           <div className="flex items-end gap-2">
@@ -330,16 +330,16 @@ function AgentChatSession({
                 }
               }}
               rows={Math.min(6, Math.max(2, input.split('\n').length))}
-              placeholder="メッセージを入力… (Enter で送信 / Shift+Enter で改行)"
+              placeholder="Type a message… (Enter to send / Shift+Enter for newline)"
               className="studio-input min-w-0 flex-1 resize-none"
-              aria-label="エージェントへのメッセージ"
+              aria-label="Message to agent"
             />
             {responding ? (
               <button
                 type="button"
                 onClick={() => void stop()}
                 className="studio-btn w-auto shrink-0 px-3 py-2"
-                aria-label="応答を停止"
+                aria-label="Stop response"
               >
                 <Square size={16} aria-hidden />
               </button>
@@ -349,14 +349,14 @@ function AgentChatSession({
                 onClick={() => void submit()}
                 disabled={!input.trim()}
                 className="studio-btn-primary studio-btn-compact"
-                aria-label="送信"
+                aria-label="Send"
               >
                 <SendHorizontal size={16} aria-hidden />
               </button>
             )}
           </div>
           <p className="mt-1.5 text-[10px] text-[var(--text-muted)]">
-            {provider}/{model} · 生成には kie.ai クレジットを消費します
+            {provider}/{model} · Generation consumes kie.ai credits
           </p>
         </div>
       </div>
@@ -376,7 +376,7 @@ export function AgentChat(props: AgentChatProps) {
       <div className="grid flex-1 place-items-center text-xs text-[var(--text-muted)]">
         <p className="flex items-center gap-2">
           <Loader2 size={14} className="animate-spin" aria-hidden />
-          会話を読み込み中…
+          Loading conversation…
         </p>
       </div>
     )
@@ -388,14 +388,14 @@ export function AgentChat(props: AgentChatProps) {
         <div className="grid gap-3 text-center">
           <p className="flex items-center justify-center gap-2" role="alert">
             <AlertTriangle size={14} aria-hidden />
-            会話を読み込めませんでした: {formatAgentSendError(messagesQuery.error)}
+            Could not load conversation: {formatAgentSendError(messagesQuery.error)}
           </p>
           <button
             type="button"
             className="studio-btn mx-auto w-auto px-3 py-1.5"
             onClick={() => void messagesQuery.refetch()}
           >
-            再試行
+            Retry
           </button>
         </div>
       </div>

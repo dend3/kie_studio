@@ -48,7 +48,7 @@ export function pickOptimizeGrokModel(
   if (trimmed) {
     if (catalog.ids.length > 0 && !catalog.ids.includes(trimmed)) {
       throw new Error(
-        `指定したモデル '${trimmed}' は Grok CLI の一覧にありません。利用可能: ${catalog.ids.join(', ')}`,
+        `指定したモデル '${trimmed}'  is not in the Grok CLI list. Available: ${catalog.ids.join(', ')}`,
       )
     }
     return trimmed

@@ -11,15 +11,19 @@ import { startBackfill } from './media/backfill.ts'
 const app = createApp()
 const port = Number(process.env.PORT || 8787)
 
+// LAN access: set STUDIO_API_HOST=0.0.0.0 to listen on all interfaces.
+// Keep 127.0.0.1 by default so local-only behavior is unchanged.
+const host = process.env.STUDIO_API_HOST || '127.0.0.1'
+
 const server = Bun.serve({
   fetch: (req) => app.fetch(req),
   port,
-  hostname: '127.0.0.1',
+  hostname: host,
 })
 
 process.env.STUDIO_API_BASE = `http://127.0.0.1:${server.port}`
 
-console.log(`KIE STUDIO API listening on http://127.0.0.1:${server.port}`)
+console.log(`KIE STUDIO API listening on http://${host}:${server.port}`)
 
 try {
   getDb()

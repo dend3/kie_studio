@@ -46,12 +46,17 @@ const APP_VERSION = readAppVersion()
 export function createApp(): Hono {
   const app = new Hono()
 
-  // Local-only API: allow Vite dev origins and packaged webview origins
+  // Local-only by default: allow Vite dev origins and packaged webview origins
   // (`views://...` or a null origin). Reject all other web origins to
   // prevent malicious sites from accessing the local API.
+  // LAN access: set STUDIO_CORS_ORIGINS to a comma-separated list of extra
+  // allowed origins (e.g. "http://10.10.1.18:5173,http://kiestudio.lan:5173").
   const DEV_ORIGINS = new Set([
     'http://localhost:5173',
     'http://127.0.0.1:5173',
+    ...(process.env.STUDIO_CORS_ORIGINS
+      ? process.env.STUDIO_CORS_ORIGINS.split(',').map((s) => s.trim()).filter(Boolean)
+      : []),
   ])
   app.use(
     '*',

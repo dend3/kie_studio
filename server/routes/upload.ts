@@ -97,7 +97,7 @@ uploadRoutes.post('/upload', async (c) => {
   }
   if (file.size > MAX_UPLOAD_BYTES) {
     return c.json(
-      { error: `ファイルサイズが上限（${MAX_UPLOAD_BYTES / 1024 / 1024}MB）を超えています` },
+      { error: `File size exceeds the limit (${MAX_UPLOAD_BYTES / 1024 / 1024}MB)` },
       413,
     )
   }

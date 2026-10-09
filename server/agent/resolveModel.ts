@@ -27,7 +27,7 @@ function builtinModel(provider: BuiltinLlmProvider, model: string, apiKey: strin
       return createOpenAI({ apiKey, baseURL: DASHSCOPE_BASE, name: 'alibaba' })(model)
     default: {
       const _never: never = provider
-      throw new AgentModelError(`未知のプロバイダ: ${_never}`)
+      throw new AgentModelError(`Unknown provider: ${_never}`)
     }
   }
 }
@@ -40,14 +40,14 @@ export function resolveLanguageModel(provider: string, model: string): LanguageM
     const apiKey = getLlmApiKey(provider)
     if (!apiKey) {
       throw new AgentModelError(
-        `${provider} の API キーがありません。設定画面でキーを保存してください。`,
+        `${provider} has no API key. Save the key in the settings screen.`,
       )
     }
     return builtinModel(provider, trimmedModel, apiKey)
   }
 
   if (!provider.startsWith('custom-')) {
-    throw new AgentModelError(`未知のプロバイダ: ${provider}`)
+    throw new AgentModelError(`Unknown provider: ${provider}`)
   }
 
   const endpointId = provider.slice('custom-'.length)
@@ -56,11 +56,11 @@ export function resolveLanguageModel(provider: string, model: string): LanguageM
     endpoints.find((item) => item.id === endpointId) ??
     endpoints.find((item) => customEndpointProviderId(item.id) === provider)
   if (!endpoint) {
-    throw new AgentModelError(`カスタムエンドポイントが見つかりません: ${endpointId}`)
+    throw new AgentModelError(`Custom endpoint not found: ${endpointId}`)
   }
   if (!endpoint.apiKey.trim()) {
     throw new AgentModelError(
-      `${endpoint.label} の API キーがありません。設定画面でキーを保存してください。`,
+      `${endpoint.label} has no API key. Save the key in the settings screen.`,
     )
   }
 

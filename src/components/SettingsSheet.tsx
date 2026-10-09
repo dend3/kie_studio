@@ -48,7 +48,7 @@ function ApiKeyForm({
       } catch (error) {
         return {
           error:
-            error instanceof Error ? error.message : 'キーの保存に失敗しました',
+            error instanceof Error ? error.message : 'Failed to save key',
           saved: false,
         }
       }
@@ -78,7 +78,7 @@ function ApiKeyForm({
             spellCheck={false}
             data-sheet-initial-focus="true"
             className="studio-input w-full py-2 pr-3 pl-9"
-            placeholder={hasApiKey ? '新しいキーで上書き…' : 'sk-... を貼り付け'}
+            placeholder={hasApiKey ? 'Overwrite with new key…' : 'Paste sk-...'}
             value={apiKey}
             disabled={isPending}
             onChange={(event) => setApiKey(event.target.value)}
@@ -94,12 +94,12 @@ function ApiKeyForm({
           {showSaved ? (
             <>
               <Check size={14} strokeWidth={2} aria-hidden />
-              保存済み
+              Saved
             </>
           ) : isPending ? (
-            '保存中…'
+            'Saving…'
           ) : (
-            '保存'
+            'Save'
           )}
         </Pressable>
       </div>
@@ -136,7 +136,7 @@ function UpdateCheckButton() {
     } catch (err) {
       setStatus('error')
       setDetail(
-        err instanceof Error ? err.message : '確認に失敗しました',
+        err instanceof Error ? err.message : 'Verification failed',
       )
     }
   }
@@ -158,16 +158,16 @@ function UpdateCheckButton() {
           aria-hidden
           className={checking ? 'animate-spin' : undefined}
         />
-        {checking ? '確認中…' : 'アップデートを確認'}
+        {checking ? 'Verifying…' : 'Check for updates'}
       </Pressable>
       {status === 'up-to-date' && (
         <p className="text-xs text-[var(--text-muted)]" role="status">
-          最新のバージョンです
+          Up to date
         </p>
       )}
       {status === 'downloaded' && (
         <p className="text-xs text-[var(--success,var(--accent))]" role="status">
-          {detail ?? '新しいバージョン'} をダウンロード済み — 次回起動時に適用
+          {detail ?? 'New version'} downloaded — applies on next launch
         </p>
       )}
       {status === 'error' && (
@@ -180,7 +180,7 @@ function UpdateCheckButton() {
 }
 
 /**
- * モデルカタログ手動同期ボタン。force sync を実行し、成功時に models クエリを失効する。
+ * Model catalog手動同期ボタン。force sync を実行し、成功時に models クエリを失効する。
  */
 function SyncModelsButton({ queryClient }: { queryClient: QueryClient }) {
   const mutation = useMutation({
@@ -198,7 +198,7 @@ function SyncModelsButton({ queryClient }: { queryClient: QueryClient }) {
   const error = mutation.isError
     ? mutation.error instanceof Error
       ? mutation.error.message
-      : '同期に失敗しました'
+      : 'Sync failed'
     : null
 
   return (
@@ -216,16 +216,16 @@ function SyncModelsButton({ queryClient }: { queryClient: QueryClient }) {
           aria-hidden
           className={syncing ? 'animate-spin' : undefined}
         />
-        {syncing ? '同期中…' : 'モデルを更新'}
+        {syncing ? 'Syncing…' : 'Refresh models'}
       </Pressable>
       {synced && (
         <p className="text-xs text-[var(--success,var(--accent))]" role="status">
-          {mutation.data.data.modelCount ?? 0} モデルを更新しました
+          {mutation.data.data.modelCount ?? 0} models updated
         </p>
       )}
       {skipped && (
         <p className="text-xs text-[var(--text-muted)]" role="status">
-          {mutation.data.data.reason ?? 'スキップされました'}
+          {mutation.data.data.reason ?? 'Skipped'}
         </p>
       )}
       {error && (
@@ -293,24 +293,24 @@ export function SettingsSheet({
           </span>
           <div>
             <h2 id="settings-title" className="text-lg font-bold">
-              設定
+              Settings
             </h2>
             <p className="mt-1 text-sm leading-6 text-[var(--text-muted)]">
-              KIE API キーを保存すると、以降の生成に使用されます。キーはこの端末内（アプリのデータ領域）にのみ保存されます。
+              Saved KIE API keys are used for subsequent generations. Keys are stored only on this device (app data area).
             </p>
           </div>
         </div>
 
         <section className="mt-5">
           <label htmlFor="settings-api-key" className="studio-label">
-            KIE API キー
+            KIE API key
           </label>
 
           {settingsQuery.isLoading ? (
             <div
               className="studio-skeleton mt-2 h-10 w-full rounded-[var(--radius-md)]"
               role="status"
-              aria-label="設定を読み込んでいます"
+              aria-label="Loading settings"
             />
           ) : (
             <>
@@ -323,7 +323,7 @@ export function SettingsSheet({
                     className="text-[var(--accent)]"
                   />
                   <span className="font-medium text-[var(--text)]">
-                    保存済み
+                    Saved
                   </span>
                   {settings.apiKeyMasked && (
                     <span className="font-mono tabular-nums text-[var(--text-muted)]">
@@ -332,13 +332,13 @@ export function SettingsSheet({
                   )}
                   {!settings.apiKeyFromStore && (
                     <span className="text-[var(--text-muted)]">
-                      （環境変数から）
+                      (from environment variables)
                     </span>
                   )}
                 </div>
               ) : (
                 <p className="mt-2 text-xs text-[var(--warning)]">
-                  未設定です。キーを保存すると生成できるようになります。
+                  Not set. Save a key to enable generation.
                 </p>
               )}
 
@@ -356,7 +356,7 @@ export function SettingsSheet({
                   scaleTo={0.96}
                 >
                   <Trash2 size={13} strokeWidth={2} aria-hidden />
-                  {remove.isPending ? '削除中…' : '保存したキーを削除'}
+                  {remove.isPending ? 'Deleting…' : 'Delete saved key'}
                 </Pressable>
               )}
 
@@ -374,9 +374,9 @@ export function SettingsSheet({
         <section className="mt-6 border-t border-[var(--border)] pt-4">
           <div className="flex items-center justify-between gap-3">
             <div>
-              <div className="studio-label">ローカルメディア</div>
+              <div className="studio-label">Local media</div>
               <p className="mt-1 text-xs leading-5 text-[var(--text-muted)]">
-                生成結果はこの端末のフォルダに自動保存されます。14日を過ぎたファイルは削除される場合があります。
+                Generation results are auto-saved to a folder on this device. Files older than 14 days may be deleted.
               </p>
             </div>
             <Pressable
@@ -385,7 +385,7 @@ export function SettingsSheet({
               scaleTo={0.96}
             >
               <FolderOpen size={13} strokeWidth={2} aria-hidden />
-              フォルダを開く
+              Open folder
             </Pressable>
           </div>
         </section>
@@ -393,9 +393,9 @@ export function SettingsSheet({
         <section className="mt-6 border-t border-[var(--border)] pt-4">
           <div className="flex items-center justify-between gap-3">
             <div>
-              <div className="studio-label">モデルカタログ</div>
+              <div className="studio-label">Model catalog</div>
               <p className="mt-1 text-xs leading-5 text-[var(--text-muted)]">
-                docs.kie.ai から最新モデル一覧を取得します
+                Fetch the latest model list from docs.kie.ai
               </p>
             </div>
             <SyncModelsButton queryClient={queryClient} />
@@ -405,7 +405,7 @@ export function SettingsSheet({
         <section className="mt-6 border-t border-[var(--border)] pt-4">
           <div className="flex items-center justify-between gap-3">
             <div>
-              <div className="studio-label">アプリ情報</div>
+              <div className="studio-label">App info</div>
               <p className="mt-1 text-sm tabular-nums text-[var(--text)]">
                 KIE STUDIO{' '}
                 <span className="text-[var(--text-muted)]">v{APP_VERSION}</span>
@@ -415,14 +415,14 @@ export function SettingsSheet({
           </div>
           {healthQuery.data?.isDesktop && (
             <p className="mt-2 text-xs leading-5 text-[var(--text-muted)]">
-              デスクトップ版は起動時に自動でアップデートを確認します。新しい版がある場合は次回起動時に適用されます。
+              The desktop app checks for updates automatically at launch. New versions apply on next launch.
             </p>
           )}
         </section>
 
         <div className="mt-5 flex justify-end">
           <Pressable onClick={onClose} className="studio-btn" scaleTo={0.96}>
-            閉じる
+            Close
           </Pressable>
         </div>
       </div>

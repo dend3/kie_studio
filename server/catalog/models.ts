@@ -6,18 +6,18 @@ function withUseCase(model: ModelDefinition): ModelDefinition {
   if (model.useCase) return model
   const hay = `${model.title} ${model.model}`.toLowerCase()
   if (model.category === 'audio') {
-    if (/dialogue|conversation/.test(hay)) return { ...model, useCase: '会話' }
-    if (/tts|speech|voice|narrat/.test(hay)) return { ...model, useCase: 'ナレーション' }
-    if (/noise|separat|isolation|stem|enhance/.test(hay)) return { ...model, useCase: '音声処理' }
-    return { ...model, useCase: '楽曲' }
+    if (/dialogue|conversation/.test(hay)) return { ...model, useCase: 'Conversation' }
+    if (/tts|speech|voice|narrat/.test(hay)) return { ...model, useCase: 'Narration' }
+    if (/noise|separat|isolation|stem|enhance/.test(hay)) return { ...model, useCase: 'Audio processing' }
+    return { ...model, useCase: 'Song' }
   }
   if (model.category === 'video') {
-    if (/upscale|enhance|4k|1080/.test(hay)) return { ...model, useCase: '高画質化' }
-    if (/edit|video-to-video|lip.sync/.test(hay)) return { ...model, useCase: '映像編集' }
-    return { ...model, useCase: '映像生成' }
+    if (/upscale|enhance|4k|1080/.test(hay)) return { ...model, useCase: 'Upscale' }
+    if (/edit|video-to-video|lip.sync/.test(hay)) return { ...model, useCase: 'Video editing' }
+    return { ...model, useCase: 'Video generation' }
   }
-  if (/edit|image-to-image|inpaint|outpaint/.test(hay)) return { ...model, useCase: '画像編集' }
-  return { ...model, useCase: '画像生成' }
+  if (/edit|image-to-image|inpaint|outpaint/.test(hay)) return { ...model, useCase: 'Image editing' }
+  return { ...model, useCase: 'Image generation' }
 }
 
 function hydrateDedicatedModel(
@@ -34,8 +34,8 @@ function hydrateDedicatedModel(
     if (dedicated.id === 'market/elevenlabs-tts' && field.name === 'text') {
       return {
         ...field,
-        label: '原稿',
-        description: '空行で最大5000文字ずつのセグメントに分けます',
+        label: 'Script',
+        description: 'Splits into segments of up to 5000 characters, separated by blank lines',
         maxLength: 20_000,
       }
     }

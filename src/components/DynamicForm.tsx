@@ -20,10 +20,10 @@ function fieldId(name: string): string {
 }
 function acceptHint(accept?: string): string | null {
   if (!accept) return null
-  if (/video/i.test(accept) && /image/i.test(accept)) return '画像・動画'
-  if (/video/i.test(accept)) return '動画'
-  if (/audio/i.test(accept)) return '音声'
-  if (/image/i.test(accept)) return '画像'
+  if (/video/i.test(accept) && /image/i.test(accept)) return 'Image / Video'
+  if (/video/i.test(accept)) return 'Video'
+  if (/audio/i.test(accept)) return 'Audio'
+  if (/image/i.test(accept)) return 'Image'
   return null
 }
 
@@ -39,7 +39,7 @@ function FieldDescription({ field }: { field: FieldSchema }) {
       {shouldShowTechnicalDescription(field) && (
         <details className="mt-1 text-[11px] text-[var(--text-muted)]">
           <summary className="min-h-6 cursor-pointer py-1 font-medium text-[var(--accent)]">
-            仕様を見る
+            View spec
           </summary>
           <p className="pb-1 leading-snug">{field.description}</p>
         </details>
@@ -122,7 +122,7 @@ function BooleanToggle({
           }`}
           aria-live="polite"
         >
-          現在 {current}
+          Current: {current}
         </span>
       </div>
       {/* フォーム内の高頻度操作のため layout spring は付けず即時切替（DESIGN.md motion matrix） */}
@@ -133,7 +133,7 @@ function BooleanToggle({
         className="studio-segment"
       >
         <span id={`${id}-value`} className="sr-only">
-          現在の値は {current}
+          Current value is {current}
         </span>
         <Pressable
           disabled={disabled}
@@ -364,7 +364,7 @@ export function DynamicForm({
                   }
                   placeholder={
                     field.name === 'prompt'
-                      ? '例: @image1 を参照して… / @element_dog が走る'
+                      ? 'e.g. using @image1… / @element_dog running'
                       : field.label
                   }
                 />
@@ -502,7 +502,7 @@ export function DynamicForm({
           case 'reference': {
             const max = field.maxItems ?? 8
             const media = acceptHint(field.accept)
-            const hint = [`最大 ${max} 枚`, media].filter(Boolean).join(' · ')
+            const hint = [`Up to ${max} images`, media].filter(Boolean).join(' · ')
             return (
               <div key={field.name} className={wrap}>
                 <FieldLabel field={field} htmlFor={id} hint={hint} />
@@ -534,7 +534,7 @@ export function DynamicForm({
               >
                 <FieldLabel
                   field={field}
-                  hint={`最大 ${field.maxItems ?? 3} 件`}
+                  hint={`Up to ${field.maxItems ?? 3}`}
                 />
                 <KlingElementsEditor
                   value={Array.isArray(value) ? (value as KlingElement[]) : []}
@@ -611,9 +611,9 @@ export function DynamicForm({
             aria-expanded={showAdvanced}
             onClick={() => setAdvancedOpen((current) => !current)}
           >
-            <span>詳細設定</span>
+            <span>Advanced</span>
             <span className="text-[11px] font-normal text-[var(--text-muted)]">
-              {advancedFields.length}項目 · {showAdvanced ? '閉じる' : '表示'}
+              {advancedFields.length} items · {showAdvanced ? 'Close' : 'Show'}
             </span>
           </button>
           {showAdvanced && (

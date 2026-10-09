@@ -29,9 +29,9 @@ function NewConversationPanel({
   return (
     <div className="mx-auto grid max-w-lg gap-4 px-4 py-8">
       <div>
-        <h2 className="studio-empty-title">新しいエージェント会話</h2>
+        <h2 className="studio-empty-title">New agent conversation</h2>
         <p className="studio-empty-body mt-1">
-          会話ごとに LLM を選びます。API キーとモデルは設定画面で登録できます。
+          Choose an LLM for each conversation. You can register API keys and models in Settings.
         </p>
       </div>
       <AgentModelPicker
@@ -49,10 +49,10 @@ function NewConversationPanel({
             onStart({ provider: selection.provider, model: selection.model.trim() })
           }}
         >
-          会話を開始
+          Start conversation
         </button>
         <button type="button" className="studio-btn w-auto px-4 py-2" onClick={onCancel}>
-          キャンセル
+          Cancel
         </button>
       </div>
     </div>
@@ -103,7 +103,7 @@ export function AgentView({ onOpenSettings }: { onOpenSettings?: () => void }) {
     const now = Date.now()
     setDraft({
       id: newConversationId(),
-      title: '新しい会話',
+      title: 'New conversation',
       provider: selection.provider,
       model: selection.model,
       createdAt: now,
@@ -130,7 +130,7 @@ export function AgentView({ onOpenSettings }: { onOpenSettings?: () => void }) {
 
   const handleDelete = useCallback(
     (conversation: AgentConversation) => {
-      if (!window.confirm(`会話「${conversation.title}」を削除しますか？`)) return
+      if (!window.confirm(`Delete conversation \u201c${conversation.title}\u201d?`)) return
       if (draft?.id === conversation.id) setDraft(null)
       if (selectedId === conversation.id) setSelectedId(null)
       void deleteAgentConversation(conversation.id)
@@ -154,7 +154,7 @@ export function AgentView({ onOpenSettings }: { onOpenSettings?: () => void }) {
           type="button"
           onClick={() => setSidebarOpen((v) => !v)}
           className="studio-btn w-auto shrink-0 px-2 py-1.5"
-          aria-label="会話一覧の表示切替"
+          aria-label="Toggle conversation list"
           aria-expanded={sidebarOpen}
         >
           <PanelLeft size={15} aria-hidden />
@@ -162,7 +162,7 @@ export function AgentView({ onOpenSettings }: { onOpenSettings?: () => void }) {
         <div className="flex min-w-0 flex-1 items-center gap-2 overflow-hidden">
           <Bot size={16} className="shrink-0 text-[var(--accent)]" aria-hidden />
           <h2 className="min-w-0 truncate text-sm font-semibold">
-            {active && !isNewFlow ? active.title : 'エージェント'}
+            {active && !isNewFlow ? active.title : 'Agent'}
           </h2>
           {active && !isNewFlow && (
             <span className="studio-meta hidden max-w-[9rem] shrink truncate text-[10px] sm:inline">
@@ -176,7 +176,7 @@ export function AgentView({ onOpenSettings }: { onOpenSettings?: () => void }) {
               type="button"
               onClick={() => handleDelete(active)}
               className="studio-btn w-auto px-2 py-1.5 text-[var(--danger)]"
-              aria-label="この会話を削除"
+              aria-label="Delete this conversation"
             >
               <Trash2 size={15} aria-hidden />
             </button>
@@ -185,10 +185,10 @@ export function AgentView({ onOpenSettings }: { onOpenSettings?: () => void }) {
             type="button"
             onClick={startNewFlow}
             className="studio-btn-primary studio-btn-compact"
-            aria-label="新規会話"
+            aria-label="New conversation"
           >
             <MessageSquarePlus size={14} aria-hidden />
-            新規
+            New
           </button>
         </div>
       </div>
@@ -211,7 +211,7 @@ export function AgentView({ onOpenSettings }: { onOpenSettings?: () => void }) {
           <button
             type="button"
             className="absolute inset-0 z-[1] bg-[oklch(0.2_0.02_250_/_0.35)] sm:hidden"
-            aria-label="会話一覧を閉じる"
+            aria-label="Close conversation list"
             onClick={() => setSidebarOpen(false)}
           />
         )}
@@ -219,13 +219,13 @@ export function AgentView({ onOpenSettings }: { onOpenSettings?: () => void }) {
         {sidebarOpen && (
           <aside
             className="absolute inset-y-0 left-0 z-[2] flex w-64 flex-col overflow-y-auto border-r border-[var(--border)] bg-[var(--surface)] shadow-[var(--shadow-context)] sm:static sm:z-auto sm:w-56 sm:shadow-none"
-            aria-label="会話一覧"
+            aria-label="Conversations"
           >
             {conversationsQuery.isLoading ? (
-              <p className="p-3 text-xs text-[var(--text-muted)]">読込中…</p>
+              <p className="p-3 text-xs text-[var(--text-muted)]">Loading…</p>
             ) : conversations.length === 0 ? (
               <p className="p-3 text-xs text-[var(--text-muted)]">
-                会話はまだありません。「新規」から始められます。
+                No conversations yet. Start with “New”.
               </p>
             ) : (
               <ul className="grid gap-0.5 p-2">
@@ -276,11 +276,11 @@ export function AgentView({ onOpenSettings }: { onOpenSettings?: () => void }) {
             <div className="grid flex-1 place-items-center px-4">
               <div className="text-center">
                 <Bot size={32} className="mx-auto text-[var(--accent)]" aria-hidden />
-                <p className="studio-empty-title mt-3">エージェントモード</p>
+                <p className="studio-empty-title mt-3">Agent mode</p>
                 <p className="studio-empty-body mt-2">
-                  LLM と会話しながら画像・動画・音声を生成します。
+                  Generate images, videos, and audio while chatting with an LLM.
                   <br />
-                  「新規」から会話を始めてください。
+                  Start a conversation from “New”.
                 </p>
                 <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
                   <button
@@ -288,7 +288,7 @@ export function AgentView({ onOpenSettings }: { onOpenSettings?: () => void }) {
                     onClick={startNewFlow}
                     className="studio-btn-primary studio-btn-compact px-4"
                   >
-                    新規会話
+                    New conversation
                   </button>
                   {onOpenSettings && (
                     <button
@@ -297,7 +297,7 @@ export function AgentView({ onOpenSettings }: { onOpenSettings?: () => void }) {
                       className="studio-btn w-auto gap-1.5 px-3 py-2 text-sm"
                     >
                       <Settings size={14} aria-hidden />
-                      LLM 設定
+                      LLM settings
                     </button>
                   )}
                 </div>

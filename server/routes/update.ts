@@ -36,7 +36,7 @@ updateRoutes.post('/update/check', async (c) => {
   const handler = (globalThis as GlobalWithHandler)[UPDATE_HANDLER_KEY]
   if (!handler) {
     return c.json(
-      { error: 'アップデート機能はデスクトップ版でのみ利用できます' },
+      { error: 'Update check is only available in the desktop version' },
       503,
     )
   }
@@ -45,7 +45,7 @@ updateRoutes.post('/update/check', async (c) => {
     return c.json({ data: result })
   } catch (err) {
     const message =
-      err instanceof Error ? err.message : 'アップデート確認に失敗しました'
+      err instanceof Error ? err.message : 'Failed to check for updates'
     return c.json({ error: message }, 500)
   }
 })

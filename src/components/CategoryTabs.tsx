@@ -5,9 +5,9 @@ import { fadeQuick, springSnappy } from '../lib/motion.ts'
 import { Pressable } from './motion/Pressable.tsx'
 
 const TABS: { id: ModelCategory; label: string; panelId: string }[] = [
-  { id: 'image', label: '画像', panelId: 'panel-image' },
-  { id: 'video', label: '動画', panelId: 'panel-video' },
-  { id: 'audio', label: '音声', panelId: 'panel-audio' },
+  { id: 'image', label: 'Image', panelId: 'panel-image' },
+  { id: 'video', label: 'Video', panelId: 'panel-video' },
+  { id: 'audio', label: 'Audio', panelId: 'panel-audio' },
 ]
 
 export function CategoryTabs({
@@ -73,7 +73,7 @@ export function CategoryTabs({
     <LayoutGroup id="category-tabs">
       <div
         role="tablist"
-        aria-label="モデルカテゴリ"
+        aria-label="Model category"
         onKeyDown={onKeyDown}
         className="relative flex w-full shrink-0 overflow-hidden rounded-[var(--radius-md)] border border-[var(--border-strong)] bg-[var(--bg)]"
       >

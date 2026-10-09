@@ -24,17 +24,17 @@ export function CreditPurchaseSheet({
           </span>
           <div>
             <h2 id="credit-purchase-title" className="text-lg font-bold">
-              クレジットが不足しています
+              Not enough credits
             </h2>
             <p className="mt-1 text-sm leading-6 text-[var(--text-muted)]">
-              kie.ai でクレジットを購入後、もう一度生成してください。
+              Buy credits on kie.ai, then generate again.
             </p>
           </div>
         </div>
 
         <div className="mt-5 flex justify-end gap-2">
           <Pressable onClick={onClose} className="studio-btn" scaleTo={0.96}>
-            閉じる
+            Close
           </Pressable>
           <a
             href={KIE_CREDITS_URL}
@@ -43,7 +43,7 @@ export function CreditPurchaseSheet({
             data-sheet-initial-focus="true"
             className="studio-btn-primary w-auto gap-1 px-4 text-sm"
           >
-            クレジットを購入
+            Buy credits
             <ExternalLink size={14} strokeWidth={2} aria-hidden />
           </a>
         </div>

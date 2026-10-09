@@ -11,7 +11,7 @@ export function StudioModeToggle({
     <div
       className="studio-segment w-full shrink-0 sm:w-auto"
       role="tablist"
-      aria-label="ワークスペースモード"
+      aria-label="Workspace mode"
     >
       <button
         type="button"
@@ -29,7 +29,7 @@ export function StudioModeToggle({
         className="studio-segment-item min-h-9 flex-1 px-3 sm:flex-none sm:px-4"
         onClick={() => onChange('agent')}
       >
-        エージェント
+        Agent
       </button>
     </div>
   )

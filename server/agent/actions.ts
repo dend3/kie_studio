@@ -89,7 +89,7 @@ export async function listWorkflows(params: {
     total: items.length,
     items: trimmed,
     ...(items.length > MAX_WORKFLOW_ITEMS
-      ? { note: `他に ${items.length - MAX_WORKFLOW_ITEMS} 件。capability や q で絞り込んでください。` }
+      ? { note: `${items.length - MAX_WORKFLOW_ITEMS} more. Narrow down with capability or q.` }
       : {}),
   }
 }
@@ -129,7 +129,7 @@ export async function generateMedia(input: {
   return {
     taskId: created.taskId,
     workflow: schema.title,
-    note: '生成を開始しました。結果は履歴ギャラリーにも表示されます。完了確認には get-task-status を使います。',
+    note: 'Generation started. Results will also appear in the history gallery. Use get-task-status to check completion.',
     schema,
   }
 }
@@ -256,7 +256,7 @@ export async function optimizePrompt(input: {
   } catch (error) {
     if (error instanceof GrokCliError && error.code === 'unavailable') {
       throw new StudioAgentError(
-        'プロンプト最適化は現在利用できません(Grok CLI 未インストール)。手動でプロンプトを整えて進めてください。',
+        'Prompt optimization is currently unavailable (Grok CLI not installed). Polish the prompt manually and proceed.',
         503,
       )
     }

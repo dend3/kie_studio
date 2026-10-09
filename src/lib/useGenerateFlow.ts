@@ -60,7 +60,7 @@ export function useGenerateFlow({
   return useMutation({
     mutationFn: async (vars: GenerateVars) => {
       if (!hasApiKey) {
-        throw new Error('API キーが未設定です。設定画面から KIE_API_KEY を保存してください')
+        throw new Error('API key not set. Save KIE_API_KEY in Settings')
       }
       setFormError(null)
 
@@ -68,7 +68,7 @@ export function useGenerateFlow({
       if (vars.source === 'retry') {
         const { item } = vars
         if (!item.input) {
-          throw new Error('この履歴には入力データが保存されていません')
+          throw new Error('No input data saved for this history item')
         }
         const provider = item.provider ?? 'market'
         const operation = item.operation ?? 'generate'
@@ -96,7 +96,7 @@ export function useGenerateFlow({
         }
       }
 
-      if (!selected) throw new Error('モデルが選択されていません')
+      if (!selected) throw new Error('No model selected')
 
       const errors = {
         ...validateFields(selected.fields, values),
@@ -105,7 +105,7 @@ export function useGenerateFlow({
       if (Object.keys(errors).length > 0) {
         setFieldErrors(errors)
         focusFirstFieldError(errors)
-        throw new Error('入力内容を確認してください')
+        throw new Error('Please check your inputs')
       }
       setFieldErrors({})
 
@@ -201,7 +201,7 @@ export function useGenerateFlow({
         const first = creditError ?? (settled[0] as PromiseRejectedResult)
         throw first.reason instanceof Error
           ? first.reason
-          : new Error('生成リクエストに失敗しました')
+          : new Error('Generation request failed')
       }
       return {
         tasks,
@@ -261,8 +261,8 @@ export function useGenerateFlow({
       if (tasks.length === 1) setViewerTaskId(tasks[0]?.taskId ?? null)
       if (failedCount > 0) {
         setFormError(
-          `${tasks.length} 件を送信しました（${failedCount} 件は送信に失敗）${
-            insufficientCredits ? '。クレジットが不足している可能性があります' : ''
+          `Sent ${tasks.length} (${failedCount} failed to send)${
+            insufficientCredits ? '. Credits may be insufficient' : ''
           }`,
         )
         if (insufficientCredits) {
@@ -273,12 +273,12 @@ export function useGenerateFlow({
     },
     onError: (e) => {
       const action = classifyApiError(e)
-      const base = e instanceof Error ? e.message : '生成に失敗しました'
+      const base = e instanceof Error ? e.message : 'Generation failed'
       setFormError(
         action === 'refunded'
-          ? `${base}。クレジットは返却済みです。残高を更新しました`
+          ? `${base}. Credits have been refunded. Balance updated`
           : action === 'fix-input'
-            ? `${base}。入力内容を修正してから再送信してください`
+            ? `${base}. Fix your inputs and send again`
             : base,
       )
       if (action === 'purchase') {

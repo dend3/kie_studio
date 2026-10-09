@@ -44,11 +44,11 @@ function LlmKeyForm({
             autoComplete="off"
             spellCheck={false}
             className="studio-input w-full py-1.5 pr-3 pl-8 text-xs"
-            placeholder={provider.hasKey ? '新しいキーで上書き…' : `${provider.label} の API キー`}
+            placeholder={provider.hasKey ? 'Overwrite with new key…' : `${provider.label} API key`}
             value={key}
             disabled={mutation.isPending}
             onChange={(e) => setKey(e.target.value)}
-            aria-label={`${provider.label} の API キー`}
+            aria-label={`${provider.label} API key`}
           />
         </div>
         <Pressable
@@ -58,7 +58,7 @@ function LlmKeyForm({
           className="studio-btn-primary w-auto shrink-0 px-3 py-1.5 text-xs disabled:opacity-50"
           scaleTo={0.96}
         >
-          {mutation.isPending ? '保存中…' : '保存'}
+          {mutation.isPending ? 'Saving…' : 'Save'}
         </Pressable>
       </div>
       {mutation.isError && (
@@ -107,7 +107,7 @@ function ProviderPreferredModel({
         className="text-[10px] font-medium text-[var(--text-muted)]"
         htmlFor={`llm-preferred-${provider.id}`}
       >
-        このキーで使うモデル
+        Model for this key
       </label>
       <select
         id={`llm-preferred-${provider.id}`}
@@ -120,20 +120,20 @@ function ProviderPreferredModel({
           mutation.mutate(e.target.value)
         }}
       >
-        {!provider.hasKey && <option value="">キーを設定してください</option>}
+        {!provider.hasKey && <option value="">Set a key first</option>}
         {suggestions.map((model) => (
           <option key={model} value={model}>
             {model}
           </option>
         ))}
         {(custom || (current && !suggestions.includes(current))) && (
-          <option value="__custom__">{custom || current} (手入力)</option>
+          <option value="__custom__">{custom || current} (manual)</option>
         )}
       </select>
           <input
             type="text"
             className="studio-input w-full py-1.5 text-xs"
-            placeholder="またはモデル ID を直接入力"
+            placeholder="or enter a model ID directly"
             disabled={!provider.hasKey || mutation.isPending}
             value={custom}
             onChange={(e) => setCustom(e.target.value)}
@@ -141,7 +141,7 @@ function ProviderPreferredModel({
               const trimmed = custom.trim()
               if (trimmed && trimmed !== preferredModel) mutation.mutate(trimmed)
             }}
-            aria-label={`${provider.label} のモデル ID`}
+            aria-label={`${provider.label} model ID(s)`}
           />
       {mutation.isError && (
         <p className="studio-field-error" role="alert">
@@ -216,17 +216,17 @@ function CustomEndpointsEditor({
               <span className="flex-1 min-w-0">
                 <span className="block font-medium text-[var(--text)]">{endpoint.label}</span>
                 <span className="block truncate text-[var(--text-muted)]">
-                  {endpoint.kind === 'openai-compatible' ? 'OpenAI 互換' : 'Claude 互換'}
+                  {endpoint.kind === 'openai-compatible' ? 'OpenAI-compatible' : 'Claude-compatible'}
                   {' · '}
                   {endpoint.baseUrl}
                 </span>
                 <span className="mt-0.5 block truncate text-[10px] text-[var(--text-muted)]">
-                  モデル: {endpoint.models.join(', ')}
+                  Models: {endpoint.models.join(', ')}
                 </span>
               </span>
               <Pressable
                 type="button"
-                aria-label={`${endpoint.label} を削除`}
+                aria-label={`Delete ${endpoint.label}`}
                 className="studio-btn w-auto px-2 py-1 text-[var(--danger)]"
                 scaleTo={0.96}
                 disabled={mutation.isPending}
@@ -249,48 +249,48 @@ function CustomEndpointsEditor({
           scaleTo={0.96}
         >
           <Plus size={13} strokeWidth={2} aria-hidden />
-          互換エンドポイントを追加
+          Add compatible endpoint
         </Pressable>
       ) : (
         <div className="mt-2 grid gap-2 rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--surface)] p-3">
           <input
             className="studio-input w-full py-1.5 text-xs"
-            placeholder="表示名 (例: 社内 LLM ゲートウェイ)"
+            placeholder="Display name (e.g. internal LLM gateway)"
             value={label}
             onChange={(e) => setLabel(e.target.value)}
-            aria-label="エンドポイント表示名"
+            aria-label="Endpoint display name"
           />
           <select
             className="studio-select w-full py-1.5 text-xs"
             value={kind}
             onChange={(e) => setKind(e.target.value as CustomEndpointInput['kind'])}
-            aria-label="API 互換種別"
+            aria-label="API compatibility"
           >
-            <option value="openai-compatible">OpenAI 互換 API</option>
-            <option value="anthropic-compatible">Claude 互換 API</option>
+            <option value="openai-compatible">OpenAI-compatible API</option>
+            <option value="anthropic-compatible">Claude-compatible API</option>
           </select>
           <input
             className="studio-input w-full py-1.5 text-xs"
-            placeholder="ベース URL (例: https://llm.example.com/v1)"
+            placeholder="Base URL (e.g. https://llm.example.com/v1)"
             value={baseUrl}
             onChange={(e) => setBaseUrl(e.target.value)}
-            aria-label="ベース URL"
+            aria-label="Base URL"
           />
           <input
             className="studio-input w-full py-1.5 text-xs"
-            placeholder="モデル ID (カンマ区切り。例: llama-3.3-70b, mixtral-8x22b)"
+            placeholder="Model IDs (comma-separated, e.g. llama-3.3-70b, mixtral-8x22b)"
             value={models}
             onChange={(e) => setModels(e.target.value)}
-            aria-label="モデル ID 一覧"
+            aria-label="Model ID list"
           />
           <input
             type="password"
             autoComplete="off"
             className="studio-input w-full py-1.5 text-xs"
-            placeholder="API キー"
+            placeholder="API key"
             value={apiKey}
             onChange={(e) => setApiKey(e.target.value)}
-            aria-label="エンドポイントの API キー"
+            aria-label="Endpoint API key"
           />
           {mutation.isError && (
             <p className="studio-field-error" role="alert">
@@ -305,7 +305,7 @@ function CustomEndpointsEditor({
               className="studio-btn-primary w-auto flex-1 px-3 py-1.5 text-xs disabled:opacity-50"
               scaleTo={0.96}
             >
-              {mutation.isPending ? '追加中…' : '追加'}
+              {mutation.isPending ? 'Adding…' : 'Add'}
             </Pressable>
             <Pressable
               type="button"
@@ -313,7 +313,7 @@ function CustomEndpointsEditor({
               className="studio-btn w-auto px-3 py-1.5 text-xs"
               scaleTo={0.96}
             >
-              キャンセル
+              Cancel
             </Pressable>
           </div>
         </div>
@@ -360,7 +360,7 @@ function DefaultModelSelect({ onSaved }: { onSaved: () => void }) {
   return (
     <div className="mt-4">
       <label htmlFor="llm-default-model" className="studio-label">
-        既定モデル
+        Default model
       </label>
       <div className="mt-2 flex items-center gap-2">
         <select
@@ -373,7 +373,7 @@ function DefaultModelSelect({ onSaved }: { onSaved: () => void }) {
           }}
         >
           <option value="" disabled>
-            選択してください
+            Select one
           </option>
           {choices.map((choice) => (
             <option key={`${choice.provider}::${choice.model}`} value={`${choice.provider}::${choice.model}`}>
@@ -386,7 +386,7 @@ function DefaultModelSelect({ onSaved }: { onSaved: () => void }) {
         )}
       </div>
       <p className="mt-1 text-[10px] text-[var(--text-muted)]">
-        新しい会話の初期モデルです。会話ごとに変更できます。
+        Initial model for new conversations. You can change it per conversation.
       </p>
     </div>
   )
@@ -404,13 +404,13 @@ export function LlmSettingsSection() {
 
   return (
     <section className="mt-6 border-t border-[var(--border)] pt-4">
-      <div className="studio-label">エージェント (LLM プロバイダ)</div>
+      <div className="studio-label">Agent (LLM provider)</div>
       <p className="mt-1 text-xs leading-5 text-[var(--text-muted)]">
-        エージェントモードで使う LLM の API キーとモデルを管理します。キーはこの端末内にのみ暗号化して保存され、エージェントサーバー以外には公開されません。
+        Manage API keys and models for the LLM used in agent mode. Keys are stored encrypted on this device only and never exposed beyond the agent server.
       </p>
 
       {settingsQuery.isLoading ? (
-        <p className="mt-2 text-sm text-[var(--text-muted)]">読込中…</p>
+        <p className="mt-2 text-sm text-[var(--text-muted)]">Loading…</p>
       ) : settingsQuery.isError ? (
         <p className="mt-2 text-sm text-[var(--danger)]" role="alert">
           {(settingsQuery.error as Error).message}
@@ -425,10 +425,10 @@ export function LlmSettingsSection() {
                   <span className="inline-flex items-center gap-1 text-xs text-[var(--accent)]">
                     <ShieldCheck size={12} strokeWidth={2} aria-hidden />
                     {provider.apiKeyMasked}
-                    {!provider.apiKeyFromStore && '（環境変数から）'}
+                    {!provider.apiKeyFromStore && '(from environment variables)'}
                   </span>
                 ) : (
-                  <span className="text-xs text-[var(--text-muted)]">未設定</span>
+                  <span className="text-xs text-[var(--text-muted)]">Not set</span>
                 )}
                 {provider.hasKey && provider.apiKeyFromStore && (
                   <DeleteKeyButton provider={provider.id} onDeleted={refresh} />
@@ -444,7 +444,7 @@ export function LlmSettingsSection() {
           ))}
 
           <div>
-            <div className="studio-label">カスタムエンドポイント (OpenAI / Claude 互換)</div>
+            <div className="studio-label">Custom endpoints (OpenAI / Claude compatible)</div>
             <CustomEndpointsEditor
               endpoints={
                 settings?.customEndpoints
@@ -481,7 +481,7 @@ function DeleteKeyButton({
   return (
     <Pressable
       type="button"
-      aria-label="保存したキーを削除"
+      aria-label="Delete saved key"
       className="studio-btn w-auto px-2 py-0.5 text-[10px] text-[var(--danger)]"
       scaleTo={0.96}
       disabled={mutation.isPending}

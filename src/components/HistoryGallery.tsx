@@ -33,34 +33,34 @@ const HistorySheets = lazy(() =>
 function relativeTime(ts: number): string {
   const diff = Date.now() - ts
   const sec = Math.floor(diff / 1000)
-  if (sec < 60) return 'たった今'
+  if (sec < 60) return 'Just now'
   const min = Math.floor(sec / 60)
-  if (min < 60) return `${min}分前`
+  if (min < 60) return `${min}m ago`
   const hour = Math.floor(min / 60)
-  if (hour < 24) return `${hour}時間前`
+  if (hour < 24) return `${hour}h ago`
   const day = Math.floor(hour / 24)
-  if (day < 7) return `${day}日前`
+  if (day < 7) return `${day}d ago`
   return new Date(ts).toLocaleDateString()
 }
 
 function stateLabel(state: TaskState): string {
   switch (state) {
     case 'success':
-      return '成功'
+      return 'Succeeded'
     case 'fail':
-      return '失敗'
+      return 'Failed'
     case 'partial':
-      return '一部成功'
+      return 'Partially succeeded'
     case 'expired':
-      return '期限切れ'
+      return 'Expired'
     case 'generating':
-      return '生成中'
+      return 'Generating'
     case 'queuing':
-      return 'キュー'
+      return 'Queue'
     case 'waiting':
-      return 'API受付済み'
+      return 'Accepted by API'
     case 'unknown':
-      return '状態不明'
+      return 'Unknown status'
     default: {
       const _exhaustive: never = state
       return _exhaustive
@@ -107,7 +107,7 @@ function GalleryImage({
           <Clock size={18} aria-hidden />
         </span>
         <span className="text-[10px] leading-relaxed text-[var(--text-muted)]">
-          メディアを取得できません
+          Unable to load media
         </span>
       </div>
     )
@@ -167,7 +167,7 @@ function DeferredVideo({
       <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-[var(--accent-soft)] p-3 text-center text-[var(--text-muted)]">
         <Video size={20} aria-hidden />
         <span className="line-clamp-2 text-[10px] font-medium">
-          {failed ? 'プレビューを表示できません' : fallbackLabel}
+          {failed ? 'Preview unavailable' : fallbackLabel}
         </span>
       </div>
       <video
@@ -202,8 +202,8 @@ function ElapsedTimer({ createdAt }: { createdAt: number }) {
   }, [])
   const sec = Math.max(0, Math.floor((now - createdAt) / 1000))
   const label =
-    sec < 60 ? `${sec}秒` : `${Math.floor(sec / 60)}分${sec % 60}秒`
-  return <span className="tabular-nums">{label}経過</span>
+    sec < 60 ? `${sec}s` : `${Math.floor(sec / 60)}m ${sec % 60}s`
+  return <span className="tabular-nums">{label} elapsed</span>
 }
 
 export function HistoryGallery({
@@ -234,7 +234,7 @@ export function HistoryGallery({
   activeTaskId?: string | null
   pendingCount?: number
   retryDisabled?: boolean
-  /** モバイル空状態の「作成タブを開く」導線 */
+  /** モバイル空状態の「Open Create tab」導線 */
   onGoCreate?: () => void
   onSelect: (item: HistoryItem) => void
   onClose: () => void
@@ -408,16 +408,16 @@ export function HistoryGallery({
       <div className="gallery-toolbar flex flex-wrap items-start justify-between gap-3 px-0 py-2">
         <div className="min-w-0 space-y-0.5">
           <h2 className="text-[0.9375rem] font-bold text-[var(--text)]">
-            ギャラリー
+            Gallery
           </h2>
           <p className="text-xs text-[var(--text-muted)]">
             {loading
-              ? '読込中…'
+              ? 'Loading…'
               : items.length === 0
-                ? 'まだ生成がありません'
+                ? 'No generations yet'
                 : pendingCount > 0
-                  ? `${items.length} 件 · ${pendingCount} 件生成中`
-                  : `${items.length} 件（ピン留めは上限まで保持）`}
+                  ? `${items.length} items · ${pendingCount} generating`
+                  : `${items.length} items (pins kept up to the limit)`}
           </p>
         </div>
         <div className="relative flex flex-wrap items-center gap-1.5">
@@ -432,13 +432,13 @@ export function HistoryGallery({
               }`}
               scaleTo={0.96}
             >
-              {compareMode ? '比較を終了' : '比較'}
+              {compareMode ? 'Exit compare' : 'Compare'}
             </Pressable>
           )}
           <details className="relative">
             <summary
               className={`${smallBtnClass} list-none [&::-webkit-details-marker]:hidden`}
-              aria-label="その他の操作"
+              aria-label="More actions"
             >
               <Ellipsis size={14} strokeWidth={2} aria-hidden />
             </summary>
@@ -449,7 +449,7 @@ export function HistoryGallery({
                   onClick={onExport}
                   className="block w-full px-3 py-2 text-left text-xs hover:bg-[var(--accent-soft)]"
                 >
-                  書き出し
+                  Export
                 </button>
               )}
               <button
@@ -457,7 +457,7 @@ export function HistoryGallery({
                 onClick={() => importInputRef.current?.click()}
                 className="block w-full px-3 py-2 text-left text-xs hover:bg-[var(--accent-soft)]"
               >
-                読み込み
+                Import
               </button>
               {items.length > 0 && (
                 <button
@@ -465,7 +465,7 @@ export function HistoryGallery({
                   onClick={onClear}
                   className="block w-full px-3 py-2 text-left text-xs text-[var(--danger)] hover:bg-[var(--accent-soft)]"
                 >
-                  すべて削除
+                  Delete all
                 </button>
               )}
             </div>
@@ -475,7 +475,7 @@ export function HistoryGallery({
             type="file"
             accept="application/json,.json"
             className="hidden"
-            aria-label="履歴 JSON を読み込み"
+            aria-label="Import history JSON"
             onChange={(e) => {
               const file = e.target.files?.[0]
               if (file) void handleImportFile(file)
@@ -493,16 +493,16 @@ export function HistoryGallery({
               setCategoryFilter(e.target.value as CategoryFilter)
               scrollParentRef.current?.scrollTo({ top: 0 })
             }}
-            aria-label="カテゴリで絞り込み"
+            aria-label="Filter by category"
             className={filterSelectClass}
           >
             <option value="context">
-              作業中: {activeCategory === 'image' ? '画像' : activeCategory === 'video' ? '動画' : '音声'}
+              Working: {activeCategory === 'image' ? 'Image' : activeCategory === 'video' ? 'Video' : 'Audio'}
             </option>
-            <option value="all">全カテゴリ</option>
-            <option value="image">画像</option>
-            <option value="video">動画</option>
-            <option value="audio">音声</option>
+            <option value="all">All categories</option>
+            <option value="image">Image</option>
+            <option value="video">Video</option>
+            <option value="audio">Audio</option>
           </select>
           <select
             value={stateFilter}
@@ -510,13 +510,13 @@ export function HistoryGallery({
               setStateFilter(e.target.value as StateFilter)
               scrollParentRef.current?.scrollTo({ top: 0 })
             }}
-            aria-label="状態で絞り込み"
+            aria-label="Filter by status"
             className={filterSelectClass}
           >
-            <option value="all">全状態</option>
-            <option value="success">成功</option>
-            <option value="fail">失敗</option>
-            <option value="busy">生成中</option>
+            <option value="all">All statuses</option>
+            <option value="success">Succeeded</option>
+            <option value="fail">Failed</option>
+            <option value="busy">Generating</option>
           </select>
           <select
             value={effectiveModelFilter}
@@ -524,10 +524,10 @@ export function HistoryGallery({
               setModelFilter(e.target.value)
               scrollParentRef.current?.scrollTo({ top: 0 })
             }}
-            aria-label="モデルで絞り込み"
+            aria-label="Filter by model"
             className={`${filterSelectClass} max-w-44`}
           >
-            <option value="all">全モデル</option>
+            <option value="all">All models</option>
             {modelOptions.map((m) => (
               <option key={m} value={m}>
                 {shortModel(m)}
@@ -536,7 +536,7 @@ export function HistoryGallery({
           </select>
           {filtered.length !== items.length && (
             <span className="text-[var(--text-muted)]">
-              {filtered.length} / {items.length} 件を表示
+              Showing {filtered.length} / {items.length}
             </span>
           )}
         </div>
@@ -545,9 +545,9 @@ export function HistoryGallery({
       {compareMode && (
         <div className="flex items-center justify-between gap-2 rounded-[var(--radius-md)] border border-[var(--accent)]/25 bg-[var(--accent-soft)] px-3 py-2">
           <span className="text-xs text-[var(--text)]">
-            比較する項目を選択（最大 {MAX_COMPARE} 件）:{' '}
+            Select items to compare (up to {MAX_COMPARE}):{' '}
             <span className="font-semibold tabular-nums">
-              {compareItems.length} 件選択中
+              {compareItems.length} selected
             </span>
           </span>
           <button
@@ -556,7 +556,7 @@ export function HistoryGallery({
             onClick={() => setShowCompare(true)}
             className="studio-btn-primary w-auto cursor-pointer px-3 py-1.5 text-xs disabled:opacity-50"
           >
-            並べて比較
+            Compare side by side
           </button>
         </div>
       )}
@@ -565,7 +565,7 @@ export function HistoryGallery({
         <div
           className="grid flex-1 content-start grid-cols-2 gap-2.5 sm:grid-cols-3 xl:grid-cols-4"
           role="status"
-          aria-label="履歴を読み込んでいます"
+          aria-label="Loading history"
         >
           {[0, 1, 2, 3, 4, 5, 6, 7].map((n) => (
             <div key={n} className="studio-tile" aria-hidden>
@@ -579,13 +579,13 @@ export function HistoryGallery({
       ) : items.length === 0 ? (
         <div className="flex flex-1 items-center justify-center px-6 py-16 text-center">
           <div className="max-w-sm">
-            <p className="studio-empty-title">まだ何もありません</p>
+            <p className="studio-empty-title">Nothing here yet</p>
             <p className="studio-empty-body">
               <span className="hidden lg:inline">
-                左のフォームから生成すると、ここに並びます
+                Generations you create from the form on the left will appear here
               </span>
               <span className="lg:hidden">
-                作成タブのフォームから生成すると、ここに並びます
+                Generations you create from the form in the Create tab will appear here
               </span>
             </p>
             {onGoCreate && (
@@ -594,7 +594,7 @@ export function HistoryGallery({
                 onClick={onGoCreate}
                 className="studio-btn mx-auto mt-4 lg:hidden"
               >
-                作成タブを開く
+                Open Create tab
               </button>
             )}
           </div>
@@ -602,16 +602,16 @@ export function HistoryGallery({
       ) : filtered.length === 0 ? (
         <div className="flex flex-1 items-center justify-center px-6 py-16 text-center">
           <div className="max-w-sm">
-            <p className="studio-empty-title">見つかりません</p>
+            <p className="studio-empty-title">No matches</p>
             <p className="studio-empty-body">
-              絞り込み条件に一致する履歴がありません
+              No history matches your filters
             </p>
             <button
               type="button"
               onClick={resetFilters}
               className="studio-btn mx-auto mt-4"
             >
-              絞り込みをリセット
+              Reset filters
             </button>
           </div>
         </div>
@@ -704,10 +704,10 @@ export function HistoryGallery({
                               <Play size={20} fill="currentColor" />
                             </span>
                             <span className="relative line-clamp-2 text-xs font-semibold">
-                              {primaryMedia?.title ?? h.prompt ?? '生成オーディオ'}
+                              {primaryMedia?.title ?? h.prompt ?? 'Generated audio'}
                             </span>
                             {audioTracks.length > 1 && (
-                              <span className="relative text-[10px] text-[var(--text-muted)]">{audioTracks.length}候補</span>
+                              <span className="relative text-[10px] text-[var(--text-muted)]">{audioTracks.length} options</span>
                             )}
                           </div>
                         ) : busy ? (
@@ -717,7 +717,7 @@ export function HistoryGallery({
                             </div>
                             <div className="text-center">
                               <div className="text-xs font-semibold text-[var(--accent)]">
-                                生成中
+                                Generating
                               </div>
                               <div className="mt-0.5 text-[11px] font-medium text-[var(--text)]">
                                 <ElapsedTimer createdAt={h.createdAt} />
@@ -730,7 +730,7 @@ export function HistoryGallery({
                         ) : h.state === 'fail' ? (
                           <div className="flex h-full flex-col items-center justify-center gap-1 p-3 text-center">
                             <span className="text-xs font-semibold text-[var(--danger)]">
-                              失敗
+                              Failed
                             </span>
                             {h.failMsg && (
                               <span className="line-clamp-3 text-[10px] text-[var(--text-muted)]">
@@ -740,7 +740,7 @@ export function HistoryGallery({
                           </div>
                         ) : h.state === 'unknown' ? (
                           <div className="flex h-full items-center justify-center p-3 text-center text-xs text-[var(--warning)]">
-                            状態不明
+                            Unknown status
                           </div>
                         ) : (
                           <div className="flex h-full items-center justify-center text-[11px] uppercase text-[var(--text-muted)]">
@@ -763,7 +763,7 @@ export function HistoryGallery({
                         </div>
 
                         <span className="absolute left-2 top-2 rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--surface-raised)] px-1.5 py-0.5 text-[10px] font-semibold text-[var(--text)]">
-                          {h.category === 'image' ? '画像' : h.category === 'video' ? '動画' : '音声'}
+                          {h.category === 'image' ? 'Image' : h.category === 'video' ? 'Video' : 'Audio'}
                         </span>
 
                         {compareMode && (
@@ -788,8 +788,8 @@ export function HistoryGallery({
                   {!compareMode && (
                     <div className="flex items-center gap-0.5 border-t border-[var(--border)] bg-[var(--surface-raised)] px-1 py-1">
                       <Pressable
-                        title={h.pinned ? 'ピンを外す' : 'ピン留め'}
-                        aria-label={h.pinned ? 'ピンを外す' : 'ピン留め'}
+                        title={h.pinned ? 'Unpin' : 'Pin'}
+                        aria-label={h.pinned ? 'Unpin' : 'Pin'}
                         aria-pressed={Boolean(h.pinned)}
                         onClick={() => onTogglePin(h.taskId)}
                         scaleTo={0.96}
@@ -808,8 +808,8 @@ export function HistoryGallery({
                       </Pressable>
                       {canReuse(h) && (
                         <Pressable
-                          title="この入力をフォームに復元"
-                          aria-label="この入力をフォームに復元"
+                          title="Restore this input to the form"
+                          aria-label="Restore this input to the form"
                           onClick={() => onReuse(h)}
                           scaleTo={0.96}
                           className="rounded-[var(--radius-sm)] p-1.5 text-[var(--text-muted)] hover:text-[var(--accent)]"
@@ -824,13 +824,13 @@ export function HistoryGallery({
                           scaleTo={0.96}
                           className="rounded-[var(--radius-sm)] px-2 py-1 text-[10px] font-semibold text-[var(--danger)] disabled:opacity-50"
                         >
-                          再実行
+                          Retry
                         </Pressable>
                       )}
                       {isAudio && audioTracks.length > 0 && (
                         <Pressable
-                          title="再生"
-                          aria-label="再生"
+                          title="Play"
+                          aria-label="Play"
                           onClick={() => audioPlayer.play(
                             audioTracks[0] as typeof audioTracks[number] & { taskId?: string },
                             audioTracks,
@@ -842,8 +842,8 @@ export function HistoryGallery({
                         </Pressable>
                       )}
                       <Pressable
-                        title="削除"
-                        aria-label="削除"
+                        title="Delete"
+                        aria-label="Delete"
                         onClick={() => onRemove(h.taskId)}
                         scaleTo={0.96}
                         className="ml-auto rounded-[var(--radius-sm)] p-1.5 text-[var(--text-muted)] hover:text-[var(--danger)]"

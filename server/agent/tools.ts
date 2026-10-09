@@ -12,7 +12,7 @@ export function createStudioTools(hooks: StudioToolHooks = {}) {
   return {
     'list-workflows': tool({
       description:
-        '生成可能な画像/動画/音声ワークフロー(モデル)の一覧を取得する。category (image/video/audio) や capability (例: lip-sync, upscale, tts) で絞り込める。生成前に必ずこれで候補を確認すること。',
+        'List available image/video/audio generation workflows (models). Filter by category (image/video/audio) or capability (e.g. lip-sync, upscale, tts). Always check candidates here before generating.',
       inputSchema: z.object({
         category: z.enum(['image', 'video', 'audio']).optional(),
         capability: z.string().optional(),
@@ -24,7 +24,7 @@ export function createStudioTools(hooks: StudioToolHooks = {}) {
     }),
     'get-workflow-schema': tool({
       description:
-        'ワークフローの入力スキーマ(必須/任意パラメータ、型、選択肢、デフォルト)を取得する。generate-media の前に必ず呼び、パラメータを推測で埋めないこと。',
+        'Get a workflow input schema (required/optional parameters, types, options, defaults). Always call this before generate-media; never fill in parameters by guessing.',
       inputSchema: z.object({ id: z.string() }),
       execute: async ({ id }) => {
         try {
@@ -53,13 +53,13 @@ export function createStudioTools(hooks: StudioToolHooks = {}) {
             })),
           }
         } catch (error) {
-          return `ワークフローが見つかりません: ${errorMessage(error)}`
+          return `Workflow not found: ${errorMessage(error)}`
         }
       },
     }),
     'generate-media': tool({
       description:
-        '画像/動画/音声の生成タスクを作成する。必須: workflowId と input。実行前にユーザーへモデル・主要パラメータ・クレジット消費の見通しを提示して確認を取ること。戻り値の taskId / provider / operation を get-task-status に渡す(生成は非同期)。',
+        'Create an image/video/audio generation task. Required: workflowId and input. Before running, present the model, key parameters, and expected credit cost to the user and get their confirmation. Pass the returned taskId / provider / operation to get-task-status (generation is asynchronous).',
       inputSchema: z.object({
         workflowId: z.string(),
         input: z.record(z.string(), z.unknown()),
@@ -86,13 +86,13 @@ export function createStudioTools(hooks: StudioToolHooks = {}) {
             note: created.note,
           }
         } catch (error) {
-          return `生成の開始に失敗しました: ${errorMessage(error)}`
+          return `Failed to start generation: ${errorMessage(error)}`
         }
       },
     }),
     'get-task-status': tool({
       description:
-        '生成タスクの状態を確認する。成功時は結果メディアの URL を返す。provider/operation は generate-media の戻り値を使う。省略時は履歴から補う。',
+        'Check the status of a generation task. On success, returns URLs of the result media. Use the provider/operation returned by generate-media; if omitted, they are filled in from history.',
       inputSchema: z.object({
         taskId: z.string(),
         provider: z.string().optional(),
@@ -116,7 +116,7 @@ export function createStudioTools(hooks: StudioToolHooks = {}) {
             hooks.onMediaTask?.({
               taskId: task.taskId,
               status: 'failed',
-              error: task.failMsg ?? '不明なエラー',
+              error: task.failMsg ?? 'Unknown error',
             })
           }
           return {
@@ -131,12 +131,12 @@ export function createStudioTools(hooks: StudioToolHooks = {}) {
               : {}),
           }
         } catch (error) {
-          return `状態の確認に失敗しました: ${errorMessage(error)}`
+          return `Failed to check status: ${errorMessage(error)}`
         }
       },
     }),
     'search-history': tool({
-      description: '過去の生成履歴を検索する。タスク ID、モデル名、プロンプト内容で探せる。',
+      description: 'Search past generation history. Searchable by task ID, model name, and prompt content.',
       inputSchema: z.object({
         q: z.string().optional(),
         category: z.enum(['image', 'video', 'audio']).optional(),
@@ -146,30 +146,30 @@ export function createStudioTools(hooks: StudioToolHooks = {}) {
     }),
     'get-task-input': tool({
       description:
-        '過去タスクの入力パラメータを取得する。延長・再生成・パラメータ変更での再実行のベースにする。',
+        'Get the input parameters of a past task. Use as a base for re-running with extension, regeneration, or parameter changes.',
       inputSchema: z.object({ taskId: z.string() }),
       execute: async ({ taskId }) => {
         try {
           return actions.getTaskInput(taskId)
         } catch (error) {
-          return `タスクが見つかりません: ${errorMessage(error)}`
+          return `Task not found: ${errorMessage(error)}`
         }
       },
     }),
     'get-credit-balance': tool({
-      description: 'kie.ai のクレジット残高を確認する。高コストな生成の前に確認するとよい。',
+      description: 'Check the kie.ai credit balance. Useful to check before high-cost generations.',
       inputSchema: z.object({}),
       execute: async () => {
         try {
           return await actions.readCreditBalance()
         } catch (error) {
-          return `残高の確認に失敗しました: ${errorMessage(error)}`
+          return `Failed to check balance: ${errorMessage(error)}`
         }
       },
     }),
     'optimize-prompt': tool({
       description:
-        'プロンプトを対象モデル向けに最適化する(Grok CLI 使用)。ユーザーの意図を聞いた上で、生成前のブラッシュアップとして提案する。',
+        'Optimize a prompt for the target model (uses Grok CLI). After hearing the user intent, suggest it as a pre-generation polish step.',
       inputSchema: z.object({
         prompt: z.string(),
         modelId: z.string().optional(),
@@ -181,7 +181,7 @@ export function createStudioTools(hooks: StudioToolHooks = {}) {
           if (error instanceof StudioAgentError && error.status === 503) {
             return error.message
           }
-          return `プロンプト最適化に失敗しました: ${errorMessage(error)}`
+          return `Prompt optimization failed: ${errorMessage(error)}`
         }
       },
     }),

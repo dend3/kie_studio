@@ -1,9 +1,9 @@
 /** Shown when the local API process is unreachable. */
 export const AGENT_UNAVAILABLE_MESSAGE =
-  'エージェントに接続できませんでした。Studio を再起動してください。'
+  'Could not connect to the Agent. Please restart Studio.'
 
 export const AGENT_UNAVAILABLE_DEV_HINT =
-  '開発時は npm run dev（API + Web）で起動してください。'
+  'In development, start with npm run dev (API + Web).'
 
 function messageFromJsonBody(raw: string): string | null {
   const trimmed = raw.trim()

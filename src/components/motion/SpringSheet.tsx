@@ -136,7 +136,7 @@ export function SpringSheet({
             exit={{ opacity: 0 }}
             transition={reduce ? fadeQuick : springUi}
             onClick={onClose}
-            aria-label="閉じる"
+            aria-label="Close"
             tabIndex={-1}
           />
           <m.div

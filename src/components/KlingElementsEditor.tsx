@@ -62,7 +62,7 @@ export function KlingElementsEditor({
         element_input_urls: [...el.element_input_urls, ...urls],
       })
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'アップロードに失敗しました')
+      setError(e instanceof Error ? e.message : 'Upload failed')
     } finally {
       setUploadingKey(null)
     }
@@ -71,9 +71,9 @@ export function KlingElementsEditor({
   return (
     <div className="space-y-4">
       <p className="text-[11px] text-[var(--text-muted)]">
-        最大 {maxItems} 件。プロンプトでは{' '}
-        <code className="rounded bg-[var(--bg)] px-1">@名前</code> で参照。画像は
-        2〜4 枚推奨。
+        Up to {maxItems}. In prompts, reference with {' '}
+        <code className="rounded bg-[var(--bg)] px-1">@name</code>. Images: 
+        2–4 recommended.
       </p>
 
       {value.map((el, index) => {
@@ -92,7 +92,7 @@ export function KlingElementsEditor({
           >
             <div className="flex items-start justify-between gap-2">
               <div className="studio-label text-[var(--text)]">
-                要素 {index + 1}
+                Element {index + 1}
               </div>
               <div className="flex gap-1">
                 <button
@@ -112,14 +112,14 @@ export function KlingElementsEditor({
                   }}
                   className="rounded-[var(--radius-md)] px-2 py-0.5 text-xs text-[var(--text-muted)] hover:text-[var(--danger)]"
                 >
-                  削除
+                  Delete
                 </button>
               </div>
             </div>
 
             <div className="grid gap-2 sm:grid-cols-2">
               <label className="space-y-1 text-xs" htmlFor={nameId}>
-                <span className="text-[var(--text-muted)]">name（@参照名）</span>
+                <span className="text-[var(--text-muted)]">name (@reference name)</span>
                 <input
                   id={nameId}
                   className="studio-input w-full px-2 py-1.5 font-mono text-sm"
@@ -148,7 +148,7 @@ export function KlingElementsEditor({
 
             <div className="space-y-1.5">
               <div className="text-[11px] text-[var(--text-muted)]">
-                画像（{el.element_input_urls.length}/4 · 2〜4枚推奨）
+                Images ({el.element_input_urls.length}/4 · 2–4 recommended)
               </div>
               <div className="flex flex-wrap gap-2">
                 {el.element_input_urls.map((url, ui) => (
@@ -158,7 +158,7 @@ export function KlingElementsEditor({
                   >
                     <img
                       src={url}
-                      alt={`要素 ${index + 1} の画像 ${ui + 1}`}
+                      alt={`Element ${index + 1} image ${ui + 1}`}
                       loading="lazy"
                       decoding="async"
                       className="h-full w-full object-cover"
@@ -174,7 +174,7 @@ export function KlingElementsEditor({
                         })
                       }
                       className="absolute right-0.5 top-0.5 inline-flex size-5 items-center justify-center rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--surface-raised)] p-0.5 text-[var(--text)] hover:text-[var(--danger)] disabled:opacity-50"
-                      aria-label={`要素 ${index + 1} の画像 ${ui + 1} を削除`}
+                      aria-label={`Delete element ${index + 1} image ${ui + 1}`}
                     >
                       <X size={10} strokeWidth={2.5} aria-hidden />
                     </button>
@@ -189,8 +189,8 @@ export function KlingElementsEditor({
                     aria-busy={uploadingKey === inputKey || undefined}
                     aria-label={
                       uploadingKey === inputKey
-                        ? 'アップロード中'
-                        : `要素 ${index + 1} に画像を追加`
+                        ? 'Uploading'
+                        : `Add image to element ${index + 1}`
                     }
                     className="flex h-16 w-16 items-center justify-center rounded-[var(--radius-md)] border border-dashed border-[var(--border)] text-[var(--text-muted)] hover:border-[var(--accent)]"
                   >
@@ -213,7 +213,7 @@ export function KlingElementsEditor({
                   fileRefs.current[inputKey] = node
                 }}
                 type="file"
-                aria-label={`要素 ${index + 1} の画像を選択`}
+                aria-label={`Select image for element ${index + 1}`}
                 accept="image/jpeg,image/png,image/webp,image/*"
                 multiple
                 className="hidden"
@@ -243,7 +243,7 @@ export function KlingElementsEditor({
           className="inline-flex w-full items-center justify-center gap-1.5 border-t border-dashed border-[var(--border)] px-3 py-2.5 text-sm text-[var(--text-muted)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]"
         >
           <Plus size={16} strokeWidth={2} aria-hidden />
-          要素を追加
+          Add element
         </button>
       )}
 

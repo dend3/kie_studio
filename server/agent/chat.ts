@@ -29,7 +29,7 @@ function firstUserText(messages: StudioUIMessage[]): string {
       if (part.type === 'text' && part.text.trim()) return part.text.trim()
     }
   }
-  return '新しい会話'
+  return 'New conversation'
 }
 
 function conversationTitle(text: string): string {
@@ -80,7 +80,7 @@ export async function streamStudioChat(input: {
     onError: (error) => {
       if (error instanceof AgentModelError) return error.message
       if (error instanceof Error && error.message.trim()) return error.message
-      return 'エージェントの応答に失敗しました'
+      return 'Agent response failed'
     },
     onFinish: ({ messages }) => {
       saveAgentMessages(input.conversationId, messages)

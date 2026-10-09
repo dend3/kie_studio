@@ -114,14 +114,14 @@ export function ModelSelect({
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between gap-2">
-        <span className="studio-label">やりたいこと / モデル</span>
+        <span className="studio-label">What you want / model</span>
         <span className="text-[11px] text-[var(--text-muted)]">
-          {models.length}モデル
+          {models.length} models
         </span>
       </div>
 
       {useCases.length > 0 && (
-        <div className="flex flex-wrap gap-1.5" role="group" aria-label="用途で絞り込み">
+        <div className="flex flex-wrap gap-1.5" role="group" aria-label="Filter by use case">
           {['all', ...useCases].map((entry) => (
             <button
               key={entry}
@@ -130,7 +130,7 @@ export function ModelSelect({
               onClick={() => setUseCase(entry)}
               disabled={disabled}
             >
-              {entry === 'all' ? 'すべて' : entry}
+              {entry === 'all' ? 'All' : entry}
             </button>
           ))}
         </div>
@@ -175,7 +175,7 @@ export function ModelSelect({
             aria-haspopup="true"
             aria-disabled={disabled || undefined}
             className="studio-input flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 py-2.5 [&::-webkit-details-marker]:hidden"
-            aria-label="モデルを選択"
+            aria-label="Select model"
             onClick={(event) => {
               if (disabled) event.preventDefault()
             }}
@@ -190,7 +190,7 @@ export function ModelSelect({
                 </span>
               </span>
             ) : (
-              <span className="text-sm text-[var(--text-muted)]">モデルを選択</span>
+              <span className="text-sm text-[var(--text-muted)]">Select model</span>
             )}
             <ChevronDown size={16} className="shrink-0 text-[var(--text-muted)]" aria-hidden />
           </summary>
@@ -201,12 +201,12 @@ export function ModelSelect({
             <div className="space-y-2 border-b border-[var(--border)] p-3">
               <label className="relative block">
                 <Search size={14} className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-[var(--text-muted)]" aria-hidden />
-                <span className="sr-only">モデルを検索</span>
+                <span className="sr-only">Search models</span>
                 <input
                   className="studio-input w-full py-2 pl-9"
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
-                  placeholder="名前・用途・提供元で検索"
+                  placeholder="Search by name, use case, provider"
                   disabled={disabled}
                 />
               </label>
@@ -218,7 +218,7 @@ export function ModelSelect({
                   disabled={disabled}
                 >
                   <Star size={12} fill={favoritesOnly ? 'currentColor' : 'none'} aria-hidden />
-                  お気に入り
+                  Favorites
                 </button>
                 {providers.length > 1 && ['all', ...providers].map((entry) => (
                   <button
@@ -228,16 +228,16 @@ export function ModelSelect({
                     onClick={() => setProvider(entry as 'all' | Provider)}
                     disabled={disabled}
                   >
-                    {entry === 'all' ? '全提供元' : entry}
+                    {entry === 'all' ? 'All providers' : entry}
                   </button>
                 ))}
               </div>
             </div>
 
-            <ul className="max-h-[min(55vh,28rem)] overflow-y-auto p-1.5" aria-label="モデル一覧">
+            <ul className="max-h-[min(55vh,28rem)] overflow-y-auto p-1.5" aria-label="Models">
               {options.length === 0 && (
                 <li className="px-3 py-8 text-center text-xs text-[var(--text-muted)]">
-                  条件に一致するモデルがありません
+                  No matching models
                 </li>
               )}
               {options.map((model) => {
@@ -260,7 +260,7 @@ export function ModelSelect({
                       <span className="flex items-center gap-1.5">
                         {active && <Check size={13} className="shrink-0 text-[var(--accent)]" aria-hidden />}
                         <span className="truncate text-xs font-semibold text-[var(--text)]">{model.title}</span>
-                        {recent && <Clock3 size={11} className="shrink-0 text-[var(--text-muted)]" aria-label="最近使用" />}
+                        {recent && <Clock3 size={11} className="shrink-0 text-[var(--text-muted)]" aria-label="Recently used" />}
                       </span>
                       <span className="mt-1 flex flex-wrap gap-x-2 gap-y-0.5 text-[10px] text-[var(--text-muted)]">
                         <span>{model.useCase ?? model.category}</span>
@@ -273,7 +273,7 @@ export function ModelSelect({
                       type="button"
                       className={`grid place-items-center rounded-[var(--radius-md)] ${favorite ? 'text-[var(--accent)]' : 'text-[var(--text-muted)]'}`}
                       onClick={() => toggleFavorite(model.id)}
-                      aria-label={favorite ? `${model.title}をお気に入りから外す` : `${model.title}をお気に入りに追加`}
+                      aria-label={favorite ? `Remove ${model.title} from favorites` : `Add ${model.title} to favorites`}
                       aria-pressed={favorite}
                       disabled={disabled}
                     >
@@ -291,7 +291,7 @@ export function ModelSelect({
             type="button"
             className={`model-favorite-button size-12 px-0 ${selectedIsFavorite ? 'is-active' : ''}`}
             onClick={() => toggleFavorite(selected.id)}
-            aria-label={selectedIsFavorite ? 'お気に入りから外す' : 'お気に入りに追加'}
+            aria-label={selectedIsFavorite ? 'Remove from favorites' : 'Add to favorites'}
             aria-pressed={selectedIsFavorite}
             disabled={disabled}
           >

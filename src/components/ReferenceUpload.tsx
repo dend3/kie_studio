@@ -65,12 +65,12 @@ export function ReferenceUpload({
       const list = [...files].slice(0, remaining)
       for (const file of list) {
         if (maxFileSizeMb && file.size > maxFileSizeMb * 1024 * 1024) {
-          throw new Error(`${file.name} は ${maxFileSizeMb}MB 以下にしてください`)
+          throw new Error(`${file.name} must be ${maxFileSizeMb}MB or smaller`)
         }
         if (maxDurationSec) {
           const duration = await mediaDuration(file)
           if (duration !== undefined && duration > maxDurationSec) {
-            throw new Error(`${file.name} は ${maxDurationSec}秒以内にしてください`)
+            throw new Error(`${file.name} must be ${maxDurationSec}s or shorter`)
           }
         }
       }
@@ -85,7 +85,7 @@ export function ReferenceUpload({
         window.dispatchEvent(new Event('kie:audio-assets-changed'))
       }
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'アップロードに失敗しました')
+      setError(e instanceof Error ? e.message : 'Upload failed')
     } finally {
       setUploading(false)
       if (inputRef.current) inputRef.current.value = ''
@@ -112,12 +112,12 @@ export function ReferenceUpload({
                 ) : /\.(mp3|wav|m4a|aac|ogg|flac|opus)(\?|$)/i.test(url) || /audio/i.test(accept) ? (
                   <div className="flex h-full w-full flex-col items-center justify-center gap-1 bg-[var(--accent-soft)] px-2 text-center">
                     <FileAudio size={20} />
-                    <span className="line-clamp-2 text-[9px]">{displayNames[url] ?? `音声 ${i + 1}`}</span>
+                    <span className="line-clamp-2 text-[9px]">{displayNames[url] ?? `Audio ${i + 1}`}</span>
                   </div>
                 ) : (
                   <img
                     src={url}
-                    alt={`参照 ${i + 1}`}
+                    alt={`Reference ${i + 1}`}
                     loading="lazy"
                     decoding="async"
                     className="h-full w-full object-cover"
@@ -126,7 +126,7 @@ export function ReferenceUpload({
                 <button
                   type="button"
                   disabled={disabled}
-                  aria-label={`参照 ${i + 1} を削除`}
+                  aria-label={`Delete reference ${i + 1}`}
                   onClick={() => onChange(value.filter((_, idx) => idx !== i))}
                   className="absolute right-1 top-1 inline-flex size-6 items-center justify-center rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--surface-raised)] p-0.5 text-[var(--text)] disabled:opacity-50"
                 >
@@ -137,7 +137,7 @@ export function ReferenceUpload({
                 <button
                   type="button"
                   disabled={disabled}
-                  title={`プロンプトに ${token} を挿入`}
+                  title={`Insert ${token} into prompt`}
                   onClick={() => onInsertMention?.(token)}
                   className="w-full border-t border-[var(--border)] bg-[var(--bg-elevated)] px-1 py-1 text-center font-mono text-[10px] font-semibold text-[var(--accent)] transition hover:bg-[var(--accent-soft)] disabled:opacity-50"
                 >
@@ -154,7 +154,7 @@ export function ReferenceUpload({
             scaleTo={0.96}
             aria-controls={inputId}
             aria-busy={uploading || undefined}
-            aria-label={uploading ? 'アップロード中' : '参照ファイルを追加'}
+            aria-label={uploading ? 'Uploading' : 'Add reference file'}
             className="flex h-20 w-20 cursor-pointer flex-col items-center justify-center gap-1 rounded-[var(--radius-md)] border border-dashed border-[var(--border-strong)] bg-[var(--surface-raised)] text-xs font-medium text-[var(--text-muted)] hover:border-[var(--accent)] hover:bg-[var(--accent-soft)] hover:text-[var(--accent)] disabled:opacity-50"
           >
             {uploading ? (
@@ -167,7 +167,7 @@ export function ReferenceUpload({
             ) : (
               <>
                 <Plus size={16} strokeWidth={2} aria-hidden />
-                追加
+                Add
               </>
             )}
           </Pressable>
@@ -177,7 +177,7 @@ export function ReferenceUpload({
         id={inputId}
         ref={inputRef}
         type="file"
-        aria-label="参照ファイルを選択"
+        aria-label="Choose reference file"
         accept={accept}
         multiple={maxItems > 1}
         className="hidden"
@@ -186,10 +186,10 @@ export function ReferenceUpload({
         onChange={(e) => void handleFiles(e.target.files)}
       />
       <p className="text-[11px] text-[var(--text-muted)]">
-        {value.length}/{maxItems} · File Upload API（期限あり）
-        {maxFileSizeMb ? ` · ${maxFileSizeMb}MB以下` : ''}
-        {maxDurationSec ? ` · ${maxDurationSec}秒以内` : ''}
-        {canMention && ' · チップを押すとプロンプトへ挿入'}
+        {value.length}/{maxItems} · File Upload API (expiring)
+        {maxFileSizeMb ? ` · max ${maxFileSizeMb}MB` : ''}
+        {maxDurationSec ? ` · max ${maxDurationSec}s` : ''}
+        {canMention && ' · tap chip to insert into prompt'}
       </p>
       {error && (
         <p className="studio-field-error" role="alert">

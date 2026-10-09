@@ -94,7 +94,7 @@ export function normalizeSunoTask(
     if (lyrics) {
       media.push({
         kind: 'text',
-        title: '生成した歌詞',
+        title: 'Generated lyrics',
         metadata: { text: lyrics },
       })
     }

@@ -67,7 +67,7 @@ export function StudioShell({
           className={`shrink-0 lg:hidden ${isAgent ? 'invisible pointer-events-none' : ''}`}
           aria-hidden={isAgent}
         >
-          <div className="studio-segment" role="tablist" aria-label="表示内容">
+          <div className="studio-segment" role="tablist" aria-label="Display">
             <button
               type="button"
               role="tab"
@@ -76,7 +76,7 @@ export function StudioShell({
               className={`studio-segment-item ${mobileView === 'create' ? 'bg-[var(--accent)] !text-[var(--on-accent)]' : ''}`}
               onClick={() => onMobileViewChange('create')}
             >
-              作成
+              Create
             </button>
             <button
               type="button"
@@ -86,11 +86,11 @@ export function StudioShell({
               className={`studio-segment-item gap-1.5 ${mobileView === 'history' ? 'bg-[var(--accent)] !text-[var(--on-accent)]' : ''}`}
               onClick={() => onMobileViewChange('history')}
             >
-              履歴 <span className="tabular-nums">{historyCount}</span>
+              History <span className="tabular-nums">{historyCount}</span>
               {pendingCount ? (
                 <span
                   className="size-1.5 rounded-full bg-[var(--warning)]"
-                  aria-label={`${pendingCount}件生成中`}
+                  aria-label={`${pendingCount} generating`}
                 />
               ) : null}
             </button>
@@ -103,7 +103,7 @@ export function StudioShell({
             className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[var(--radius-xl)]"
             initial={false}
             role="main"
-            aria-label="エージェントモード"
+            aria-label="Agent mode"
           >
             {agent}
           </Material>
@@ -114,7 +114,7 @@ export function StudioShell({
               className={`material-panel-heavy min-h-0 flex-1 flex-col overflow-hidden rounded-[var(--radius-xl)] lg:flex ${mobileView === 'create' ? 'flex' : 'hidden'}`}
               initial={false}
               role="complementary"
-              aria-label="作成フォーム"
+              aria-label="Create form"
             >
               <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto px-5 pt-5 pb-3">
                 {form}
@@ -126,7 +126,7 @@ export function StudioShell({
               className={`min-h-0 flex-1 flex-col overflow-hidden rounded-[var(--radius-xl)] lg:flex ${mobileView === 'history' ? 'flex' : 'hidden'}`}
               initial={false}
               role="main"
-              aria-label="生成履歴"
+              aria-label="Generation history"
             >
               <div className="flex h-full min-h-0 flex-col overflow-hidden p-3 md:p-4">
                 {canvas}

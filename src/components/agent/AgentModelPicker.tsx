@@ -28,18 +28,18 @@ function toOption(p: LlmProviderSettings, preferred?: string): ProviderOption {
   return {
     provider: p.id,
     label: p.label,
-    detail: p.hasKey ? (p.apiKeyMasked ?? '') : 'キー未設定',
+    detail: p.hasKey ? (p.apiKeyMasked ?? '') : 'Key not set',
     models,
     configured: p.hasKey,
   }
 }
 
 function endpointToOption(e: CustomEndpointSettings): ProviderOption {
-  const kindLabel = e.kind === 'openai-compatible' ? 'OpenAI 互換' : 'Claude 互換'
+  const kindLabel = e.kind === 'openai-compatible' ? 'OpenAI-compatible' : 'Claude-compatible'
   return {
     provider: customEndpointProviderId(e.id),
     label: e.label,
-    detail: `${kindLabel} · ${e.hasKey ? '設定済み' : 'キー未設定'}`,
+    detail: `${kindLabel} · ${e.hasKey ? 'Configured' : 'Key not set'}`,
     models: e.models,
     configured: e.hasKey,
   }
@@ -109,7 +109,7 @@ export function AgentModelPicker({
   const selected = options.find((o) => o.provider === value?.provider) ?? null
 
   if (settingsQuery.isLoading) {
-    return <p className="text-sm text-[var(--text-muted)]">LLM 設定を読込中…</p>
+    return <p className="text-sm text-[var(--text-muted)]">Loading LLM settings…</p>
   }
   if (settingsQuery.isError) {
     return (
@@ -125,7 +125,7 @@ export function AgentModelPicker({
     <div className="grid gap-3">
       {configured.length === 0 && (
         <div className="rounded-[var(--radius-md)] border border-[var(--warning)] bg-[var(--surface)] p-3 text-sm text-[var(--text-muted)]">
-          <p>利用可能な LLM プロバイダがありません。設定画面で API キーとモデルを登録してください。</p>
+          <p>No LLM providers available. Register an API key and model in Settings.</p>
           {onOpenSettings && (
             <button
               type="button"
@@ -133,13 +133,13 @@ export function AgentModelPicker({
               className="studio-btn mt-2 inline-flex w-auto items-center gap-1.5 px-3 py-1.5 text-xs"
             >
               <Settings size={13} aria-hidden />
-              設定を開く
+              Open settings
             </button>
           )}
         </div>
       )}
 
-      <div className="grid gap-1.5" role="radiogroup" aria-label="LLM プロバイダ">
+      <div className="grid gap-1.5" role="radiogroup" aria-label="LLM provider">
         {options.map((option) => {
           const active = selected?.provider === option.provider
           return (
@@ -182,7 +182,7 @@ export function AgentModelPicker({
       {selected && (
         <div className="grid gap-2">
           <label className="studio-label" htmlFor="agent-model-select">
-            モデル
+            Model
           </label>
           <select
             id="agent-model-select"
@@ -202,7 +202,7 @@ export function AgentModelPicker({
           >
             {selected.models.length === 0 && (
               <option value="" disabled>
-                モデルを入力してください
+                Enter a model
               </option>
             )}
             {selected.models.map((model) => (
@@ -213,14 +213,14 @@ export function AgentModelPicker({
             {(customModel ||
               (value?.model && !selected.models.includes(value.model))) && (
               <option value="__custom__">
-                {customModel || value?.model} (手入力)
+                {customModel || value?.model} (manual)
               </option>
             )}
           </select>
           <input
             type="text"
             className="studio-input w-full"
-            placeholder="またはモデル ID を直接入力"
+            placeholder="or enter model ID directly"
             value={customModel}
             onChange={(e) => {
               setCustomModel(e.target.value)
@@ -231,7 +231,7 @@ export function AgentModelPicker({
                 })
               }
             }}
-            aria-label="モデル ID を直接入力"
+            aria-label="Enter model ID directly"
           />
         </div>
       )}

@@ -1,8 +1,140 @@
 {
-  "syncedAt": "2026-09-17T07:55:52.332Z",
+  "syncedAt": "2026-10-09T12:49:31.835Z",
   "source": "docs.kie.ai/llms.txt",
-  "sourceHash": "25cbf7311abb80a2e743ea33838490eb8ec4c1be7aeddfdb93d5c02f284b4823",
+  "sourceHash": "d4298af82fd84eaa1acebba79af9dabca5ab68628f609194ba325a0ec4dfc0e0",
   "models": [
+    {
+      "id": "elevenlabs/audio-isolation",
+      "model": "elevenlabs/audio-isolation",
+      "title": "elevenlabs/audio-isolation",
+      "category": "audio",
+      "provider": "market",
+      "docsUrl": "https://docs.kie.ai/market/elevenlabs/audio-isolation",
+      "fields": [
+        {
+          "name": "audio_url",
+          "type": "reference",
+          "label": "Audio Url",
+          "description": "URL of the audio file to isolate voice from (File URL after upload, not file content; Accepted types: audio/mpeg, audio/wav, audio/x-wav, audio/aac, audio/mp4, audio/ogg; Max size: 10.0MB)",
+          "required": true,
+          "accept": "audio/*",
+          "mentionStyle": "at-audio",
+          "maxFileSizeMb": 10,
+          "maxItems": 1,
+          "scalar": true
+        }
+      ]
+    },
+    {
+      "id": "elevenlabs/text-to-dialogue-v3",
+      "model": "elevenlabs/text-to-dialogue-v3",
+      "title": "elevenlabs/text-to-dialogue-v3",
+      "category": "audio",
+      "provider": "market",
+      "docsUrl": "https://docs.kie.ai/market/elevenlabs/text-to-dialogue-v3",
+      "fields": [
+        {
+          "name": "dialogue",
+          "type": "json",
+          "label": "Dialogue",
+          "description": "Array of dialogue items. Each item contains text and voice. The total character count of all text fields combined must not exceed 5000 characters.",
+          "required": true
+        },
+        {
+          "name": "stability",
+          "type": "number",
+          "label": "Stability",
+          "description": "Voice stability parameter. Must be one of the following values: 0.0, 0.5, or 1.0",
+          "required": false,
+          "default": 0.5,
+          "enum": [],
+          "step": 0.1
+        },
+        {
+          "name": "language_code",
+          "type": "enum",
+          "label": "Language Code",
+          "description": "Language code for the speech. Default is empty string or omit the parameter for automatic language detection.",
+          "required": false,
+          "enum": [
+            "af",
+            "ar",
+            "hy",
+            "as",
+            "az",
+            "be",
+            "bn",
+            "bs",
+            "bg",
+            "ca",
+            "ceb",
+            "ny",
+            "hr",
+            "cs",
+            "da",
+            "nl",
+            "en",
+            "et",
+            "fil",
+            "fi",
+            "fr",
+            "gl",
+            "ka",
+            "de",
+            "el",
+            "gu",
+            "ha",
+            "he",
+            "hi",
+            "hu",
+            "is",
+            "id",
+            "ga",
+            "it",
+            "ja",
+            "jv",
+            "kn",
+            "kk",
+            "ky",
+            "ko",
+            "lv",
+            "ln",
+            "lt",
+            "lb",
+            "mk",
+            "ms",
+            "ml",
+            "zh",
+            "mr",
+            "ne",
+            "no",
+            "ps",
+            "fa",
+            "pl",
+            "pt",
+            "pa",
+            "ro",
+            "ru",
+            "sr",
+            "sd",
+            "sk",
+            "sl",
+            "so",
+            "es",
+            "sw",
+            "sv",
+            "ta",
+            "te",
+            "th",
+            "tr",
+            "uk",
+            "ur",
+            "vi",
+            "cy"
+          ]
+        }
+      ]
+    },
     {
       "id": "elevenlabs/text-to-speech-multilingual-v2",
       "model": "elevenlabs/text-to-speech-multilingual-v2",
@@ -23,7 +155,7 @@
           "name": "voice",
           "type": "enum",
           "label": "Voice",
-          "description": "The voice to use for speech generation. Can be a preset voice name (e.g. Rachel, Adam) or a voice ID. You can preview a voice by opening https://static.aiquickdraw.com/elevenlabs/voice/<voice_id>.mp3 in your browser (replace <voice_id> with the actual voice ID). For example: https://static.aiquickdraw.com/elevenlabs/voice/N2lVS1w4EtoT3dr4eOWO.mp3",
+          "description": "Voice ID from the list below. You can preview a voice by opening https://static.aiquickdraw.com/elevenlabs/voice/<voice_id>.mp3 in your browser (replace <voice_id> with the actual voice ID). For example: https://static.aiquickdraw.com/elevenlabs/voice/N2lVS1w4EtoT3dr4eOWO.mp3",
           "required": true,
           "default": "EkK5I93UQWFDigLMpZcX",
           "enum": [
@@ -174,6 +306,364 @@
       ]
     },
     {
+      "id": "elevenlabs/text-to-speech-turbo-2-5",
+      "model": "elevenlabs/text-to-speech-turbo-2-5",
+      "title": "elevenlabs/text-to-speech-turbo-2-5",
+      "category": "audio",
+      "provider": "market",
+      "docsUrl": "https://docs.kie.ai/market/elevenlabs/text-to-speech-turbo-2-5",
+      "fields": [
+        {
+          "name": "text",
+          "type": "textarea",
+          "label": "Text",
+          "description": "The text to convert to speech (Max length: 5000 characters)",
+          "required": true,
+          "maxLength": 5000
+        },
+        {
+          "name": "voice",
+          "type": "enum",
+          "label": "Voice",
+          "description": "Voice ID from the list below. You can preview a voice by opening https://static.aiquickdraw.com/elevenlabs/voice/<voice_id>.mp3 in your browser (replace <voice_id> with the actual voice ID). For example: https://static.aiquickdraw.com/elevenlabs/voice/N2lVS1w4EtoT3dr4eOWO.mp3",
+          "required": false,
+          "default": "EkK5I93UQWFDigLMpZcX",
+          "enum": [
+            "EkK5I93UQWFDigLMpZcX",
+            "Z3R5wn05IrDiVCyEkUrK",
+            "NNl6r8mD7vthiJatiJt1",
+            "YOq2y2Up4RgXP2HyXjE5",
+            "B8gJV1IhpuegLxdpXFOE",
+            "2zRM7PkgwBPiau2jvVXc",
+            "1SM7GgM6IMuvQlz2BwM3",
+            "5l5f8iK3YPeGga21rQIX",
+            "scOwDtmlUjD3prqpp97I",
+            "NOpBlnGInO9m6vDvFkFC",
+            "BZgkqPqms7Kj9ulSkVzn",
+            "wo6udizrrtpIxWGp2qJk",
+            "gU0LNdkMOQCOrPrwtbee",
+            "DGzg6RaUqxGRTHSBjfgF",
+            "x70vRnQBMBu4FAYhjJbO",
+            "Sm1seazb4gs7RSlUVw7c",
+            "P1bg08DkjqiVEzOn76yG",
+            "qDuRKMlYmrm8trt5QyBn",
+            "qXpMhyvQqiRxWQs4qSSB",
+            "TX3LPaxmHKxFdv7VOQHJ",
+            "N2lVS1w4EtoT3dr4eOWO",
+            "FGY2WhTYpPnrIDTdsKH5",
+            "kPzsL2i3teMYv0FxEYQ6",
+            "UgBBYS2sOqTuMpoF3BR0",
+            "hpp4J3VqNfWAUOO0d1Us",
+            "nPczCjzI2devNBz1zQrb",
+            "uYXf8XasLslADfZ2MB4u",
+            "gs0tAILXbY5DNrJrsM6F",
+            "DTKMou8ccj1ZaWGBiotd",
+            "vBKc2FfBKJfcZNyEt1n6",
+            "DYkrAHD8iwork3YSUBbs",
+            "56AoDkrOh6qfVPDXZ7Pt",
+            "eR40ATw9ArzDf9h3v7t7",
+            "g6xIsTj2HwM6VR4iXFCw",
+            "lcMyyd2HUfFzxdCaC4Ta",
+            "6aDn1KB0hjpdcocrUkmq",
+            "Sq93GQT4X1lKDXsQcixO",
+            "flHkNRp1BlvT73UL6gyz",
+            "9yzdeviXkFddZ4Oz8Mok",
+            "pPdl9cQBQq4p6mRkZy2Z",
+            "zYcjlYFOd3taleS0gkk3",
+            "nzeAacJi50IvxcyDnMXa",
+            "ruirxsoakN0GWmGNIo04",
+            "TC0Zp7WVFzhA8zpTlRqV",
+            "ljo9gAlSqKOvF6D8sOsX",
+            "PPzYpIqttlTYA83688JI",
+            "8JVbfL6oEdmuxKn5DK2C",
+            "iCrDUkL56s3C8sCRl7wb",
+            "wJqPPQ618aTW29mptyoc",
+            "EiNlNiXeDU1pqqOPrYMO",
+            "4YYIPFl9wE5c4L2eu2Gb",
+            "6F5Zhi321D3Oq7v1oNT4",
+            "YXpFCvM1S3JbWEJhoskW",
+            "LG95yZDEHg6fCZdQjLqj",
+            "CeNX9CMwmxDxUF5Q2Inm",
+            "aD6riP1btT197c6dACmy",
+            "mtrellq69YZsNwzUSyXh",
+            "dHd5gvgSOzSfduK4CvEg",
+            "eVItLK1UvXctxuaRV2Oq",
+            "esy0r39YPLQjOczyOib8",
+            "Tsns2HvNFKfGiNjllgqo",
+            "1U02n4nD6AdIZ9CjF053",
+            "AeRdCCKzvd23BpJoofzx",
+            "LruHrtVF6PSyGItzMNHS",
+            "1wGbFxmAM3Fgw63G1zZJ",
+            "hqfrgApggtO1785R4Fsn",
+            "MJ0RnG71ty4LH3dvNfSd"
+          ]
+        },
+        {
+          "name": "stability",
+          "type": "number",
+          "label": "Stability",
+          "description": "Voice stability (0-1) (Min: 0, Max: 1, Step: 0.01) (step: 0.01)",
+          "required": false,
+          "default": 0.5,
+          "min": 0,
+          "max": 1,
+          "step": 0.1
+        },
+        {
+          "name": "similarity_boost",
+          "type": "number",
+          "label": "Similarity Boost",
+          "description": "Similarity boost (0-1) (Min: 0, Max: 1, Step: 0.01) (step: 0.01)",
+          "required": false,
+          "default": 0.75,
+          "min": 0,
+          "max": 1,
+          "step": 0.1
+        },
+        {
+          "name": "style",
+          "type": "number",
+          "label": "Style",
+          "description": "Style exaggeration (0-1) (Min: 0, Max: 1, Step: 0.01) (step: 0.01)",
+          "required": false,
+          "default": 0,
+          "min": 0,
+          "max": 1,
+          "step": 0.1
+        },
+        {
+          "name": "speed",
+          "type": "number",
+          "label": "Speed",
+          "description": "Speech speed (0.7-1.2). Values below 1.0 slow down the speech, above 1.0 speed it up. Extreme values may affect quality. (Min: 0.7, Max: 1.2, Step: 0.01) (step: 0.01)",
+          "required": false,
+          "default": 1,
+          "min": 0.7,
+          "max": 1.2,
+          "step": 0.1
+        },
+        {
+          "name": "timestamps",
+          "type": "boolean",
+          "label": "Timestamps",
+          "description": "Whether to return timestamps for each word in the generated speech (Boolean value (true/false))",
+          "required": false
+        },
+        {
+          "name": "previous_text",
+          "type": "textarea",
+          "label": "Previous Text",
+          "description": "The text that came before the text of the current request. Can be used to improve the speech's continuity when concatenating together multiple generations or to influence the speech's continuity in the current generation. (Max length: 5000 characters)",
+          "required": false,
+          "maxLength": 5000
+        },
+        {
+          "name": "next_text",
+          "type": "textarea",
+          "label": "Next Text",
+          "description": "The text that comes after the text of the current request. Can be used to improve the speech's continuity when concatenating together multiple generations or to influence the speech's continuity in the current generation. (Max length: 5000 characters)",
+          "required": false,
+          "maxLength": 5000
+        },
+        {
+          "name": "language_code",
+          "type": "string",
+          "label": "Language Code",
+          "description": "Language code (ISO 639-1) used to enforce a language for the model. Currently only Turbo v2.5 and Flash v2.5 support language enforcement. For other models, an error will be returned if language code is provided. (Max length: 500 characters)",
+          "required": false,
+          "maxLength": 500
+        }
+      ]
+    },
+    {
+      "id": "google/gemini-2-5-pro-tts",
+      "model": "google/gemini-2-5-pro-tts",
+      "title": "Gemini 2.5 Pro Text to Speech",
+      "category": "audio",
+      "provider": "market",
+      "docsUrl": "https://docs.kie.ai/market/google/gemini-2-5-pro-tts",
+      "fields": [
+        {
+          "name": "temperature",
+          "type": "number",
+          "label": "Temperature",
+          "description": "Sampling temperature, e.g., 1",
+          "required": false,
+          "default": 1,
+          "min": 0,
+          "max": 2,
+          "step": 0.1
+        },
+        {
+          "name": "scene",
+          "type": "string",
+          "label": "Scene",
+          "description": "Scene description, e.g., \"A quiet, warm room with a fireplace crackling softly.\"",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "sample_context",
+          "type": "textarea",
+          "label": "Sample Context",
+          "description": "Sample context/overall tone, e.g., \"Audiobook style narration. Tone is gentle and inviting.\"",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "speakers",
+          "type": "json",
+          "label": "Speakers",
+          "description": "List of speaker configurations",
+          "required": true
+        },
+        {
+          "name": "dialogue_turns",
+          "type": "json",
+          "label": "Dialogue Turns",
+          "description": "List of dialogue turns, output in sequential order",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "google/gemini-3-1-flash-tts",
+      "model": "google/gemini-3-1-flash-tts",
+      "title": "Gemini 3.1 Flash Text to speech",
+      "category": "audio",
+      "provider": "market",
+      "docsUrl": "https://docs.kie.ai/market/google/gemini-3-1-flash-tts",
+      "fields": [
+        {
+          "name": "temperature",
+          "type": "number",
+          "label": "Temperature",
+          "description": "Sampling temperature, e.g., 1",
+          "required": false,
+          "default": 1,
+          "min": 0,
+          "max": 2,
+          "step": 0.1
+        },
+        {
+          "name": "scene",
+          "type": "string",
+          "label": "Scene",
+          "description": "Scene description, e.g., \"A quiet, warm room with a fireplace crackling softly.\"",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "sample_context",
+          "type": "textarea",
+          "label": "Sample Context",
+          "description": "Sample context/overall tone, e.g., \"Audiobook style narration. Tone is gentle and inviting.\"",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "speakers",
+          "type": "json",
+          "label": "Speakers",
+          "description": "List of speaker configurations",
+          "required": true
+        },
+        {
+          "name": "dialogue_turns",
+          "type": "json",
+          "label": "Dialogue Turns",
+          "description": "List of dialogue turns, output in sequential order",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "google/gemini-3-8-flash-lite-tts",
+      "model": "google/gemini-3-8-flash-lite-tts",
+      "title": "Gemini 3.8 Flash Lite Text to speech",
+      "category": "audio",
+      "provider": "market",
+      "docsUrl": "https://docs.kie.ai/market/google/gemini-3-8-flash-lite-tts",
+      "fields": [
+        {
+          "name": "temperature",
+          "type": "number",
+          "label": "Temperature",
+          "description": "Sampling temperature, e.g., 1",
+          "required": false,
+          "default": 1,
+          "min": 0,
+          "max": 2,
+          "step": 0.1
+        },
+        {
+          "name": "speakers",
+          "type": "json",
+          "label": "Speakers",
+          "description": "List of speaker configurations. Each speaker uses either `voice_name` (preset voice) or `replica` (voice clone); the two are mutually exclusive. If neither is sent, the speaker defaults to `Fola`.",
+          "required": true
+        },
+        {
+          "name": "filler_words",
+          "type": "boolean",
+          "label": "Filler Words",
+          "description": "Whether to insert filler words in two-speaker dialogue. Off by default (omit this field); when enabled, the request includes `\"filler_words\": true`. Only takes effect when `speakers` has two speakers (e.g. Speaker 1 and Speaker 2). When two people are speaking, you can turn on this switch.",
+          "required": false,
+          "default": false
+        },
+        {
+          "name": "dialogue_turns",
+          "type": "json",
+          "label": "Dialogue Turns",
+          "description": "List of dialogue turns, output in sequential order",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "google/gemini-3-8-flash-tts",
+      "model": "google/gemini-3-8-flash-tts",
+      "title": "Gemini 3.8 Flash Text to speech",
+      "category": "audio",
+      "provider": "market",
+      "docsUrl": "https://docs.kie.ai/market/google/gemini-3-8-flash-tts",
+      "fields": [
+        {
+          "name": "temperature",
+          "type": "number",
+          "label": "Temperature",
+          "description": "Sampling temperature, e.g., 1",
+          "required": false,
+          "default": 1,
+          "min": 0,
+          "max": 2,
+          "step": 0.1
+        },
+        {
+          "name": "speakers",
+          "type": "json",
+          "label": "Speakers",
+          "description": "List of speaker configurations. Each speaker uses either `voice_name` (preset voice) or `replica` (voice clone); the two are mutually exclusive. If neither is sent, the speaker defaults to `Fola`.",
+          "required": true
+        },
+        {
+          "name": "filler_words",
+          "type": "boolean",
+          "label": "Filler Words",
+          "description": "Whether to insert filler words in two-speaker dialogue. Off by default (omit this field); when enabled, the request includes `\"filler_words\": true`. Only takes effect when `speakers` has two speakers (e.g. Speaker 1 and Speaker 2). When two people are speaking, you can turn on this switch.",
+          "required": false,
+          "default": false
+        },
+        {
+          "name": "dialogue_turns",
+          "type": "json",
+          "label": "Dialogue Turns",
+          "description": "List of dialogue turns, output in sequential order",
+          "required": true
+        }
+      ]
+    },
+    {
       "id": "flux-2/flex-image-to-image",
       "model": "flux-2/flex-image-to-image",
       "title": "Flux-2 - Image to Image",
@@ -204,9 +694,8 @@
           "name": "aspect_ratio",
           "type": "enum",
           "label": "Aspect Ratio",
-          "description": "Aspect ratio for the generated image. Select 'auto' to match the first input image ratio (requires input image).",
+          "description": "Required. Aspect ratio for the generated image. Select 'auto' to match the first input image ratio (requires input image).",
           "required": true,
-          "default": "1:1",
           "enum": [
             "1:1",
             "4:3",
@@ -222,9 +711,8 @@
           "name": "resolution",
           "type": "enum",
           "label": "Resolution",
-          "description": "Output image resolution.",
+          "description": "Required. Output image resolution.",
           "required": true,
-          "default": "1K",
           "enum": [
             "1K",
             "2K"
@@ -234,7 +722,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -270,9 +758,8 @@
           "name": "aspect_ratio",
           "type": "enum",
           "label": "Aspect Ratio",
-          "description": "Aspect ratio for the generated image. Select 'auto' to match the first input image ratio (requires input image).",
+          "description": "Required. Aspect ratio for the generated image. Select 'auto' to match the first input image ratio (requires input image).",
           "required": true,
-          "default": "1:1",
           "enum": [
             "1:1",
             "4:3",
@@ -288,9 +775,8 @@
           "name": "resolution",
           "type": "enum",
           "label": "Resolution",
-          "description": "Output image resolution.",
+          "description": "Required. Output image resolution.",
           "required": true,
-          "default": "1K",
           "enum": [
             "1K",
             "2K"
@@ -300,7 +786,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -325,9 +811,8 @@
           "name": "aspect_ratio",
           "type": "enum",
           "label": "Aspect Ratio",
-          "description": "Aspect ratio for the generated image. Select 'auto' to match the first input image ratio (requires input image).",
+          "description": "Required. Aspect ratio for the generated image.",
           "required": true,
-          "default": "1:1",
           "enum": [
             "1:1",
             "4:3",
@@ -342,20 +827,12 @@
           "name": "resolution",
           "type": "enum",
           "label": "Resolution",
-          "description": "Output image resolution.",
+          "description": "Required. Output image resolution.",
           "required": true,
-          "default": "1K",
           "enum": [
             "1K",
             "2K"
           ]
-        },
-        {
-          "name": "nsfw_checker",
-          "type": "boolean",
-          "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
-          "required": false
         }
       ]
     },
@@ -379,9 +856,8 @@
           "name": "aspect_ratio",
           "type": "enum",
           "label": "Aspect Ratio",
-          "description": "Aspect ratio of the generated image. When `auto` is selected, it will match the ratio of the first input image (requires input image to be provided).",
+          "description": "Required. Aspect ratio of the generated image.",
           "required": true,
-          "default": "1:1",
           "enum": [
             "1:1",
             "4:3",
@@ -396,9 +872,8 @@
           "name": "resolution",
           "type": "enum",
           "label": "Resolution",
-          "description": "Output image resolution.",
+          "description": "Required. Output image resolution.",
           "required": true,
-          "default": "1K",
           "enum": [
             "1K",
             "2K"
@@ -408,7 +883,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -482,7 +957,7 @@
           "name": "character_ids",
           "type": "reference",
           "label": "Character Ids",
-          "description": "An array of character IDs generated by the `gemini-omni-character` interface. Used to provide character appearance, identity, or person references for the video. Each character_id occupies 1 image slot; the basic maximum is 7. If `video_list` is provided at the same time, `video_list` occupies 2 image slots, and a maximum of 3 character_ids can be provided. Note: This field is mutually exclusive with the first-frame image (`first_frame_url`) and cannot be provided at the same time.If the incoming character_id is a dual-image set [portrait + body], it will occupy two slots.",
+          "description": "An array of character IDs generated by the `gemini-omni-character` interface. Used to provide character appearance, identity, or person references for the video. Up to 3 character IDs. Each uses 1 image slot (2 if created with portrait + body images). Total slots (images + videos × 2 + character slots) ≤ 7. Note: This field is mutually exclusive with the first-frame image (`first_frame_url`) and cannot be provided at the same time.",
           "required": false,
           "accept": "image/jpeg,image/png,image/webp,image/*",
           "mentionStyle": "none",
@@ -564,9 +1039,8 @@
           "name": "aspect_ratio",
           "type": "enum",
           "label": "Aspect Ratio",
-          "description": "The aspect ratio of the generated image",
-          "required": false,
-          "default": "1:1",
+          "description": "Required. Aspect ratio of the output image: 1:1, 16:9, 9:16, 3:4, 4:3 or auto.",
+          "required": true,
           "enum": [
             "1:1",
             "16:9",
@@ -614,9 +1088,8 @@
           "name": "aspect_ratio",
           "type": "enum",
           "label": "Aspect Ratio",
-          "description": "The aspect ratio of the generated image",
-          "required": false,
-          "default": "16:9",
+          "description": "Required. Aspect ratio of the output image: 1:1, 16:9, 9:16, 3:4, 4:3 or auto.",
+          "required": true,
           "enum": [
             "1:1",
             "16:9",
@@ -664,9 +1137,8 @@
           "name": "aspect_ratio",
           "type": "enum",
           "label": "Aspect Ratio",
-          "description": "The aspect ratio of the generated image",
-          "required": false,
-          "default": "1:1",
+          "description": "Required. Aspect ratio of the output image: 1:1, 16:9, 9:16, 3:4, 4:3 or auto.",
+          "required": true,
           "enum": [
             "1:1",
             "16:9",
@@ -698,9 +1170,9 @@
           "name": "prompt",
           "type": "textarea",
           "label": "Prompt",
-          "description": "The prompt for image generation (Max length: 5000 characters)",
+          "description": "The prompt for image generation (Max length: 20000 characters)",
           "required": true,
-          "maxLength": 5000
+          "maxLength": 20000
         },
         {
           "name": "output_format",
@@ -718,9 +1190,8 @@
           "name": "aspect_ratio",
           "type": "enum",
           "label": "Aspect Ratio",
-          "description": "Radio description",
+          "description": "Aspect ratio of the output image. Set this field explicitly.",
           "required": false,
-          "default": "1:1",
           "enum": [
             "1:1",
             "9:16",
@@ -760,7 +1231,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -875,9 +1346,8 @@
           "name": "aspect_ratio",
           "type": "enum",
           "label": "Aspect Ratio",
-          "description": "Generated image aspect ratio. Default value: `auto`. Use `auto` to let the system choose the aspect ratio automatically.",
+          "description": "Required. Aspect ratio of the output image. Use \"auto\" to let the model decide.",
           "required": true,
-          "default": "auto",
           "enum": [
             "1:1",
             "1:4",
@@ -899,6 +1369,85 @@
       ]
     },
     {
+      "id": "nano-banana-2-1",
+      "model": "nano-banana-2-1",
+      "title": "Google - Nano Banana 2.1",
+      "category": "image",
+      "provider": "market",
+      "docsUrl": "https://docs.kie.ai/market/google/nanobanana-2-1",
+      "fields": [
+        {
+          "name": "prompt",
+          "type": "textarea",
+          "label": "Prompt",
+          "description": "A text description of the image you want to generate (Max length: 20000 characters)",
+          "required": true,
+          "maxLength": 20000
+        },
+        {
+          "name": "image_input",
+          "type": "reference",
+          "label": "Image Input",
+          "description": "Input images to transform or use as reference (supports up to 10 images) (File URL after upload, not file content; Accepted types: image/jpeg, image/png, image/webp; Max size: 30.0MB)",
+          "required": false,
+          "maxItems": 10,
+          "accept": "image/jpeg,image/png,image/webp,image/*",
+          "mentionStyle": "at-image",
+          "maxFileSizeMb": 30
+        },
+        {
+          "name": "aspect_ratio",
+          "type": "enum",
+          "label": "Aspect Ratio",
+          "description": "Aspect ratio of the generated image",
+          "required": false,
+          "default": "auto",
+          "enum": [
+            "1:1",
+            "2:3",
+            "3:2",
+            "1:4",
+            "4:1",
+            "3:4",
+            "4:3",
+            "4:5",
+            "5:4",
+            "1:8",
+            "8:1",
+            "9:16",
+            "16:9",
+            "21:9",
+            "auto"
+          ]
+        },
+        {
+          "name": "resolution",
+          "type": "enum",
+          "label": "Resolution",
+          "description": "Resolution of the generated image",
+          "required": false,
+          "default": "1K",
+          "enum": [
+            "1K",
+            "2K",
+            "4K"
+          ]
+        },
+        {
+          "name": "output_format",
+          "type": "enum",
+          "label": "Output Format",
+          "description": "Format of the output image",
+          "required": false,
+          "default": "jpg",
+          "enum": [
+            "png",
+            "jpg"
+          ]
+        }
+      ]
+    },
+    {
       "id": "google/nano-banana-edit",
       "model": "google/nano-banana-edit",
       "title": "Google - Nano Banana Edit",
@@ -910,9 +1459,9 @@
           "name": "prompt",
           "type": "textarea",
           "label": "Prompt",
-          "description": "The prompt for image editing (Max length: 5000 characters)",
+          "description": "The prompt for image editing (Max length: 20000 characters)",
           "required": true,
-          "maxLength": 5000
+          "maxLength": 20000
         },
         {
           "name": "image_urls",
@@ -941,9 +1490,8 @@
           "name": "aspect_ratio",
           "type": "enum",
           "label": "Aspect Ratio",
-          "description": "Radio description",
+          "description": "Aspect ratio of the output image. Set this field explicitly.",
           "required": false,
-          "default": "1:1",
           "enum": [
             "1:1",
             "9:16",
@@ -993,9 +1541,9 @@
           "name": "prompt",
           "type": "textarea",
           "label": "Prompt",
-          "description": "A text description of the image you want to generate (Max length: 10000 characters)",
+          "description": "A text description of the image you want to generate (Max length: 20000 characters)",
           "required": true,
-          "maxLength": 10000
+          "maxLength": 20000
         },
         {
           "name": "image_input",
@@ -1046,9 +1594,8 @@
           "name": "output_format",
           "type": "enum",
           "label": "Output Format",
-          "description": "Format of the output image",
+          "description": "Output image format: png or jpg. Set this field explicitly.",
           "required": false,
-          "default": "png",
           "enum": [
             "png",
             "jpg"
@@ -1110,7 +1657,7 @@
           "name": "resolution",
           "type": "enum",
           "label": "Resolution",
-          "description": "Image resolution: Note: Images with a 1:1 aspect ratio cannot be converted to 4K images. Images with the aspect ratio set to \"auto\" or without a specified aspect ratio parameter will only be converted to 1K images; otherwise, the task will fail to create.",
+          "description": "Output resolution: 1K, 2K or 4K. Set this field explicitly. 2K does not support 5:4, 4:5, 3:1, 1:3 or 9:21; 4K does not support 3:1, 1:3 or 9:21. The background parameter is only available at 1K.",
           "required": false,
           "enum": [
             "1K",
@@ -1436,9 +1983,8 @@
           "name": "aspect_ratio",
           "type": "enum",
           "label": "Aspect Ratio",
-          "description": "Width-height ratio of the image, determining its visual form.",
+          "description": "Required. Width-height ratio of the image, determining its visual form.",
           "required": true,
-          "default": "3:2",
           "enum": [
             "1:1",
             "2:3",
@@ -1449,9 +1995,8 @@
           "name": "quality",
           "type": "enum",
           "label": "Quality",
-          "description": "Quality: medium=balanced, high=slow/detailed.",
+          "description": "Required. Quality: medium=balanced, high=slow/detailed.",
           "required": true,
-          "default": "medium",
           "enum": [
             "medium",
             "high"
@@ -1478,9 +2023,8 @@
           "name": "aspect_ratio",
           "type": "enum",
           "label": "Aspect Ratio",
-          "description": "Width-height ratio of the image, determining its visual form.",
+          "description": "Required. Width-height ratio of the image, determining its visual form.",
           "required": true,
-          "default": "1:1",
           "enum": [
             "1:1",
             "2:3",
@@ -1491,9 +2035,8 @@
           "name": "quality",
           "type": "enum",
           "label": "Quality",
-          "description": "Quality: medium=balanced, high=slow/detailed.",
+          "description": "Required. Quality: medium=balanced, high=slow/detailed.",
           "required": true,
-          "default": "medium",
           "enum": [
             "medium",
             "high"
@@ -1546,7 +2089,7 @@
           "name": "resolution",
           "type": "enum",
           "label": "Resolution",
-          "description": "Image resolution: Note: Images with a 1:1 aspect ratio cannot be converted to 4K images. Images with the aspect ratio set to \"auto\" or without a specified aspect ratio parameter will only be converted to 1K images; otherwise, the task will fail to create.",
+          "description": "Output resolution: 1K, 2K or 4K. Set this field explicitly. 2K does not support 5:4, 4:5, 3:1, 1:3 or 9:21; 4K does not support 3:1, 1:3 or 9:21. The background parameter is only available at 1K.",
           "required": false,
           "enum": [
             "1K",
@@ -1588,7 +2131,7 @@
           "name": "image_urls",
           "type": "reference",
           "label": "Image Urls",
-          "description": "An array containing up to 1 URL string pointing to reference images. (Use file URLs after upload, not raw file content. Accepted types: image/jpeg, image/png, image/webp. Max size: 10.0MB per image.) In your prompt, reference the uploaded image by typing @image(n) followed by a space (for example: @image1 a sunset over the ocean).",
+          "description": "1–5 image URLs. (Use file URLs after upload, not raw file content. Accepted types: image/jpeg, image/png, image/webp. Max size: 10.0MB per image.) In your prompt, reference the uploaded image by typing @image(n) followed by a space (for example: @image1 a sunset over the ocean).",
           "required": true,
           "maxItems": 5,
           "accept": "image/jpeg,image/png,image/webp,image/*",
@@ -1599,7 +2142,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -1623,8 +2166,8 @@
           "name": "aspect_ratio",
           "type": "enum",
           "label": "Aspect Ratio",
-          "description": "Specifies the width-to-height ratio of the generated image. Controls the aspect ratio of the output.",
-          "required": false,
+          "description": "Required. Aspect ratio of the output image: 2:3, 3:2, 1:1, 16:9, 9:16.",
+          "required": true,
           "enum": [
             "2:3",
             "3:2",
@@ -1644,7 +2187,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -1661,9 +2204,9 @@
           "name": "prompt",
           "type": "textarea",
           "label": "Prompt",
-          "description": "A text description specifying the desired content or style of the generated image. (Max length: 8000 characters)",
+          "description": "A text description specifying the desired content or style of the generated image. Up to 8,000 characters.",
           "required": false,
-          "maxLength": 390000
+          "maxLength": 8000
         },
         {
           "name": "aspect_ratio",
@@ -1719,7 +2262,7 @@
           "name": "mask_indexs",
           "type": "json",
           "label": "Mask Indexs",
-          "description": "Please enter the index numbers of the segment array items you want to use.",
+          "description": "Indexes of the segments to edit, taken from resultObject.segments[].index of the segment-map task (0-based). Example: [0, 2].",
           "required": false
         }
       ]
@@ -1776,7 +2319,7 @@
           "name": "prompt",
           "type": "textarea",
           "label": "Prompt",
-          "description": "The prompt to fill the masked part of the image. (Max length: 5000 characters)",
+          "description": "The prompt describing the scene to generate with the referenced character. (Max length: 5000 characters)",
           "required": true,
           "maxLength": 5000
         },
@@ -1808,7 +2351,7 @@
           "name": "style",
           "type": "enum",
           "label": "Style",
-          "description": "The style type to generate with. Cannot be used with style_codes. Default value: \"AUTO\"",
+          "description": "The style type to generate with. Default value: \"AUTO\"",
           "required": false,
           "default": "AUTO",
           "enum": [
@@ -1828,7 +2371,7 @@
           "name": "num_images",
           "type": "enum",
           "label": "Num Images",
-          "description": "Select description",
+          "description": "Number of images to generate.",
           "required": false,
           "default": "1",
           "enum": [
@@ -1892,7 +2435,7 @@
           "name": "image_url",
           "type": "reference",
           "label": "Image Url",
-          "description": "The image URL to generate an image from. Needs to match the dimensions of the mask. (File URL after upload, not file content; Accepted types: image/jpeg, image/png, image/webp; Max size: 10.0MB)",
+          "description": "The image URL to generate an image from. Should have the same aspect ratio as the mask. (File URL after upload, not file content; Accepted types: image/jpeg, image/png, image/webp; Max size: 10.0MB)",
           "required": true,
           "accept": "image/jpeg,image/png,image/webp,image/*",
           "mentionStyle": "at-image",
@@ -1904,7 +2447,7 @@
           "name": "mask_url",
           "type": "reference",
           "label": "Mask Url",
-          "description": "The mask URL to inpaint the image. Needs to match the dimensions of the input image. (File URL after upload, not file content; Accepted types: image/jpeg, image/png, image/webp; Max size: 10.0MB)",
+          "description": "The mask URL to inpaint the image. Should have the same aspect ratio as the input image. (File URL after upload, not file content; Accepted types: image/jpeg, image/png, image/webp; Max size: 10.0MB)",
           "required": true,
           "accept": "image/jpeg,image/png,image/webp,image/*",
           "mentionStyle": "at-image",
@@ -1940,7 +2483,7 @@
           "name": "style",
           "type": "enum",
           "label": "Style",
-          "description": "The style type to generate with. Cannot be used with style_codes. Default value: \"AUTO\"",
+          "description": "The style type to generate with. Default value: \"AUTO\"",
           "required": false,
           "default": "AUTO",
           "enum": [
@@ -1960,7 +2503,7 @@
           "name": "num_images",
           "type": "enum",
           "label": "Num Images",
-          "description": "Select description",
+          "description": "Number of images to generate.",
           "required": false,
           "default": "1",
           "enum": [
@@ -2036,7 +2579,7 @@
           "name": "style",
           "type": "enum",
           "label": "Style",
-          "description": "The style type to generate with. Cannot be used with style_codes. Default value: \"AUTO\"",
+          "description": "The style type to generate with. Default value: \"AUTO\"",
           "required": false,
           "default": "AUTO",
           "enum": [
@@ -2056,7 +2599,7 @@
           "name": "image_size",
           "type": "enum",
           "label": "Image Size",
-          "description": "Select description",
+          "description": "Output image size.",
           "required": false,
           "default": "square_hd",
           "enum": [
@@ -2072,7 +2615,7 @@
           "name": "num_images",
           "type": "enum",
           "label": "Num Images",
-          "description": "Select description",
+          "description": "Number of images to generate.",
           "required": false,
           "default": "1",
           "enum": [
@@ -2246,7 +2789,7 @@
           "name": "style",
           "type": "enum",
           "label": "Style",
-          "description": "The style type to generate with. Cannot be used together with `style_codes`.",
+          "description": "The style type to generate with.",
           "required": false,
           "enum": [
             "AUTO",
@@ -2350,7 +2893,7 @@
           "name": "style",
           "type": "enum",
           "label": "Style",
-          "description": "The style type to generate with. Cannot be used together with `style_codes`.",
+          "description": "The style type to generate with.",
           "required": false,
           "enum": [
             "AUTO",
@@ -2441,9 +2984,8 @@
           "name": "quality",
           "type": "enum",
           "label": "Quality",
-          "description": "Output video resolution. Supports 360p, 540p, 720p, and 1080p.",
+          "description": "Required. Output video resolution. Supports 360p, 540p, 720p, and 1080p.",
           "required": true,
-          "default": "720p",
           "enum": [
             "360p",
             "540p",
@@ -2455,9 +2997,8 @@
           "name": "duration",
           "type": "number",
           "label": "Duration",
-          "description": "Output video duration in seconds. PixVerse V6 supports 1–15 seconds.",
+          "description": "Required. Output video duration in seconds. PixVerse V6 supports 1–15 seconds.",
           "required": true,
-          "default": 5,
           "min": 1,
           "max": 15,
           "step": 1
@@ -2514,7 +3055,7 @@
           "name": "acceleration",
           "type": "enum",
           "label": "Acceleration",
-          "description": "Acceleration level for image generation. Options: 'none', 'regular'. Higher acceleration increases speed. 'regular' balances speed and quality. Default value: \"none\"",
+          "description": "Acceleration level for image generation. Options: 'none', 'regular', 'high'. Higher acceleration increases speed. 'regular' balances speed and quality. Default value: \"none\"",
           "required": false,
           "default": "none",
           "enum": [
@@ -2570,13 +3111,6 @@
           "step": 0.1
         },
         {
-          "name": "sync_mode",
-          "type": "boolean",
-          "label": "Sync Mode",
-          "description": "If set to true, the function will wait for the image to be generated and uploaded before returning the response. This will increase the latency of the function but it allows you to get the image directly in the response without going through the CDN. (Boolean value (true/false))",
-          "required": false
-        },
-        {
           "name": "num_images",
           "type": "enum",
           "label": "Num Images",
@@ -2620,7 +3154,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -2738,7 +3272,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -2763,9 +3297,8 @@
           "name": "image_size",
           "type": "enum",
           "label": "Image Size",
-          "description": "The size of the generated image",
+          "description": "The size of the generated image. Set this field explicitly.",
           "required": false,
-          "default": "square_hd",
           "enum": [
             "square",
             "square_hd",
@@ -2849,7 +3382,223 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "qwen2-1/image-to-image",
+      "model": "qwen2-1/image-to-image",
+      "title": "Qwen 2.1 - Image to Image",
+      "category": "image",
+      "provider": "market",
+      "docsUrl": "https://docs.kie.ai/market/qwen2-1/image-to-image",
+      "fields": [
+        {
+          "name": "image_urls",
+          "type": "reference",
+          "label": "Image Urls",
+          "description": "Reference images, given as an array of 1 to 10 http(s) URLs. Required. The order of the array is the order the prompt refers to (\"the first image\", \"the second image\"). JPEG, PNG and WebP are supported, up to 30MB and 25MP each, and every URL must be directly retrievable with a GET. If an image URL cannot be fetched, the task fails with failCode 400. With more than 10 entries the request is rejected. The more references you supply the less detail each individual one keeps, so stay within 4 when fidelity matters. When combining several people or objects into a single picture, a landscape ratio such as `3:2` or `16:9` usually gives better results.",
+          "required": true,
+          "maxItems": 10,
+          "accept": "image/jpeg,image/png,image/webp,image/*",
+          "mentionStyle": "at-image"
+        },
+        {
+          "name": "prompt",
+          "type": "textarea",
+          "label": "Prompt",
+          "description": "The prompt describing the result you want. Required. Any language is supported, up to 5000 characters; if it is longer, the request is rejected. When `mask_url` is supplied, use it to describe what should be generated inside the white area of the mask.",
+          "required": true,
+          "maxLength": 5000
+        },
+        {
+          "name": "mask_url",
+          "type": "reference",
+          "label": "Mask Url",
+          "description": "Inpainting mask that switches the request into local-edit mode. A black and white image where **white marks the area to change and black is kept unchanged**, with a few pixels of feathering along the boundary. It must be used with exactly one entry in `image_urls`, otherwise the request is rejected. The mask should have the same aspect ratio as that reference image; a mask of a different size is scaled to it. In local-edit mode the output ratio follows the reference image, so `aspect_ratio` and `enhance_prompt` are ignored. It cannot be combined with `background: transparent`; such a request is rejected.",
+          "required": false,
+          "accept": "image/jpeg,image/png,image/webp,image/*",
+          "mentionStyle": "at-image",
+          "maxItems": 1,
+          "scalar": true
+        },
+        {
+          "name": "aspect_ratio",
+          "type": "enum",
+          "label": "Aspect Ratio",
+          "description": "Output aspect ratio. Defaults to `auto`, which takes the aspect ratio of the first reference image and snaps it to the nearest supported ratio. The actual pixel size also depends on `resolution`. Ignored in local-edit mode.",
+          "required": false,
+          "default": "auto",
+          "enum": [
+            "auto",
+            "1:1",
+            "4:3",
+            "3:4",
+            "3:2",
+            "2:3",
+            "16:9",
+            "9:16",
+            "21:9",
+            "9:21"
+          ]
+        },
+        {
+          "name": "resolution",
+          "type": "enum",
+          "label": "Resolution",
+          "description": "Output resolution tier. `1K` is the faster option; `2K` produces four times the pixels and takes considerably longer, up to about 3 minutes with reference images. Only `1K` and `2K` are accepted — with any other value, including `4K`, the request is rejected.",
+          "required": false,
+          "default": "1K",
+          "enum": [
+            "1K",
+            "2K"
+          ]
+        },
+        {
+          "name": "background",
+          "type": "enum",
+          "label": "Background",
+          "description": "Background type. transparent outputs a PNG or WebP with a real alpha channel and cannot be used with JPEG. When using transparent, describe only the subject — prompts that mention a background, scene, surface, etc. may produce a non-transparent result.",
+          "required": false,
+          "default": "opaque",
+          "enum": [
+            "opaque",
+            "transparent"
+          ]
+        },
+        {
+          "name": "output_format",
+          "type": "enum",
+          "label": "Output Format",
+          "description": "Output image format. `png` (default) and `webp` both carry an alpha channel and can be used with `background: transparent`. `jpeg` has no alpha channel and cannot be combined with a transparent background.",
+          "required": false,
+          "default": "png",
+          "enum": [
+            "png",
+            "webp",
+            "jpeg"
+          ]
+        },
+        {
+          "name": "enhance_prompt",
+          "type": "boolean",
+          "label": "Enhance Prompt",
+          "description": "Rewrites the prompt into a fuller scene description before generating, which noticeably improves quality. Enabled by default (also when the parameter is omitted); pass false to turn it off.",
+          "required": false,
+          "default": true
+        },
+        {
+          "name": "seed",
+          "type": "number",
+          "label": "Seed",
+          "description": "The random seed. Omit it to generate with a random seed. Passing the same seed together with the same prompt and parameters reproduces the same image within the same service version.",
+          "required": false,
+          "step": 1
+        },
+        {
+          "name": "nsfw_checker",
+          "type": "boolean",
+          "label": "Nsfw Checker",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "qwen2-1/text-to-image",
+      "model": "qwen2-1/text-to-image",
+      "title": "Qwen 2.1 - Text to Image",
+      "category": "image",
+      "provider": "market",
+      "docsUrl": "https://docs.kie.ai/market/qwen2-1/text-to-image",
+      "fields": [
+        {
+          "name": "prompt",
+          "type": "textarea",
+          "label": "Prompt",
+          "description": "The prompt that describes the image content, style and composition you want to generate. Required. Any language is supported, up to 5000 characters; if it is longer, the request is rejected.",
+          "required": true,
+          "maxLength": 5000
+        },
+        {
+          "name": "aspect_ratio",
+          "type": "enum",
+          "label": "Aspect Ratio",
+          "description": "The output aspect ratio. Default `1:1`. The actual pixel size also depends on `resolution`.",
+          "required": false,
+          "default": "1:1",
+          "enum": [
+            "1:1",
+            "4:3",
+            "3:4",
+            "3:2",
+            "2:3",
+            "16:9",
+            "9:16",
+            "21:9",
+            "9:21"
+          ]
+        },
+        {
+          "name": "resolution",
+          "type": "enum",
+          "label": "Resolution",
+          "description": "The output resolution tier. `1K` is the faster option; `2K` produces four times the pixels and takes longer. Only `1K` and `2K` are accepted — with any other value, including `4K`, the request is rejected.",
+          "required": false,
+          "default": "1K",
+          "enum": [
+            "1K",
+            "2K"
+          ]
+        },
+        {
+          "name": "background",
+          "type": "enum",
+          "label": "Background",
+          "description": "Background type. transparent outputs a PNG or WebP with a real alpha channel and cannot be used with JPEG. When using transparent, describe only the subject — prompts that mention a background, scene, surface, etc. may produce a non-transparent result.",
+          "required": false,
+          "default": "opaque",
+          "enum": [
+            "opaque",
+            "transparent"
+          ]
+        },
+        {
+          "name": "output_format",
+          "type": "enum",
+          "label": "Output Format",
+          "description": "The output image format. `png` (default) and `webp` both carry an alpha channel and can be used with `background: transparent`. `jpeg` has no alpha channel and cannot be combined with a transparent background.",
+          "required": false,
+          "default": "png",
+          "enum": [
+            "png",
+            "webp",
+            "jpeg"
+          ]
+        },
+        {
+          "name": "enhance_prompt",
+          "type": "boolean",
+          "label": "Enhance Prompt",
+          "description": "Rewrites the prompt into a fuller scene description before generating, which noticeably improves quality. Enabled by default (also when the parameter is omitted); pass false to turn it off.",
+          "required": false,
+          "default": true
+        },
+        {
+          "name": "seed",
+          "type": "number",
+          "label": "Seed",
+          "description": "The random seed. Omit it to generate with a random seed. Passing the same seed together with the same prompt and parameters reproduces the same image within the same service version.",
+          "required": false,
+          "step": 1
+        },
+        {
+          "name": "nsfw_checker",
+          "type": "boolean",
+          "label": "Nsfw Checker",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -2912,9 +3661,8 @@
           "name": "output_format",
           "type": "enum",
           "label": "Output Format",
-          "description": "The format of the generated image. Default value: \"png\"",
+          "description": "Output format: png or jpeg. Set this field explicitly.",
           "required": false,
-          "default": "png",
           "enum": [
             "jpeg",
             "png"
@@ -2924,7 +3672,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -2941,9 +3689,9 @@
           "name": "prompt",
           "type": "textarea",
           "label": "Prompt",
-          "description": "The prompt to generate the image with (Max length: 800 characters)",
+          "description": "The prompt to generate the image with. Max length: 5000 characters.",
           "required": true,
-          "maxLength": 800
+          "maxLength": 5000
         },
         {
           "name": "image_size",
@@ -2972,9 +3720,8 @@
           "name": "output_format",
           "type": "enum",
           "label": "Output Format",
-          "description": "The format of the generated image. Default value: \"png\"",
+          "description": "Output format: png or jpeg. Set this field explicitly.",
           "required": false,
-          "default": "png",
           "enum": [
             "jpeg",
             "png"
@@ -2984,7 +3731,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -3049,9 +3796,8 @@
           "name": "output_format",
           "type": "enum",
           "label": "Output Format",
-          "description": "The generated image format.",
+          "description": "Output format: png or jpeg. Set this field explicitly.",
           "required": false,
-          "default": "png",
           "enum": [
             "png",
             "jpeg"
@@ -3077,9 +3823,8 @@
           "name": "seed",
           "type": "number",
           "label": "Seed",
-          "description": "The random seed. Value range: [0, 2147483647]. A fixed seed helps maintain relatively stable results.",
+          "description": "Random seed, 0–2147483647. If omitted, a random seed is used.",
           "required": false,
-          "default": 1,
           "min": 0,
           "max": 2147483647,
           "step": 1
@@ -3154,9 +3899,8 @@
           "name": "output_format",
           "type": "enum",
           "label": "Output Format",
-          "description": "The generated image format.",
+          "description": "Output format: png or jpeg. Set this field explicitly.",
           "required": false,
-          "default": "png",
           "enum": [
             "png",
             "jpeg"
@@ -3182,9 +3926,8 @@
           "name": "seed",
           "type": "number",
           "label": "Seed",
-          "description": "The random seed. Value range: [0, 2147483647]. A fixed seed helps maintain relatively stable results.",
+          "description": "Random seed, 0–2147483647. If omitted, a random seed is used.",
           "required": false,
-          "default": 1,
           "min": 0,
           "max": 2147483647,
           "step": 1
@@ -3248,9 +3991,8 @@
           "name": "output_format",
           "type": "enum",
           "label": "Output Format",
-          "description": "The generated image format.",
+          "description": "Output format: png or jpeg. Set this field explicitly.",
           "required": false,
-          "default": "png",
           "enum": [
             "png",
             "jpeg"
@@ -3276,9 +4018,8 @@
           "name": "seed",
           "type": "number",
           "label": "Seed",
-          "description": "The random seed. Value range: [0, 2147483647]. A fixed seed helps maintain relatively stable results.",
+          "description": "Random seed, 0–2147483647. If omitted, a random seed is used.",
           "required": false,
-          "default": 1,
           "min": 0,
           "max": 2147483647,
           "step": 1
@@ -3342,9 +4083,8 @@
           "name": "output_format",
           "type": "enum",
           "label": "Output Format",
-          "description": "The generated image format.",
+          "description": "Output format: png or jpeg. Set this field explicitly.",
           "required": false,
-          "default": "png",
           "enum": [
             "png",
             "jpeg"
@@ -3370,9 +4110,8 @@
           "name": "seed",
           "type": "number",
           "label": "Seed",
-          "description": "The random seed. Value range: [0, 2147483647]. A fixed seed helps maintain relatively stable results.",
+          "description": "Random seed, 0–2147483647. If omitted, a random seed is used.",
           "required": false,
-          "default": 1,
           "min": 0,
           "max": 2147483647,
           "step": 1
@@ -3432,61 +4171,6 @@
       ]
     },
     {
-      "id": "seedream/5-pro-layer-decomposition",
-      "model": "seedream/5-pro-layer-decomposition",
-      "title": "Seedream 5.0 Pro - Layer Decomposition",
-      "category": "image",
-      "provider": "market",
-      "docsUrl": "https://docs.kie.ai/market/seedream/5-pro-layer-decomposition",
-      "fields": [
-        {
-          "name": "prompt",
-          "type": "textarea",
-          "label": "Prompt",
-          "description": "Optional prompt for layer separation.",
-          "required": false,
-          "maxLength": 5000
-        },
-        {
-          "name": "image_url",
-          "type": "reference",
-          "label": "Image Url",
-          "description": "The source image URL for layer separation.",
-          "required": true,
-          "accept": "image/jpeg,image/png,image/webp,image/*",
-          "mentionStyle": "at-image",
-          "maxItems": 1,
-          "scalar": true
-        },
-        {
-          "name": "size",
-          "type": "enum",
-          "label": "Size",
-          "description": "Resolution level of the output image. The base image maintains the aspect ratio of the input image, and each separated layer maintains the aspect ratio of the corresponding element in the original image.",
-          "required": false,
-          "default": "auto",
-          "enum": [
-            "auto",
-            "1K",
-            "1.5K",
-            "2K"
-          ]
-        },
-        {
-          "name": "output_format",
-          "type": "enum",
-          "label": "Output Format",
-          "description": "Output format of the base image. This parameter only controls the base image format; all separated layers are fixed to output as PNG.",
-          "required": false,
-          "default": "jpeg",
-          "enum": [
-            "png",
-            "jpeg"
-          ]
-        }
-      ]
-    },
-    {
       "id": "bytedance/seedream",
       "model": "bytedance/seedream",
       "title": "Seedream3.0 - Text to Image",
@@ -3506,7 +4190,7 @@
           "name": "image_size",
           "type": "enum",
           "label": "Image Size",
-          "description": "Select description",
+          "description": "Output size preset. One of square, square_hd, portrait_4_3, portrait_16_9, landscape_4_3, landscape_16_9.",
           "required": false,
           "default": "square_hd",
           "enum": [
@@ -3589,7 +4273,7 @@
           "name": "image_resolution",
           "type": "enum",
           "label": "Image Resolution",
-          "description": "Final image resolution is determined by combining image_size (aspect ratio) and image_resolution (pixel scale). For example, choosing 4:3 + 4K gives 4096 × 3072px",
+          "description": "Final image resolution is determined by combining image_size (aspect ratio) and image_resolution (pixel scale)..",
           "required": false,
           "default": "1K",
           "enum": [
@@ -3613,15 +4297,16 @@
           "name": "seed",
           "type": "number",
           "label": "Seed",
-          "description": "Random seed to control the stochasticity of image generation.",
+          "description": "Random seed for reproducible results. Integer, up to 1000000. Omit for a random seed.",
           "required": false,
+          "max": 1000000,
           "step": 1
         },
         {
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -3665,7 +4350,7 @@
           "name": "image_resolution",
           "type": "enum",
           "label": "Image Resolution",
-          "description": "Final image resolution is determined by combining image_size (aspect ratio) and image_resolution (pixel scale). For example, choosing 4:3 + 4K gives 4096 × 3072px",
+          "description": "Final image resolution is determined by combining image_size (aspect ratio) and image_resolution (pixel scale)..",
           "required": false,
           "default": "1K",
           "enum": [
@@ -3689,15 +4374,16 @@
           "name": "seed",
           "type": "number",
           "label": "Seed",
-          "description": "Random seed to control the stochasticity of image generation",
+          "description": "Random seed for reproducible results. Integer, up to 1000000. Omit for a random seed.",
           "required": false,
+          "max": 1000000,
           "step": 1
         },
         {
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -3733,9 +4419,8 @@
           "name": "aspect_ratio",
           "type": "enum",
           "label": "Aspect Ratio",
-          "description": "Width-height ratio of the image, determining its visual form.",
+          "description": "Required. Width-height ratio of the image, determining its visual form.",
           "required": true,
-          "default": "1:1",
           "enum": [
             "1:1",
             "4:3",
@@ -3751,9 +4436,8 @@
           "name": "quality",
           "type": "enum",
           "label": "Quality",
-          "description": "Basic outputs 2K images, while High outputs 4K images.",
+          "description": "Required. Basic outputs 2K images, while High outputs 4K images.",
           "required": true,
-          "default": "basic",
           "enum": [
             "basic",
             "high"
@@ -3763,7 +4447,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -3788,9 +4472,8 @@
           "name": "aspect_ratio",
           "type": "enum",
           "label": "Aspect Ratio",
-          "description": "Width-height ratio of the image, determining its visual form.",
+          "description": "Required. Width-height ratio of the image, determining its visual form.",
           "required": true,
-          "default": "1:1",
           "enum": [
             "1:1",
             "4:3",
@@ -3806,9 +4489,8 @@
           "name": "quality",
           "type": "enum",
           "label": "Quality",
-          "description": "Basic outputs 2K images, while High outputs 4K images.",
+          "description": "Required. Basic outputs 2K images, while High outputs 4K images.",
           "required": true,
-          "default": "basic",
           "enum": [
             "basic",
             "high"
@@ -3818,171 +4500,24 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
     },
     {
-      "id": "seedream/5-lite-image-to-image",
-      "model": "seedream/5-lite-image-to-image",
-      "title": "Seedream5.0 Lite - Image to Image",
+      "id": "seedream/5-flash-image-to-image",
+      "model": "seedream/5-flash-image-to-image",
+      "title": "Seedream5.0 Flash - Image to Image",
       "category": "image",
       "provider": "market",
-      "docsUrl": "https://docs.kie.ai/market/seedream-5-lite-image-to-image",
+      "docsUrl": "https://docs.kie.ai/market/seedream/5-flash-image-to-image",
       "fields": [
         {
           "name": "prompt",
           "type": "textarea",
           "label": "Prompt",
-          "description": "A text description of the image you want to generate (Max length: 3-3000 characters)",
-          "required": true,
-          "maxLength": 3000
-        },
-        {
-          "name": "image_urls",
-          "type": "reference",
-          "label": "Image Urls",
-          "description": "Upload an image file to use as input for the API (File URL after upload, not file content; Accepted types: image/jpeg, image/png, image/webp; Max size: 30.0MB)",
-          "required": true,
-          "maxItems": 14,
-          "accept": "image/jpeg,image/png,image/webp,image/*",
-          "mentionStyle": "at-image",
-          "maxFileSizeMb": 30
-        },
-        {
-          "name": "aspect_ratio",
-          "type": "enum",
-          "label": "Aspect Ratio",
-          "description": "Width-height ratio of the image, determining its visual form.",
-          "required": true,
-          "default": "1:1",
-          "enum": [
-            "1:1",
-            "4:3",
-            "3:4",
-            "16:9",
-            "9:16",
-            "2:3",
-            "3:2",
-            "21:9"
-          ]
-        },
-        {
-          "name": "quality",
-          "type": "enum",
-          "label": "Quality",
-          "description": "Basic outputs 2K images, while High outputs 3K images, and Ultra outputs 4K images.",
-          "required": true,
-          "default": "basic",
-          "enum": [
-            "basic",
-            "high",
-            "ultra"
-          ]
-        },
-        {
-          "name": "output_format",
-          "type": "enum",
-          "label": "Output Format",
-          "description": "Format of the output image",
-          "required": false,
-          "default": "png",
-          "enum": [
-            "png",
-            "jpeg"
-          ]
-        },
-        {
-          "name": "nsfw_checker",
-          "type": "boolean",
-          "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
-          "required": false
-        }
-      ]
-    },
-    {
-      "id": "seedream/5-lite-text-to-image",
-      "model": "seedream/5-lite-text-to-image",
-      "title": "Seedream5.0 Lite - Text to Image",
-      "category": "image",
-      "provider": "market",
-      "docsUrl": "https://docs.kie.ai/market/seedream/5-lite-text-to-image",
-      "fields": [
-        {
-          "name": "prompt",
-          "type": "textarea",
-          "label": "Prompt",
-          "description": "A text description of the image you want to generate (Max length: 3-3000 characters)",
-          "required": true,
-          "maxLength": 3000
-        },
-        {
-          "name": "aspect_ratio",
-          "type": "enum",
-          "label": "Aspect Ratio",
-          "description": "Width-height ratio of the image, determining its visual form.",
-          "required": true,
-          "default": "1:1",
-          "enum": [
-            "1:1",
-            "4:3",
-            "3:4",
-            "16:9",
-            "9:16",
-            "2:3",
-            "3:2",
-            "21:9"
-          ]
-        },
-        {
-          "name": "quality",
-          "type": "enum",
-          "label": "Quality",
-          "description": "Basic outputs 2K images, while High outputs 3K images, and Ultra outputs 4K images.",
-          "required": true,
-          "default": "basic",
-          "enum": [
-            "basic",
-            "high",
-            "ultra"
-          ]
-        },
-        {
-          "name": "output_format",
-          "type": "enum",
-          "label": "Output Format",
-          "description": "Format of the output image",
-          "required": false,
-          "default": "png",
-          "enum": [
-            "png",
-            "jpeg"
-          ]
-        },
-        {
-          "name": "nsfw_checker",
-          "type": "boolean",
-          "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
-          "required": false
-        }
-      ]
-    },
-    {
-      "id": "seedream/5-pro-image-to-image",
-      "model": "seedream/5-pro-image-to-image",
-      "title": "Seedream5.0 Pro - Image to Image",
-      "category": "image",
-      "provider": "market",
-      "docsUrl": "https://docs.kie.ai/market/seedream/5-pro-image-to-image",
-      "fields": [
-        {
-          "name": "prompt",
-          "type": "textarea",
-          "label": "Prompt",
-          "description": "A text description of the image you want to generate (Max length: 3-5000 characters)",
+          "description": "Text prompt, 4–5000 characters.",
           "required": true,
           "maxLength": 5000
         },
@@ -4001,9 +4536,206 @@
           "name": "aspect_ratio",
           "type": "enum",
           "label": "Aspect Ratio",
-          "description": "Width-height ratio of the image, determining its visual form.",
+          "description": "Required. Width-height ratio of the image, determining its visual form.",
           "required": true,
-          "default": "1:1",
+          "enum": [
+            "1:1",
+            "4:3",
+            "3:4",
+            "16:9",
+            "9:16",
+            "2:3",
+            "3:2",
+            "21:9"
+          ]
+        },
+        {
+          "name": "size",
+          "type": "enum",
+          "label": "Size",
+          "description": "Resolution level of the output image.",
+          "required": false,
+          "default": "1K",
+          "enum": [
+            "1K",
+            "1.5K",
+            "2K"
+          ]
+        },
+        {
+          "name": "output_format",
+          "type": "enum",
+          "label": "Output Format",
+          "description": "Output image format. Set this field explicitly.",
+          "required": false,
+          "enum": [
+            "png",
+            "jpeg"
+          ]
+        },
+        {
+          "name": "nsfw_checker",
+          "type": "boolean",
+          "label": "Nsfw Checker",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "seedream/5-flash-layer-decomposition",
+      "model": "seedream/5-flash-layer-decomposition",
+      "title": "Seedream5.0 Flash - Layer Decomposition",
+      "category": "image",
+      "provider": "market",
+      "docsUrl": "https://docs.kie.ai/market/seedream/5-flash-layer-decomposition",
+      "fields": [
+        {
+          "name": "prompt",
+          "type": "textarea",
+          "label": "Prompt",
+          "description": "Optional prompt for layer separation.",
+          "required": false,
+          "maxLength": 5000
+        },
+        {
+          "name": "image_url",
+          "type": "reference",
+          "label": "Image Url",
+          "description": "The source image URL for layer separation.",
+          "required": true,
+          "accept": "image/jpeg,image/png,image/webp,image/*",
+          "mentionStyle": "at-image",
+          "maxItems": 1,
+          "scalar": true
+        },
+        {
+          "name": "size",
+          "type": "enum",
+          "label": "Size",
+          "description": "Resolution level of the output image. The base image maintains the aspect ratio of the input image, and each separated layer maintains the aspect ratio of the corresponding element in the original image.",
+          "required": false,
+          "default": "auto",
+          "enum": [
+            "auto",
+            "1K",
+            "1.5K",
+            "2K"
+          ]
+        },
+        {
+          "name": "output_format",
+          "type": "enum",
+          "label": "Output Format",
+          "description": "Output format of the base image. This parameter only controls the base image format; all separated layers are fixed to output as PNG.",
+          "required": false,
+          "default": "jpeg",
+          "enum": [
+            "png",
+            "jpeg"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "seedream/5-flash-text-to-image",
+      "model": "seedream/5-flash-text-to-image",
+      "title": "Seedream5.0 Flash - Text to Image",
+      "category": "image",
+      "provider": "market",
+      "docsUrl": "https://docs.kie.ai/market/seedream/5-flash-text-to-image",
+      "fields": [
+        {
+          "name": "prompt",
+          "type": "textarea",
+          "label": "Prompt",
+          "description": "Text prompt, 4–5000 characters.",
+          "required": true,
+          "maxLength": 5000
+        },
+        {
+          "name": "aspect_ratio",
+          "type": "enum",
+          "label": "Aspect Ratio",
+          "description": "Required. Width-height ratio of the image, determining its visual form.",
+          "required": true,
+          "enum": [
+            "1:1",
+            "4:3",
+            "3:4",
+            "16:9",
+            "9:16",
+            "2:3",
+            "3:2",
+            "21:9"
+          ]
+        },
+        {
+          "name": "size",
+          "type": "enum",
+          "label": "Size",
+          "description": "Resolution level of the output image.",
+          "required": false,
+          "default": "1K",
+          "enum": [
+            "1K",
+            "1.5K",
+            "2K"
+          ]
+        },
+        {
+          "name": "output_format",
+          "type": "enum",
+          "label": "Output Format",
+          "description": "Output image format. Set this field explicitly.",
+          "required": false,
+          "enum": [
+            "png",
+            "jpeg"
+          ]
+        },
+        {
+          "name": "nsfw_checker",
+          "type": "boolean",
+          "label": "Nsfw Checker",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "seedream/5-lite-image-to-image",
+      "model": "seedream/5-lite-image-to-image",
+      "title": "Seedream5.0 Lite - Image to Image",
+      "category": "image",
+      "provider": "market",
+      "docsUrl": "https://docs.kie.ai/market/seedream-5-lite-image-to-image",
+      "fields": [
+        {
+          "name": "prompt",
+          "type": "textarea",
+          "label": "Prompt",
+          "description": "Text prompt, 4–2995 characters.",
+          "required": true,
+          "maxLength": 2995
+        },
+        {
+          "name": "image_urls",
+          "type": "reference",
+          "label": "Image Urls",
+          "description": "Upload an image file to use as input for the API (File URL after upload, not file content; Accepted types: image/jpeg, image/png, image/webp; Max size: 30.0MB)",
+          "required": true,
+          "maxItems": 14,
+          "accept": "image/jpeg,image/png,image/webp,image/*",
+          "mentionStyle": "at-image",
+          "maxFileSizeMb": 30
+        },
+        {
+          "name": "aspect_ratio",
+          "type": "enum",
+          "label": "Aspect Ratio",
+          "description": "Required. Width-height ratio of the image, determining its visual form.",
+          "required": true,
           "enum": [
             "1:1",
             "4:3",
@@ -4019,9 +4751,149 @@
           "name": "quality",
           "type": "enum",
           "label": "Quality",
-          "description": "Basic outputs 1K images, while High outputs 2K images.",
+          "description": "Required. Basic outputs 2K images, while High outputs 3K images, and Ultra outputs 4K images.",
           "required": true,
-          "default": "basic",
+          "enum": [
+            "basic",
+            "high",
+            "ultra"
+          ]
+        },
+        {
+          "name": "output_format",
+          "type": "enum",
+          "label": "Output Format",
+          "description": "Output image format. Set this field explicitly.",
+          "required": false,
+          "enum": [
+            "png",
+            "jpeg"
+          ]
+        },
+        {
+          "name": "nsfw_checker",
+          "type": "boolean",
+          "label": "Nsfw Checker",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "seedream/5-lite-text-to-image",
+      "model": "seedream/5-lite-text-to-image",
+      "title": "Seedream5.0 Lite - Text to Image",
+      "category": "image",
+      "provider": "market",
+      "docsUrl": "https://docs.kie.ai/market/seedream/5-lite-text-to-image",
+      "fields": [
+        {
+          "name": "prompt",
+          "type": "textarea",
+          "label": "Prompt",
+          "description": "Text prompt, 4–2995 characters.",
+          "required": true,
+          "maxLength": 2995
+        },
+        {
+          "name": "aspect_ratio",
+          "type": "enum",
+          "label": "Aspect Ratio",
+          "description": "Required. Width-height ratio of the image, determining its visual form.",
+          "required": true,
+          "enum": [
+            "1:1",
+            "4:3",
+            "3:4",
+            "16:9",
+            "9:16",
+            "2:3",
+            "3:2",
+            "21:9"
+          ]
+        },
+        {
+          "name": "quality",
+          "type": "enum",
+          "label": "Quality",
+          "description": "Required. Basic outputs 2K images, while High outputs 3K images, and Ultra outputs 4K images.",
+          "required": true,
+          "enum": [
+            "basic",
+            "high",
+            "ultra"
+          ]
+        },
+        {
+          "name": "output_format",
+          "type": "enum",
+          "label": "Output Format",
+          "description": "Output image format. Set this field explicitly.",
+          "required": false,
+          "enum": [
+            "png",
+            "jpeg"
+          ]
+        },
+        {
+          "name": "nsfw_checker",
+          "type": "boolean",
+          "label": "Nsfw Checker",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "seedream/5-pro-image-to-image",
+      "model": "seedream/5-pro-image-to-image",
+      "title": "Seedream5.0 Pro - Image to Image",
+      "category": "image",
+      "provider": "market",
+      "docsUrl": "https://docs.kie.ai/market/seedream/5-pro-image-to-image",
+      "fields": [
+        {
+          "name": "prompt",
+          "type": "textarea",
+          "label": "Prompt",
+          "description": "Text prompt, 4–5000 characters.",
+          "required": true,
+          "maxLength": 5000
+        },
+        {
+          "name": "image_urls",
+          "type": "reference",
+          "label": "Image Urls",
+          "description": "Upload an image file to use as input for the API (File URL after upload, not file content; Accepted types: image/jpeg, image/png, image/webp; Max size: 30.0MB)",
+          "required": true,
+          "maxItems": 10,
+          "accept": "image/jpeg,image/png,image/webp,image/*",
+          "mentionStyle": "at-image",
+          "maxFileSizeMb": 30
+        },
+        {
+          "name": "aspect_ratio",
+          "type": "enum",
+          "label": "Aspect Ratio",
+          "description": "Required. Width-height ratio of the image, determining its visual form.",
+          "required": true,
+          "enum": [
+            "1:1",
+            "4:3",
+            "3:4",
+            "16:9",
+            "9:16",
+            "2:3",
+            "3:2",
+            "21:9"
+          ]
+        },
+        {
+          "name": "quality",
+          "type": "enum",
+          "label": "Quality",
+          "description": "Required. Basic outputs 1K images, while High outputs 2K images.",
+          "required": true,
           "enum": [
             "basic",
             "high"
@@ -4043,8 +4915,62 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
+        }
+      ]
+    },
+    {
+      "id": "seedream/5-pro-layer-decomposition",
+      "model": "seedream/5-pro-layer-decomposition",
+      "title": "Seedream5.0 Pro - Layer Decomposition",
+      "category": "image",
+      "provider": "market",
+      "docsUrl": "https://docs.kie.ai/market/seedream/5-pro-layer-decomposition",
+      "fields": [
+        {
+          "name": "prompt",
+          "type": "textarea",
+          "label": "Prompt",
+          "description": "Optional prompt for layer separation.",
+          "required": false,
+          "maxLength": 5000
+        },
+        {
+          "name": "image_url",
+          "type": "reference",
+          "label": "Image Url",
+          "description": "The source image URL for layer separation.",
+          "required": true,
+          "accept": "image/jpeg,image/png,image/webp,image/*",
+          "mentionStyle": "at-image",
+          "maxItems": 1,
+          "scalar": true
+        },
+        {
+          "name": "size",
+          "type": "enum",
+          "label": "Size",
+          "description": "Required. Output resolution tier: auto, 1K, 1.5K or 2K. auto follows the input image size.",
+          "required": true,
+          "enum": [
+            "auto",
+            "1K",
+            "1.5K",
+            "2K"
+          ]
+        },
+        {
+          "name": "output_format",
+          "type": "enum",
+          "label": "Output Format",
+          "description": "Output format of the base image. This parameter only controls the base image format; all separated layers are fixed to output as PNG.",
+          "required": false,
+          "default": "jpeg",
+          "enum": [
+            "png",
+            "jpeg"
+          ]
         }
       ]
     },
@@ -4060,7 +4986,7 @@
           "name": "prompt",
           "type": "textarea",
           "label": "Prompt",
-          "description": "A text description of the image you want to generate (Max length: 3-5000 characters)",
+          "description": "Text prompt, 4–5000 characters.",
           "required": true,
           "maxLength": 5000
         },
@@ -4068,9 +4994,8 @@
           "name": "aspect_ratio",
           "type": "enum",
           "label": "Aspect Ratio",
-          "description": "Width-height ratio of the image, determining its visual form.",
+          "description": "Required. Width-height ratio of the image, determining its visual form.",
           "required": true,
-          "default": "1:1",
           "enum": [
             "1:1",
             "4:3",
@@ -4086,9 +5011,8 @@
           "name": "quality",
           "type": "enum",
           "label": "Quality",
-          "description": "Basic outputs 1K images, while High outputs 2K images.",
+          "description": "Required. Basic outputs 1K images, while High outputs 2K images.",
           "required": true,
-          "default": "basic",
           "enum": [
             "basic",
             "high"
@@ -4110,7 +5034,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -4139,7 +5063,7 @@
           "name": "upscale_factor",
           "type": "enum",
           "label": "Upscale Factor",
-          "description": "Factor to upscale the video by (e.g. 2.0 doubles width and height)",
+          "description": "Factor to upscale the image by (e.g. 2 doubles width and height).",
           "required": true,
           "default": "2",
           "enum": [
@@ -4170,9 +5094,8 @@
           "name": "aspect_ratio",
           "type": "enum",
           "label": "Aspect Ratio",
-          "description": "Aspect ratio for the generated image. Select 'auto' to match the first input image ratio (requires input image).",
+          "description": "Required. Aspect ratio for the generated image.",
           "required": true,
-          "default": "1:1",
           "enum": [
             "1:1",
             "4:3",
@@ -4185,7 +5108,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -4284,7 +5207,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -4372,7 +5295,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -4463,7 +5386,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -4498,9 +5421,8 @@
           "name": "aspect_ratio",
           "type": "enum",
           "label": "Aspect Ratio",
-          "description": "Video aspect ratio configuration. Required field.",
+          "description": "Required. One of 1:1, 4:3, 3:4, 16:9, 9:16, 21:9.",
           "required": true,
-          "default": "1:1",
           "enum": [
             "1:1",
             "4:3",
@@ -4527,7 +5449,7 @@
           "name": "duration",
           "type": "number",
           "label": "Duration",
-          "description": "Duration of the video in seconds,Optional range 4-12 s",
+          "description": "Required. Output length in whole seconds, 4–12.",
           "required": true,
           "step": 0.1
         },
@@ -4543,16 +5465,9 @@
           "name": "generate_audio",
           "type": "boolean",
           "label": "Generate Audio",
-          "description": "Whether to generate audio for the video.",
+          "description": "Whether to generate synchronized audio. Default: true. Pass false for a silent video. Audio doubles the per-second price.",
           "required": false,
-          "default": false
-        },
-        {
-          "name": "nsfw_checker",
-          "type": "boolean",
-          "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
-          "required": false
+          "default": true
         }
       ]
     },
@@ -4684,14 +5599,14 @@
           "name": "web_search",
           "type": "boolean",
           "label": "Web Search",
-          "description": "Use online search. (Web search only can be used in the scene of t2v)",
+          "description": "Use online search. Text-to-video only.",
           "required": false
         },
         {
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -4816,14 +5731,7 @@
           "name": "web_search",
           "type": "boolean",
           "label": "Web Search",
-          "description": "Use online search. (Web search only can be used in the scene of t2v)",
-          "required": false
-        },
-        {
-          "name": "nsfw_checker",
-          "type": "boolean",
-          "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Use online search. Text-to-video only.",
           "required": false
         }
       ]
@@ -4840,9 +5748,9 @@
           "name": "prompt",
           "type": "textarea",
           "label": "Prompt",
-          "description": "The text prompt used to generate the video.. ( Max length: 30000 characters)",
+          "description": "The text prompt used to generate the video.. ( Max length: 20480 characters)",
           "required": false,
-          "maxLength": 30000
+          "maxLength": 20480
         },
         {
           "name": "first_frame_url",
@@ -4900,7 +5808,7 @@
           "name": "return_last_frame",
           "type": "boolean",
           "label": "Return Last Frame",
-          "description": "Whether to return the last frame of the video. When draft=true, this parameter cannot be set to true.",
+          "description": "Whether to also return the last frame of the generated video as a JPEG (in resultJson.lastFrameUrl). Default false.",
           "required": false,
           "default": false
         },
@@ -4908,7 +5816,7 @@
           "name": "generate_audio",
           "type": "boolean",
           "label": "Generate Audio",
-          "description": "Whether to generate audio for the video.",
+          "description": "Whether to generate audio synchronized with the video. Default: true.",
           "required": false,
           "default": true
         },
@@ -4976,7 +5884,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -5013,7 +5921,7 @@
           "name": "resolution",
           "type": "enum",
           "label": "Resolution",
-          "description": "Video resolution - 480p for faster generation, 720p for balance, 1080p for higher quality",
+          "description": "Output resolution: 720p or 1080p.",
           "required": false,
           "default": "720p",
           "enum": [
@@ -5037,7 +5945,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -5124,7 +6032,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -5217,7 +6125,7 @@
           "name": "resolution",
           "type": "enum",
           "label": "Resolution",
-          "description": "Video resolution - 480p for faster generation, 720p for balance, 1080p for High-quality video, 4K Ultra-High Definition, delivering perfect visual details.",
+          "description": "Video resolution - 480p for faster generation, 720p for balance, 1080p for High-quality video, 4K Ultra-High Definition, delivering perfect visual details. 4k output is 3840×2160 encoded as H.265 (HEVC); other resolutions are H.264. Make sure your player or pipeline supports HEVC.",
           "required": false,
           "default": "720p",
           "enum": [
@@ -5259,14 +6167,14 @@
           "name": "web_search",
           "type": "boolean",
           "label": "Web Search",
-          "description": "Use online search",
+          "description": "Use online search. Text-to-video only.",
           "required": false
         },
         {
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -5318,7 +6226,7 @@
           "name": "character_ids",
           "type": "reference",
           "label": "Character Ids",
-          "description": "An array of character IDs generated by the `gemini-omni-character` API. Used to provide character appearance, identity, or person references for the video. Each character_id uses 1 image slot. The base limit is 7 image slots; if video_list is also provided, video_list uses 2 image slots, so character_ids can contain up to 3 IDs. If the incoming character_id is a dual-image set [portrait + body], it will occupy two slots.",
+          "description": "An array of character IDs generated by the `gemini-omni-character` API. Used to provide character appearance, identity, or person references for the video. Up to 3 character IDs. Each uses 1 image slot (2 if created with portrait + body images). Total slots (images + videos × 2 + character slots) ≤ 7.",
           "required": false,
           "accept": "image/jpeg,image/png,image/webp,image/*",
           "mentionStyle": "none",
@@ -5398,7 +6306,7 @@
           "name": "extend_at",
           "type": "number",
           "label": "Extend At",
-          "description": "The starting position of the video extension. Optional field.",
+          "description": "Required. Time point in the source video, in seconds (minimum 2), from which the extension starts.",
           "required": true,
           "default": 2,
           "min": 2,
@@ -5406,11 +6314,14 @@
         },
         {
           "name": "extend_times",
-          "type": "number",
+          "type": "enum",
           "label": "Extend Times",
-          "description": "Duration of video extension (in seconds). Required field.",
+          "description": "6 or 10 (seconds).",
           "required": true,
-          "step": 0.1
+          "enum": [
+            "6",
+            "10"
+          ]
         }
       ]
     },
@@ -5474,11 +6385,11 @@
           "name": "index",
           "type": "number",
           "label": "Index",
-          "description": "When using task_id, specify which image to use (Grok generates 6 images per task). Only works with task_id.",
+          "description": "When using task_id, the 0-based index of the image to use. A grok-imagine/text-to-image task returns 2 images, so valid values are 0 and 1. Default 0.",
           "required": false,
           "default": 0,
           "min": 0,
-          "max": 5,
+          "max": 1,
           "step": 1
         },
         {
@@ -5540,7 +6451,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -5613,7 +6524,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -5688,7 +6599,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -5725,9 +6636,8 @@
           "name": "duration",
           "type": "enum",
           "label": "Duration",
-          "description": "The duration of the video in seconds. 10 seconds videos are not supported for 1080p resolution.",
-          "required": false,
-          "default": "6",
+          "description": "Required. The duration of the video in seconds. 10 seconds videos are not supported for 1080p resolution.",
+          "required": true,
           "enum": [
             "6",
             "10"
@@ -5737,9 +6647,8 @@
           "name": "resolution",
           "type": "enum",
           "label": "Resolution",
-          "description": "The resolution of the generated video.",
-          "required": false,
-          "default": "768P",
+          "description": "Required. The resolution of the generated video.",
+          "required": true,
           "enum": [
             "768P",
             "1080P"
@@ -5749,7 +6658,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -5786,9 +6695,8 @@
           "name": "duration",
           "type": "enum",
           "label": "Duration",
-          "description": "The duration of the video in seconds. 10 seconds videos are not supported for 1080p resolution.",
-          "required": false,
-          "default": "6",
+          "description": "Required. The duration of the video in seconds. 10 seconds videos are not supported for 1080p resolution.",
+          "required": true,
           "enum": [
             "6",
             "10"
@@ -5798,9 +6706,8 @@
           "name": "resolution",
           "type": "enum",
           "label": "Resolution",
-          "description": "The resolution of the generated video.",
-          "required": false,
-          "default": "768P",
+          "description": "Required. The resolution of the generated video.",
+          "required": true,
           "enum": [
             "768P",
             "1080P"
@@ -5810,7 +6717,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -5866,7 +6773,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -5898,7 +6805,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -5947,9 +6854,8 @@
           "name": "duration",
           "type": "enum",
           "label": "Duration",
-          "description": "The duration of the video in seconds. 10 seconds videos are not supported for 1080p resolution.",
-          "required": false,
-          "default": "10",
+          "description": "Required. Video duration in seconds: 6 or 10.",
+          "required": true,
           "enum": [
             "6",
             "10"
@@ -5959,9 +6865,8 @@
           "name": "resolution",
           "type": "enum",
           "label": "Resolution",
-          "description": "The resolution of the generated video.",
-          "required": false,
-          "default": "768P",
+          "description": "Required. The resolution of the generated video.",
+          "required": true,
           "enum": [
             "512P",
             "768P"
@@ -5978,7 +6883,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -6003,9 +6908,8 @@
           "name": "duration",
           "type": "enum",
           "label": "Duration",
-          "description": "The duration of the video in seconds. 10 seconds videos are not supported for 1080p resolution.",
-          "required": false,
-          "default": "6",
+          "description": "Required. Video duration in seconds: 6 or 10.",
+          "required": true,
           "enum": [
             "6",
             "10"
@@ -6022,7 +6926,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -6050,9 +6954,6 @@
           "label": "Image Urls",
           "description": "The URL of the first frame image.",
           "required": true,
-          "default": [
-            ""
-          ],
           "maxItems": 1,
           "accept": "image/jpeg,image/png,image/webp,image/*",
           "mentionStyle": "at-image"
@@ -6094,9 +6995,8 @@
           "name": "prompt",
           "type": "textarea",
           "label": "Prompt",
-          "description": "A description of the desired elements and visual style for the generated video.  Input in any language is supported. The length is limited to 5,000 non-Chinese characters or 2,500 Chinese characters. Content exceeding this limit is automatically truncated.  Image referencing: In the prompt, use \"[Image 1]\" and \"[Image 2]\" to refer to the corresponding reference image in the media array. The order must be consistent with the order in the media array. When using a reference, specify the object in the image, such as \"the woman in a red qipao in [Image 1]\".",
+          "description": "A description of the desired elements and visual style for the generated video.  Input in any language is supported. Up to 5,000 characters.  Use \"[Image 1]\", \"[Image 2]\" to refer to the images in reference_image, in the same order. When using a reference, specify the object in the image, such as \"the woman in a red qipao in [Image 1]\".",
           "required": true,
-          "default": "",
           "maxLength": 5000
         },
         {
@@ -6105,7 +7005,6 @@
           "label": "Reference Image",
           "description": "The URL  of a reference image.",
           "required": true,
-          "default": [],
           "maxItems": 9,
           "accept": "image/jpeg,image/png,image/webp,image/*",
           "mentionStyle": "none"
@@ -6168,8 +7067,7 @@
           "label": "Prompt",
           "description": "Text description of the video to generate.  Supports any language. Maximum 5,000 non-Chinese characters or 2,500 Chinese",
           "required": true,
-          "default": "",
-          "maxLength": 4999
+          "maxLength": 5000
         },
         {
           "name": "resolution",
@@ -6206,7 +7104,7 @@
           "name": "duration",
           "type": "number",
           "label": "Duration",
-          "description": "Output video duration in seconds.",
+          "description": "Output video duration in seconds. Integer, 3–15. Default 5.",
           "required": false,
           "default": 5,
           "min": 3,
@@ -6227,7 +7125,7 @@
           "name": "prompt",
           "type": "textarea",
           "label": "Prompt",
-          "description": "Text prompt describing the video to generate (any language). Max 5,000 non‑Chinese characters or 2,500 Chinese characters; extra content is truncated.",
+          "description": "Text prompt describing the video to generate (any language). Up to 5,000 characters.",
           "required": false,
           "maxLength": 5000
         },
@@ -6245,7 +7143,7 @@
           "name": "resolution",
           "type": "enum",
           "label": "Resolution",
-          "description": "Output video resolution. Valid values: 720P, 1080P (default).",
+          "description": "Output video resolution: 720p or 1080p (default). The output keeps the aspect ratio of the input image; 720p / 1080p set the resolution tier.",
           "required": false,
           "default": "1080p",
           "enum": [
@@ -6268,7 +7166,7 @@
           "name": "seed",
           "type": "number",
           "label": "Seed",
-          "description": "Random seed for reproducibility (if supported).",
+          "description": "Random seed for reproducibility.",
           "required": false,
           "default": 0,
           "min": 0,
@@ -6289,7 +7187,7 @@
           "name": "prompt",
           "type": "textarea",
           "label": "Prompt",
-          "description": "Text prompt describing the video to generate (any language). Max 5,000 non‑Chinese characters or 2,500 Chinese characters; extra content is truncated.",
+          "description": "Text prompt describing the video to generate (any language). Up to 5,000 characters.",
           "required": true,
           "maxLength": 5000
         },
@@ -6297,7 +7195,7 @@
           "name": "resolution",
           "type": "enum",
           "label": "Resolution",
-          "description": "Output video resolution. Valid values: 720P, 1080P (default).",
+          "description": "Output video resolution: 720p or 1080p (default).",
           "required": false,
           "default": "1080p",
           "enum": [
@@ -6335,7 +7233,7 @@
           "name": "seed",
           "type": "number",
           "label": "Seed",
-          "description": "Random seed for reproducibility (if supported).",
+          "description": "Random seed for reproducibility.",
           "required": false,
           "default": 0,
           "min": 0,
@@ -6356,7 +7254,7 @@
           "name": "prompt",
           "type": "textarea",
           "label": "Prompt",
-          "description": "Text prompt describing the video to generate (any language). Max 5,000 non‑Chinese characters or 2,500 Chinese characters; extra content is truncated.",
+          "description": "Text prompt describing the video to generate (any language). Up to 5,000 characters.",
           "required": true,
           "maxLength": 5000
         },
@@ -6374,7 +7272,7 @@
           "name": "resolution",
           "type": "enum",
           "label": "Resolution",
-          "description": "Output video resolution. Valid values: 720P, 1080P (default).",
+          "description": "Output video resolution: 720p or 1080p (default).",
           "required": false,
           "default": "1080p",
           "enum": [
@@ -6412,7 +7310,7 @@
           "name": "seed",
           "type": "number",
           "label": "Seed",
-          "description": "Random seed for reproducibility (if supported).",
+          "description": "Random seed for reproducibility.",
           "required": false,
           "default": 0,
           "min": 0,
@@ -6433,7 +7331,7 @@
           "name": "prompt",
           "type": "textarea",
           "label": "Prompt",
-          "description": "Required edit instruction describing the intended change (e.g., style transfer / local replacement). Max 5,000 non‑Chinese characters or 2,500 Chinese characters; extra content is truncated.",
+          "description": "Required edit instruction describing the intended change (e.g., style transfer / local replacement). Up to 5,000 characters.",
           "required": true,
           "maxLength": 5000
         },
@@ -6441,7 +7339,7 @@
           "name": "video_url",
           "type": "reference",
           "label": "Video Url",
-          "description": "Input video URL list. Exactly one video is required.",
+          "description": "URL of the input video (one video).",
           "required": true,
           "accept": "video/*,image/*",
           "mentionStyle": "at-video",
@@ -6462,7 +7360,7 @@
           "name": "resolution",
           "type": "enum",
           "label": "Resolution",
-          "description": "Output video resolution. Valid values: 720P, 1080P (default).",
+          "description": "Output video resolution: 720p or 1080p (default).",
           "required": false,
           "default": "1080p",
           "enum": [
@@ -6474,7 +7372,7 @@
           "name": "audio_setting",
           "type": "enum",
           "label": "Audio Setting",
-          "description": "Audio handling strategy for the output video.",
+          "description": "Audio handling: auto lets the model handle audio; origin keeps the input video's original audio where possible.",
           "required": false,
           "default": "auto",
           "enum": [
@@ -6486,7 +7384,7 @@
           "name": "seed",
           "type": "number",
           "label": "Seed",
-          "description": "Random seed for reproducibility (if supported).",
+          "description": "Random seed for reproducibility.",
           "required": false,
           "default": 0,
           "min": 0,
@@ -6507,7 +7405,7 @@
           "name": "image_url",
           "type": "reference",
           "label": "Image Url",
-          "description": "URL of the input image. If the input image does not match the chosen aspect ratio, it is resized and center cropped. (File URL after upload, not file content; Accepted types: image/jpeg, image/png, image/webp; Max size: 10.0MB)",
+          "description": "URL of the input image. (File URL after upload, not file content; Accepted types: image/jpeg, image/png, image/webp; Max size: 10.0MB)",
           "required": true,
           "accept": "image/jpeg,image/png,image/webp,image/*",
           "mentionStyle": "at-image",
@@ -6601,9 +7499,8 @@
           "name": "duration",
           "type": "enum",
           "label": "Duration",
-          "description": "The duration of the generated video in seconds",
-          "required": false,
-          "default": "5",
+          "description": "Required. \"5\" or \"10\" (seconds).",
+          "required": true,
           "enum": [
             "5",
             "10"
@@ -6613,9 +7510,9 @@
           "name": "negative_prompt",
           "type": "textarea",
           "label": "Negative Prompt",
-          "description": "Negative prompt to exclude certain elements from the video (Max length: 500 characters)",
+          "description": "Negative prompt to exclude certain elements from the video (Max length: 2,496 characters)",
           "required": false,
-          "maxLength": 500
+          "maxLength": 2496
         },
         {
           "name": "cfg_scale",
@@ -6650,9 +7547,8 @@
           "name": "duration",
           "type": "enum",
           "label": "Duration",
-          "description": "The duration of the generated video in seconds",
-          "required": false,
-          "default": "5",
+          "description": "Required. \"5\" or \"10\" (seconds).",
+          "required": true,
           "enum": [
             "5",
             "10"
@@ -6712,7 +7608,7 @@
           "name": "image_urls",
           "type": "reference",
           "label": "Image Urls",
-          "description": "URL of the image to be used for the video (File URL after upload, not file content; Accepted types: image/jpeg, image/png; Max size: 10.0MB)",
+          "description": "Required. URL of the image to be used for the video (File URL after upload, not file content; Accepted types: image/jpeg, image/png; Max size: 10.0MB)",
           "required": true,
           "accept": "image/jpeg,image/png,image/webp,image/*",
           "mentionStyle": "at-image",
@@ -6723,17 +7619,15 @@
           "name": "duration",
           "type": "string",
           "label": "Duration",
-          "description": "The duration of the generated video in seconds",
-          "required": true,
-          "default": "5"
+          "description": "Required. The duration of the generated video in seconds",
+          "required": true
         },
         {
           "name": "resolution",
           "type": "enum",
           "label": "Resolution",
-          "description": "Resolution of the generated video (720p or 1080p)",
+          "description": "Required. Resolution of the generated video (720p or 1080p)",
           "required": true,
-          "default": "720p",
           "enum": [
             "720p",
             "1080p"
@@ -6761,17 +7655,15 @@
           "name": "duration",
           "type": "string",
           "label": "Duration",
-          "description": "The duration of the generated video in seconds",
-          "required": true,
-          "default": "5"
+          "description": "Required. The duration of the generated video in seconds",
+          "required": true
         },
         {
           "name": "aspect_ratio",
           "type": "enum",
           "label": "Aspect Ratio",
-          "description": "The aspect ratio of the generated video frame",
+          "description": "Required. The aspect ratio of the generated video frame",
           "required": true,
-          "default": "16:9",
           "enum": [
             "1:1",
             "9:16",
@@ -6782,9 +7674,8 @@
           "name": "resolution",
           "type": "enum",
           "label": "Resolution",
-          "description": "Resolution of the generated video (720p or 1080p)",
+          "description": "Required. Resolution of the generated video (720p or 1080p)",
           "required": true,
-          "default": "720p",
           "enum": [
             "720p",
             "1080p"
@@ -6804,9 +7695,9 @@
           "name": "prompt",
           "type": "textarea",
           "label": "Prompt",
-          "description": "Text prompt for video generation (maximum length: 1000 characters)",
+          "description": "Text prompt (max 2,500 characters).",
           "required": true,
-          "maxLength": 1000
+          "maxLength": 2500
         },
         {
           "name": "image_urls",
@@ -6822,16 +7713,15 @@
           "name": "sound",
           "type": "boolean",
           "label": "Sound",
-          "description": "This parameter specifies whether the generated video contains sound (boolean: true/false)",
+          "description": "Required. This parameter specifies whether the generated video contains sound (boolean: true/false)",
           "required": true
         },
         {
           "name": "duration",
           "type": "enum",
           "label": "Duration",
-          "description": "Video duration (unit: seconds)",
+          "description": "Required. Video duration (unit: seconds)",
           "required": true,
-          "default": "5",
           "enum": [
             "5",
             "10"
@@ -6881,9 +7771,8 @@
           "name": "character_orientation",
           "type": "enum",
           "label": "Character Orientation",
-          "description": "Generate the orientation of the characters in the video. 'image': same orientation as the person in the picture (max 10s video). 'video': consistent with the orientation of the characters in the video (max 30s video).",
+          "description": "Required. Generate the orientation of the characters in the video. 'image': same orientation as the person in the picture (max 10s video). 'video': consistent with the orientation of the characters in the video (max 30s video).",
           "required": true,
-          "default": "video",
           "enum": [
             "image",
             "video"
@@ -6893,9 +7782,8 @@
           "name": "mode",
           "type": "enum",
           "label": "Mode",
-          "description": "Output resolution mode. Use 'std' for 720p or 'pro' for 1080p.",
+          "description": "Required. Output resolution: \"720p\" or \"1080p\".",
           "required": true,
-          "default": "720p",
           "enum": [
             "720p",
             "1080p"
@@ -6915,24 +7803,23 @@
           "name": "prompt",
           "type": "textarea",
           "label": "Prompt",
-          "description": "Text prompt for video generation (maximum length: 1000 characters)",
+          "description": "Text prompt (max 2,500 characters).",
           "required": true,
-          "maxLength": 1000
+          "maxLength": 2500
         },
         {
           "name": "sound",
           "type": "boolean",
           "label": "Sound",
-          "description": "This parameter specifies whether the generated video contains sound (boolean: true/false)",
+          "description": "Required. This parameter specifies whether the generated video contains sound (boolean: true/false)",
           "required": true
         },
         {
           "name": "aspect_ratio",
           "type": "enum",
           "label": "Aspect Ratio",
-          "description": "This parameter defines the video aspect ratio",
+          "description": "Required. This parameter defines the video aspect ratio",
           "required": true,
-          "default": "1:1",
           "enum": [
             "1:1",
             "16:9",
@@ -6943,9 +7830,8 @@
           "name": "duration",
           "type": "enum",
           "label": "Duration",
-          "description": "Video duration (unit: seconds)",
+          "description": "Required. Video duration (unit: seconds)",
           "required": true,
-          "default": "5",
           "enum": [
             "5",
             "10"
@@ -6991,9 +7877,9 @@
           "name": "customize_multi_shots",
           "type": "boolean",
           "label": "Customize Multi Shots",
-          "description": "Whether to enable multi-shot mode. Explicitly specifying this value is recommended. `true` enables multiple shots; `false` uses a single shot.",
+          "description": "Optional, default false. Set true for custom multi-shot (multi_prompt required).",
           "required": false,
-          "default": true
+          "default": false
         },
         {
           "name": "prefer_multi_shots",
@@ -7141,7 +8027,7 @@
           "name": "audio",
           "type": "boolean",
           "label": "Audio",
-          "description": "Whether to enable audio.",
+          "description": "No audio is generated when a video is provided; set false.",
           "required": false,
           "enum": []
         },
@@ -7190,7 +8076,7 @@
           "name": "prompt",
           "type": "textarea",
           "label": "Prompt",
-          "description": "The prompt to use for the video generation (Max length: 5000 characters)",
+          "description": "Required, non-empty. Describe the avatar's expression, movement and camera; the speech comes from audio_url. Up to 5,000 characters.",
           "required": true,
           "maxLength": 5000
         }
@@ -7231,7 +8117,7 @@
           "name": "prompt",
           "type": "textarea",
           "label": "Prompt",
-          "description": "The prompt to use for the video generation (Max length: 5000 characters)",
+          "description": "Required, non-empty. Describe the avatar's expression, movement and camera; the speech comes from audio_url. Up to 5,000 characters.",
           "required": true,
           "maxLength": 5000
         }
@@ -7269,9 +8155,8 @@
           "name": "duration",
           "type": "enum",
           "label": "Duration",
-          "description": "The duration of the generated video in seconds",
-          "required": false,
-          "default": "5",
+          "description": "Required. \"5\" or \"10\" (seconds).",
+          "required": true,
           "enum": [
             "5",
             "10"
@@ -7318,9 +8203,8 @@
           "name": "duration",
           "type": "enum",
           "label": "Duration",
-          "description": "The duration of the generated video in seconds",
-          "required": false,
-          "default": "5",
+          "description": "Required. \"5\" or \"10\" (seconds).",
+          "required": true,
           "enum": [
             "5",
             "10"
@@ -7392,9 +8276,8 @@
           "name": "duration",
           "type": "enum",
           "label": "Duration",
-          "description": "The duration of the generated video in seconds",
-          "required": false,
-          "default": "5",
+          "description": "Required. \"5\" or \"10\" (seconds).",
+          "required": true,
           "enum": [
             "5",
             "10"
@@ -7465,9 +8348,8 @@
           "name": "duration",
           "type": "enum",
           "label": "Duration",
-          "description": "The duration of the generated video in seconds",
-          "required": false,
-          "default": "5",
+          "description": "Required. \"5\" or \"10\" (seconds).",
+          "required": true,
           "enum": [
             "5",
             "10"
@@ -7531,23 +8413,21 @@
         },
         {
           "name": "mode",
-          "type": "string",
+          "type": "enum",
           "label": "Mode",
-          "description": "(Optional) Video Quality Mode. std: Standard Mode (720p). pro: Professional Mode (1080p)",
-          "required": false
+          "description": "Optional. Output resolution: \"720p\" (default) or \"1080p\".",
+          "required": false,
+          "default": "720p",
+          "enum": [
+            "720p",
+            "1080p"
+          ]
         },
         {
           "name": "character_orientation",
           "type": "string",
           "label": "Character Orientation",
           "description": "(Optional) Reference source for character orientation. video: Refer to video (recommended); image: Refer to image. Default value: video",
-          "required": false
-        },
-        {
-          "name": "background_source",
-          "type": "string",
-          "label": "Background Source",
-          "description": "(Optional) Background source. input_video: Use video background; input_image: Use image background. Default value: input_video",
           "required": false
         }
       ]
@@ -7572,7 +8452,7 @@
           "name": "first_frame_url",
           "type": "reference",
           "label": "First Frame Url",
-          "description": "First frame image URL. Note: Either first_frame_url or last_frame_url must be provided. Supports HTTP, HTTPS, and OSS addresses; supports JPG, JPEG, PNG, WEBP, HEIC, HEIF formats; single image size not exceeding 30 MB, image side length between 256 and 5760 pixels, aspect ratio between 0.4 and 2.5.",
+          "description": "First frame image URL. Note: Either first_frame_url or last_frame_url must be provided. Publicly accessible HTTP(S) URL; supports JPG, JPEG, PNG, WEBP, HEIC, HEIF formats; single image size not exceeding 30 MB, image side length between 256 and 5760 pixels, aspect ratio between 0.4 and 2.5.",
           "required": false,
           "accept": "image/jpeg,image/png,image/webp,image/*",
           "mentionStyle": "at-image",
@@ -7636,7 +8516,7 @@
           "name": "reference_image_urls",
           "type": "reference",
           "label": "Reference Image Urls",
-          "description": "Array of reference image URLs. Supports up to 9 images. Supports HTTP, HTTPS, and OSS addresses; supported image formats include JPG, JPEG, PNG, WEBP, HEIC, and HEIF; a single image size cannot exceed 30 MB; the side length of the image must be between 256 and 5760 pixels, and the aspect ratio must be between 0.4 and 2.5.",
+          "description": "Array of reference image URLs. Supports up to 9 images. Publicly accessible HTTP(S) URL; supported image formats include JPG, JPEG, PNG, WEBP, HEIC, and HEIF; a single image size cannot exceed 30 MB; the side length of the image must be between 256 and 5760 pixels, and the aspect ratio must be between 0.4 and 2.5. Provide at least one of reference_image_urls or reference_video_urls.",
           "required": false,
           "maxItems": 9,
           "accept": "image/jpeg,image/png,image/webp,image/*",
@@ -7646,7 +8526,7 @@
           "name": "reference_video_urls",
           "type": "reference",
           "label": "Reference Video Urls",
-          "description": "Array of reference video URLs. Supports up to 3 videos. Supports MP4, MOV; video encoding supports H.264, H.265, audio encoding supports AAC, MP3; a single file size cannot exceed 50 MB; the duration of a single segment is 2 to 15 seconds, and the total duration of all reference videos cannot exceed 15 seconds; the video side length must be between 256 and 5760 pixels, the aspect ratio must be between 0.4 and 2.5, and the frame rate must be between 23.976 and 60.",
+          "description": "Array of reference video URLs. Supports up to 3 videos. Supports MP4, MOV; video encoding supports H.264, H.265, audio encoding supports AAC, MP3; a single file size cannot exceed 50 MB; the duration of a single segment is 2 to 15 seconds, and the total duration of all reference videos cannot exceed 15 seconds; the video side length must be between 256 and 5760 pixels, the aspect ratio must be between 0.4 and 2.5, and the frame rate must be between 23.976 and 60. Provide at least one of reference_image_urls or reference_video_urls.",
           "required": false,
           "maxItems": 3,
           "accept": "video/*,image/*",
@@ -7806,7 +8686,7 @@
           "name": "prompt",
           "type": "textarea",
           "label": "Prompt",
-          "description": "Optional prompt text. Limited to Chinese, English, Japanese, Korean, Spanish, and Indonesian. Recommended 300 characters or less. Maximum length: 1000 characters.",
+          "description": "Optional. Supported languages: Chinese, English, Japanese, Korean, Spanish, Indonesian. Up to 300 characters.",
           "required": false,
           "maxLength": 300
         },
@@ -7842,6 +8722,48 @@
       ]
     },
     {
+      "id": "omnihuman-1-5/human-identification",
+      "model": "omnihuman-1-5/human-identification",
+      "title": "Omnihuman 1.5 Human Identification",
+      "category": "video",
+      "provider": "market",
+      "docsUrl": "https://docs.kie.ai/market/omnihuman-1-5/human-identification",
+      "fields": [
+        {
+          "name": "image_url",
+          "type": "reference",
+          "label": "Image Url",
+          "description": "Portrait image URL. Requirements: JPG/PNG/JPEG format, less than 5MB, resolution under 4096x4096. Recommended: single person facing forward, with the face occupying a large proportion of the image. Accepted file types: image/jpeg, image/png, image/jpg. Max file size: 5MB.",
+          "required": true,
+          "accept": "image/jpeg,image/png,image/webp,image/*",
+          "mentionStyle": "at-image",
+          "maxItems": 1,
+          "scalar": true
+        }
+      ]
+    },
+    {
+      "id": "omnihuman-1-5/subject-detection",
+      "model": "omnihuman-1-5/subject-detection",
+      "title": "OmniHuman 1.5 Subject Detection",
+      "category": "video",
+      "provider": "market",
+      "docsUrl": "https://docs.kie.ai/market/omnihuman-1-5/subject-detection",
+      "fields": [
+        {
+          "name": "image_url",
+          "type": "reference",
+          "label": "Image Url",
+          "description": "Portrait image URL. Supports detection of up to 5 subjects in the image. Accepted file types: image/jpeg, image/png, image/jpg. Max file size: 5MB.",
+          "required": true,
+          "accept": "image/jpeg,image/png,image/webp,image/*",
+          "mentionStyle": "at-image",
+          "maxItems": 1,
+          "scalar": true
+        }
+      ]
+    },
+    {
       "id": "pixverse-v6/reference-to-video",
       "model": "pixverse-v6/reference-to-video",
       "title": "PixVerse V6 Fusion / Reference-to-Video",
@@ -7869,9 +8791,8 @@
           "name": "aspect_ratio",
           "type": "enum",
           "label": "Aspect Ratio",
-          "description": "Output video aspect ratio. Supported in text-to-video and Fusion multi-reference image to video modes.",
+          "description": "Required. Output video aspect ratio. Supported in text-to-video and Fusion multi-reference image to video modes.",
           "required": true,
-          "default": "16:9",
           "enum": [
             "16:9",
             "4:3",
@@ -7887,9 +8808,8 @@
           "name": "quality",
           "type": "enum",
           "label": "Quality",
-          "description": "Output video resolution. Supports 360p, 540p, 720p, and 1080p.",
+          "description": "Required. Output video resolution. Supports 360p, 540p, 720p, and 1080p.",
           "required": true,
-          "default": "720p",
           "enum": [
             "360p",
             "540p",
@@ -7901,9 +8821,8 @@
           "name": "duration",
           "type": "number",
           "label": "Duration",
-          "description": "Output video duration, in seconds.",
+          "description": "Required. Output video duration in seconds, 1–15.",
           "required": true,
-          "default": 5,
           "min": 1,
           "max": 15,
           "step": 1
@@ -7948,7 +8867,7 @@
           "name": "image_urls",
           "type": "reference",
           "label": "Image Urls",
-          "description": "Image URLs, supports up to 2 images, single image size not exceeding 20 MB. Supports HTTP, HTTPS, and OSS addresses. Supported image formats include JPG, JPEG, PNG, and WebP.",
+          "description": "Without template_id, provide 1 image (used as the first frame). With template_id, provide the number of images given by the template's effect_type (1 or 2). Single image size not exceeding 20 MB. Supports HTTP, HTTPS, and OSS addresses. Supported image formats include JPG, JPEG, PNG, and WebP.",
           "required": true,
           "accept": "image/jpeg,image/png,image/webp,image/*",
           "mentionStyle": "at-image",
@@ -7958,9 +8877,8 @@
           "name": "quality",
           "type": "enum",
           "label": "Quality",
-          "description": "Output video resolution. Supports 360p, 540p, 720p, and 1080p.",
+          "description": "Required. Output video resolution. Supports 360p, 540p, 720p, and 1080p.",
           "required": true,
-          "default": "720p",
           "enum": [
             "360p",
             "540p",
@@ -7974,7 +8892,6 @@
           "label": "Duration",
           "description": "Generated video duration in seconds, ranging from 1 to 15. Required when template_id is not passed; if template_id is passed, the video duration is fixed by the selected template, please do not pass this parameter at the same time.",
           "required": true,
-          "default": 5,
           "min": 1,
           "max": 15,
           "step": 1
@@ -8086,9 +9003,8 @@
           "name": "aspect_ratio",
           "type": "enum",
           "label": "Aspect Ratio",
-          "description": "Output video aspect ratio. This parameter is supported in text-to-video and Fusion multi-reference image-to-video modes.",
+          "description": "Required. Output video aspect ratio. This parameter is supported in text-to-video and Fusion multi-reference image-to-video modes.",
           "required": true,
-          "default": "16:9",
           "enum": [
             "16:9",
             "4:3",
@@ -8104,9 +9020,8 @@
           "name": "quality",
           "type": "enum",
           "label": "Quality",
-          "description": "Output video resolution. Supports 360p, 540p, 720p, and 1080p.",
+          "description": "Required. Output video resolution. Supports 360p, 540p, 720p, and 1080p.",
           "required": true,
-          "default": "720p",
           "enum": [
             "360p",
             "540p",
@@ -8118,9 +9033,8 @@
           "name": "duration",
           "type": "number",
           "label": "Duration",
-          "description": "Output video duration in seconds. PixVerse V6 supports 1–15 seconds.",
+          "description": "Required. Output video duration in seconds. PixVerse V6 supports 1–15 seconds.",
           "required": true,
-          "default": 5,
           "min": 1,
           "max": 15,
           "step": 1
@@ -8186,7 +9100,7 @@
           "name": "upscale_factor",
           "type": "enum",
           "label": "Upscale Factor",
-          "description": "Factor to upscale the video by (e.g. 2.0 doubles width and height)",
+          "description": "Upscale factor (string): \"1\", \"2\" (default) or \"4\".",
           "required": false,
           "default": "2",
           "enum": [
@@ -8231,10 +9145,11 @@
           "name": "audio_url",
           "type": "reference",
           "label": "Audio Url",
-          "description": "Target pure vocal audio URL; used to drive video lip movements. Accepted file types: audio/mpeg, audio/wav, audio/x-wav, audio/aac, audio/mp4, audio/ogg. Max file size: 10MB.",
+          "description": "Target pure vocal audio URL; used to drive video lip movements. Audio duration: over 1 s and up to 240 s in lite mode; over 1 s and up to 210 s in basic mode. Accepted file types: audio/mpeg, audio/wav, audio/x-wav, audio/aac, audio/mp4, audio/ogg. Max file size: 10MB.",
           "required": true,
           "accept": "audio/*",
           "mentionStyle": "at-audio",
+          "maxDurationSec": 240,
           "maxItems": 1,
           "scalar": true
         },
@@ -8293,7 +9208,7 @@
           "name": "prompt",
           "type": "textarea",
           "label": "Prompt",
-          "description": "Text prompts for video generation. Supports both Chinese and English, with a minimum of 2 characters and a maximum of 5,000 characters. (Max length: 1500 characters)",
+          "description": "Text prompts for video generation. Supports Chinese and English, 2–1,500 characters.",
           "required": true,
           "maxLength": 1500
         },
@@ -8301,7 +9216,7 @@
           "name": "video_urls",
           "type": "reference",
           "label": "Video Urls",
-          "description": "The URL of the image used to generate video (File URL after upload, not file content; Accepted types: video/mp4, video/quicktime, video/x-matroska; Max size: 10.0MB)",
+          "description": "Reference video URLs. (File URL after upload, not file content; Accepted types: video/mp4, video/quicktime, video/x-matroska; Max size: 10.0MB)",
           "required": true,
           "maxItems": 3,
           "accept": "video/*,image/*",
@@ -8350,7 +9265,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -8367,7 +9282,7 @@
           "name": "image_url",
           "type": "reference",
           "label": "Image Url",
-          "description": "URL of the input image. If the input image does not match the chosen aspect ratio, it is resized and center cropped. (File URL after upload, not file content; Accepted types: image/jpeg, image/png, image/webp; Max size: 10.0MB)",
+          "description": "URL of the input image. (File URL after upload, not file content; Accepted types: image/jpeg, image/png, image/webp; Max size: 10.0MB)",
           "required": true,
           "accept": "image/jpeg,image/png,image/webp,image/*",
           "mentionStyle": "at-image",
@@ -8406,9 +9321,8 @@
           "name": "seed",
           "type": "number",
           "label": "Seed",
-          "description": "Random seed for reproducibility. If None, a random seed is chosen. (Min: 0, Max: 2147483647, Step: 1) (step: 1)",
+          "description": "Optional. Omit for a random seed.",
           "required": false,
-          "default": 0,
           "min": 0,
           "max": 2147483647,
           "step": 0.1
@@ -8429,7 +9343,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -8454,7 +9368,7 @@
           "name": "image_url",
           "type": "reference",
           "label": "Image Url",
-          "description": "URL of the input image. If the input image does not match the chosen aspect ratio, it is resized and center cropped (File URL after upload, not file content; Accepted types: image/jpeg, image/png, image/webp; Max size: 10.0MB)",
+          "description": "URL of the input image. (File URL after upload, not file content; Accepted types: image/jpeg, image/png, image/webp; Max size: 10.0MB)",
           "required": true,
           "accept": "image/jpeg,image/png,image/webp,image/*",
           "mentionStyle": "at-image",
@@ -8489,7 +9403,7 @@
           "name": "frames_per_second",
           "type": "number",
           "label": "Frames Per Second",
-          "description": "Frames per second of the generated video. Must be between 4 to 60. When using interpolation and adjust_fps_for_interpolation is set to true (default true,) the final FPS will be multiplied by the number of interpolated frames plus one. For example, if the generated frames per second is 16 and the number of interpolated frames is 1, the final frames per second will be 32. If adjust_fps_for_interpolation is set to false, this value will be used as-is (Min: 4, Max: 60, Step: 1) (step: 1)",
+          "description": "Frames per second of the generated video. Must be between 4 to 60. (Min: 4, Max: 60, Step: 1) (step: 1)",
           "required": false,
           "default": 16,
           "min": 4,
@@ -8521,7 +9435,7 @@
           "name": "seed",
           "type": "number",
           "label": "Seed",
-          "description": "Random seed for reproducibility. If None, a random seed is chosen",
+          "description": "Optional. Omit for a random seed.",
           "required": false,
           "step": 1
         },
@@ -8562,7 +9476,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -8618,9 +9532,8 @@
           "name": "seed",
           "type": "number",
           "label": "Seed",
-          "description": "Random seed for reproducibility. If None, a random seed is chosen. (Min: 0, Max: 2147483647, Step: 1) (step: 1)",
+          "description": "Optional. Omit for a random seed.",
           "required": false,
-          "default": 0,
           "min": 0,
           "max": 2147483647,
           "step": 0.1
@@ -8641,7 +9554,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -8658,7 +9571,7 @@
           "name": "prompt",
           "type": "textarea",
           "label": "Prompt",
-          "description": "Text prompts for video generation. Supports both Chinese and English, with a minimum of 2 characters and a maximum of 5,000 characters. (Max length: 1500 characters)",
+          "description": "Text prompts for video generation. Supports Chinese and English, 2–1,500 characters.",
           "required": true,
           "maxLength": 1500
         },
@@ -8716,7 +9629,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -8745,7 +9658,7 @@
           "name": "image_url",
           "type": "reference",
           "label": "Image Url",
-          "description": "URL of the input image. If the input image does not match the chosen aspect ratio, it is resized and center cropped. (File URL after upload, not file content; Accepted types: image/jpeg, image/png, image/webp; Max size: 10.0MB)",
+          "description": "URL of the input image. (File URL after upload, not file content; Accepted types: image/jpeg, image/png, image/webp; Max size: 10.0MB)",
           "required": true,
           "accept": "image/jpeg,image/png,image/webp,image/*",
           "mentionStyle": "at-image",
@@ -8770,7 +9683,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -8799,7 +9712,7 @@
           "name": "image_url",
           "type": "reference",
           "label": "Image Url",
-          "description": "URL of the input image. If the input image does not match the chosen aspect ratio, it is resized and center cropped. (File URL after upload, not file content; Accepted types: image/jpeg, image/png, image/webp; Max size: 10.0MB)",
+          "description": "URL of the input image. (File URL after upload, not file content; Accepted types: image/jpeg, image/png, image/webp; Max size: 10.0MB)",
           "required": true,
           "accept": "image/jpeg,image/png,image/webp,image/*",
           "mentionStyle": "at-image",
@@ -8824,7 +9737,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -8871,8 +9784,8 @@
           "name": "resolution",
           "type": "enum",
           "label": "Resolution",
-          "description": "Video resolution. Valid values: `720p`, `1080p`.",
-          "required": false,
+          "description": "Required. 720p or 1080p.",
+          "required": true,
           "enum": [
             "720p",
             "1080p"
@@ -8905,7 +9818,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -8953,8 +9866,8 @@
           "name": "resolution",
           "type": "enum",
           "label": "Resolution",
-          "description": "Video resolution tier.",
-          "required": false,
+          "description": "Required. 720p or 1080p.",
+          "required": true,
           "enum": [
             "720p",
             "1080p"
@@ -8987,7 +9900,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -9056,7 +9969,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -9094,9 +10007,8 @@
           "name": "resolution",
           "type": "enum",
           "label": "Resolution",
-          "description": "Video resolution tier",
+          "description": "Output resolution: 720p or 1080p. Set this field explicitly.",
           "required": false,
-          "default": "1080p",
           "enum": [
             "720p",
             "1080p"
@@ -9114,7 +10026,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -9139,7 +10051,7 @@
           "name": "video_urls",
           "type": "reference",
           "label": "Video Urls",
-          "description": "The URL of the image used to generate video (File URL after upload, not file content; Accepted types: video/mp4, video/quicktime, video/x-matroska; Max size: 10.0MB)",
+          "description": "Reference video URLs. (File URL after upload, not file content; Accepted types: video/mp4, video/quicktime, video/x-matroska; Max size: 10.0MB)",
           "required": true,
           "maxItems": 3,
           "accept": "video/*,image/*",
@@ -9162,9 +10074,8 @@
           "name": "resolution",
           "type": "enum",
           "label": "Resolution",
-          "description": "Video resolution tier",
+          "description": "Output resolution: 720p or 1080p. Set this field explicitly.",
           "required": false,
-          "default": "1080p",
           "enum": [
             "720p",
             "1080p"
@@ -9182,7 +10093,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -9304,7 +10215,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -9439,7 +10350,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -9547,7 +10458,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -9673,7 +10584,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -9690,7 +10601,7 @@
           "name": "prompt",
           "type": "textarea",
           "label": "Prompt",
-          "description": "Prompt for image generation or editing. This field supports both Chinese and English, with a maximum length of 5000 characters as per Alibaba Cloud documentation.",
+          "description": "Prompt for image generation or editing. This field supports both Chinese and English, with a maximum length of 5000 characters.",
           "required": true,
           "maxLength": 5000
         },
@@ -9698,7 +10609,7 @@
           "name": "input_urls",
           "type": "reference",
           "label": "Input Urls",
-          "description": "(Optional) Array of input image URLs. The current project uses `input_urls` as a wrapper field.",
+          "description": "(Optional) Array of input image URLs.",
           "required": false,
           "maxItems": 9,
           "accept": "image/jpeg,image/png,image/webp,image/*",
@@ -9741,20 +10652,19 @@
           "name": "resolution",
           "type": "enum",
           "label": "Resolution",
-          "description": "Output resolution. The current project uses `resolution` as a wrapper field corresponding to the underlying resolution parameter.",
+          "description": "Output resolution: 1K or 2K (default 2K). For 4K, use wan/2-7-image-pro.",
           "required": false,
           "default": "2K",
           "enum": [
             "1K",
-            "2K",
-            "4K"
+            "2K"
           ]
         },
         {
           "name": "thinking_mode",
           "type": "boolean",
           "label": "Thinking Mode",
-          "description": "Whether to enable thinking mode. Only available when `enable_sequential=false` and `input_urls` is empty; the frontend will automatically disable it in other cases.",
+          "description": "Whether to enable thinking mode. Only available when `enable_sequential=false` and `input_urls` is empty; it is disabled in other cases.",
           "required": false,
           "default": false
         },
@@ -9785,9 +10695,8 @@
           "name": "seed",
           "type": "number",
           "label": "Seed",
-          "description": "Random seed, range 0-2147483647.",
+          "description": "Optional. Omit for a random seed.",
           "required": false,
-          "default": 0,
           "min": 0,
           "max": 2147483647,
           "step": 1
@@ -9796,7 +10705,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -9813,7 +10722,7 @@
           "name": "prompt",
           "type": "textarea",
           "label": "Prompt",
-          "description": "Prompt for image generation or editing. This field supports both Chinese and English, with a maximum length of 5000 characters as per Alibaba Cloud documentation.",
+          "description": "Prompt for image generation or editing. This field supports both Chinese and English, with a maximum length of 5000 characters.",
           "required": true,
           "maxLength": 5000
         },
@@ -9821,7 +10730,7 @@
           "name": "input_urls",
           "type": "reference",
           "label": "Input Urls",
-          "description": "(Optional) Array of input image URLs. The current project uses `input_urls` as a wrapper field.",
+          "description": "(Optional) Array of input image URLs.",
           "required": false,
           "maxItems": 9,
           "accept": "image/jpeg,image/png,image/webp,image/*",
@@ -9864,7 +10773,7 @@
           "name": "resolution",
           "type": "enum",
           "label": "Resolution",
-          "description": "Output resolution. The current project uses `resolution` as a wrapper field corresponding to the underlying resolution parameter.(4K generation is available only for text-to-image in Standard Mode)",
+          "description": "Output resolution: 1K, 2K or 4K (default 2K). 4K is available only for text-to-image (no input images) with sequential generation off.",
           "required": false,
           "default": "2K",
           "enum": [
@@ -9877,7 +10786,7 @@
           "name": "thinking_mode",
           "type": "boolean",
           "label": "Thinking Mode",
-          "description": "Whether to enable thinking mode. Only available when `enable_sequential=false` and `input_urls` is empty; the frontend will automatically disable it in other cases.",
+          "description": "Whether to enable thinking mode. Only available when `enable_sequential=false` and `input_urls` is empty; it is disabled in other cases.",
           "required": false,
           "default": false
         },
@@ -9908,9 +10817,8 @@
           "name": "seed",
           "type": "number",
           "label": "Seed",
-          "description": "Random seed, range 0-2147483647.",
+          "description": "Optional. Omit for a random seed.",
           "required": false,
-          "default": 0,
           "min": 0,
           "max": 2147483647,
           "step": 1
@@ -9919,7 +10827,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -9936,23 +10844,31 @@
           "name": "prompt",
           "type": "textarea",
           "label": "Prompt",
-          "description": "Text prompt, supporting both Chinese and English. Up to 20,000 characters; excess characters will be truncated automatically. Required for text-to-video generation; for other modes, it is recommended to provide it together with media. In reference mode, use Image1/Video1/Audio1 to reference the provided media.",
+          "description": "Text prompt, supporting both Chinese and English. Up to 20,000 characters. Required for text-to-video generation; for other modes, it is recommended to provide it together with media. In reference mode, use Image1/Video1/Audio1 to reference the provided media.",
           "required": false,
           "maxLength": 20000
         },
         {
           "name": "first_frame_url",
-          "type": "json",
+          "type": "reference",
           "label": "First Frame Url",
           "description": "URL of the first-frame image. Up to 1 image, used strictly as the first frame of the video. Used for first-frame-to-video / first-and-last-frame-to-video generation. Cannot be provided together with `reference_*_urls`.",
-          "required": false
+          "required": false,
+          "accept": "image/jpeg,image/png,image/webp,image/*",
+          "mentionStyle": "at-image",
+          "maxItems": 1,
+          "scalar": true
         },
         {
           "name": "last_frame_url",
-          "type": "json",
+          "type": "reference",
           "label": "Last Frame Url",
-          "description": "URL of the first-frame image. Up to 1 image, used strictly as the first frame of the video. Used for first-frame-to-video / first-and-last-frame-to-video generation. Cannot be provided together with `reference_*_urls`.",
-          "required": false
+          "description": "URL of the last-frame image. Use together with first_frame_url. Same format limits as first_frame_url.",
+          "required": false,
+          "accept": "image/jpeg,image/png,image/webp,image/*",
+          "mentionStyle": "at-image",
+          "maxItems": 1,
+          "scalar": true
         },
         {
           "name": "reference_image_urls",
@@ -9978,7 +10894,7 @@
           "name": "reference_audio_urls",
           "type": "reference",
           "label": "Reference Audio Urls",
-          "description": "Reference audio for the all-purpose reference mode, with up to 5 clips. Each clip must be 1–15 seconds, with a total duration ≤ 15 seconds. Correspond to Audio1, Audio2, … according to array order. Formats: wav, mp3; ≤ 15MB. Audio should not be used alone as the only media input; pairing it with an image or video is still recommended.",
+          "description": "Reference audio for the all-purpose reference mode, with up to 5 clips. Each clip must be 1–15 seconds, with a total duration ≤ 15 seconds. Correspond to Audio1, Audio2, … according to array order. Formats: wav, mp3; ≤ 15MB. Reference audio can be used as the only media input; pairing it with a reference image or video usually gives better results.",
           "required": false,
           "maxItems": 5,
           "accept": "audio/*",
@@ -9986,19 +10902,23 @@
         },
         {
           "name": "reference_file_urls",
-          "type": "json",
+          "type": "reference",
           "label": "Reference File Urls",
           "description": "File-to-video generation. Up to 1 file. Cannot be provided together with `reference_link_urls`, or with the first-frame/last-frame parameters.",
           "required": false,
-          "maxItems": 1
+          "maxItems": 1,
+          "accept": "image/jpeg,image/png,image/webp,image/*",
+          "mentionStyle": "none"
         },
         {
           "name": "reference_link_urls",
-          "type": "json",
+          "type": "reference",
           "label": "Reference Link Urls",
           "description": "Link-to-video generation. Up to 1 publicly accessible webpage that does not require login. Cannot be provided together with `reference_file_urls`, or with the first-frame/last-frame parameters.",
           "required": false,
-          "maxItems": 1
+          "maxItems": 1,
+          "accept": "image/jpeg,image/png,image/webp,image/*",
+          "mentionStyle": "none"
         },
         {
           "name": "resolution",
@@ -10060,7 +10980,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
@@ -10077,23 +10997,31 @@
           "name": "prompt",
           "type": "textarea",
           "label": "Prompt",
-          "description": "Text prompt. Chinese and English are supported. Up to 20,000 characters; excess characters are truncated automatically. Required for text-to-video; for other modes, it is recommended to provide it together with media. In reference mode, use Image1/Video1/Audio1 to reference the provided materials.",
+          "description": "Text prompt. Chinese and English are supported. Up to 20,000 characters. Required for text-to-video; for other modes, it is recommended to provide it together with media. In reference mode, use Image1/Video1/Audio1 to reference the provided materials.",
           "required": false,
           "maxLength": 20000
         },
         {
           "name": "first_frame_url",
-          "type": "json",
+          "type": "reference",
           "label": "First Frame Url",
           "description": "URL of the first-frame image. Up to 1 image, used strictly as the first frame of the video. Used for first-frame-to-video or first-and-last-frame-to-video generation. Cannot be provided together with `reference_*_urls`.",
-          "required": false
+          "required": false,
+          "accept": "image/jpeg,image/png,image/webp,image/*",
+          "mentionStyle": "at-image",
+          "maxItems": 1,
+          "scalar": true
         },
         {
           "name": "last_frame_url",
-          "type": "json",
+          "type": "reference",
           "label": "Last Frame Url",
-          "description": "URL of the first-frame image. Up to 1 image, used strictly as the first frame of the video. Used for first-frame-to-video or first-and-last-frame-to-video generation. Cannot be provided together with `reference_*_urls`.",
-          "required": false
+          "description": "URL of the last-frame image. Use together with first_frame_url. Same format limits as first_frame_url.",
+          "required": false,
+          "accept": "image/jpeg,image/png,image/webp,image/*",
+          "mentionStyle": "at-image",
+          "maxItems": 1,
+          "scalar": true
         },
         {
           "name": "reference_image_urls",
@@ -10119,7 +11047,7 @@
           "name": "reference_audio_urls",
           "type": "reference",
           "label": "Reference Audio Urls",
-          "description": "Reference audio files for all-purpose reference mode. Up to 5 audio files. Each file must be 1–15s, with a combined duration of ≤ 15s. Correspond to Audio1, Audio2, and so on according to array order. Formats: wav, mp3; ≤ 15MB. Even when used as the only media input, it is still recommended to provide an image or video together with it.",
+          "description": "Reference audio files for all-purpose reference mode. Up to 5 audio files. Each file must be 1–15s, with a combined duration of ≤ 15s. Correspond to Audio1, Audio2, and so on according to array order. Formats: wav, mp3; ≤ 15MB. Reference audio can be used as the only media input; pairing it with a reference image or video usually gives better results.",
           "required": false,
           "maxItems": 5,
           "accept": "audio/*",
@@ -10127,19 +11055,23 @@
         },
         {
           "name": "reference_file_urls",
-          "type": "json",
+          "type": "reference",
           "label": "Reference File Urls",
           "description": "File-to-video generation. Up to 1 file. Cannot be provided together with `reference_link_urls`, or with the first-frame/last-frame image.",
           "required": false,
-          "maxItems": 1
+          "maxItems": 1,
+          "accept": "image/jpeg,image/png,image/webp,image/*",
+          "mentionStyle": "none"
         },
         {
           "name": "reference_link_urls",
-          "type": "json",
+          "type": "reference",
           "label": "Reference Link Urls",
           "description": "Link-to-video generation. Up to 1 publicly accessible webpage that does not require login. Cannot be provided together with `reference_file_urls`, or with the first-frame/last-frame image.",
           "required": false,
-          "maxItems": 1
+          "maxItems": 1,
+          "accept": "image/jpeg,image/png,image/webp,image/*",
+          "mentionStyle": "none"
         },
         {
           "name": "resolution",
@@ -10201,7 +11133,7 @@
           "name": "nsfw_checker",
           "type": "boolean",
           "label": "Nsfw Checker",
-          "description": "Defaults to false. You can set it to false based on your needs. If set to false, our content filtering will be disabled, and all results will be returned directly by the model itself.",
+          "description": "Defaults to false. When false, no additional content filtering is applied and results are returned directly by the model.",
           "required": false
         }
       ]
