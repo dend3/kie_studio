@@ -28,6 +28,8 @@ export type ApiErrorAction =
 const INSUFFICIENT_CREDITS_PATTERN =
   /(?:insufficient|not enough|low)\s+(?:credit|balance)|(?:credit|balance).*?(?:insufficient|not enough|low)|クレジット.*(?:不足|足りない|切れ)|(?:不足|足りない).*(?:クレジット|credit)/i
 
+import { uuid } from './uuid'
+
 export function classifyApiError(error: unknown): ApiErrorAction {
   const candidate = error as { status?: unknown; code?: unknown; message?: unknown }
   const code = typeof candidate.code === 'number'
@@ -80,7 +82,7 @@ export class SubmissionQueue {
     run: () => Promise<T>
   }): Promise<T> {
     const item: SubmissionQueueItem = {
-      id: crypto.randomUUID(),
+      id: uuid(),
       state: 'unsent',
       provider: params.provider,
       operation: params.operation,

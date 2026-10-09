@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { LoaderCircle, Plus, X } from 'lucide-react'
 import { uploadFile } from '../lib/api.ts'
+import { uuid } from '../lib/uuid'
 import type { KlingElement } from '../lib/models/types.ts'
 
 function emptyElement(index: number): KlingElement {
@@ -25,7 +26,7 @@ export function KlingElementsEditor({
   onInsertMention?: (token: string) => void
 }) {
   const [elementIds, setElementIds] = useState(() =>
-    value.map(() => crypto.randomUUID()),
+    value.map(() => uuid()),
   )
   const [uploadingKey, setUploadingKey] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -39,7 +40,7 @@ export function KlingElementsEditor({
     }
     const additions = Array.from(
       { length: value.length - elementIds.length },
-      () => crypto.randomUUID(),
+      () => uuid(),
     )
     setElementIds((previous) => [...previous, ...additions])
   }, [elementIds.length, value.length])
@@ -233,7 +234,7 @@ export function KlingElementsEditor({
           type="button"
           disabled={disabled}
           onClick={() => {
-            const elementId = crypto.randomUUID()
+            const elementId = uuid()
             setElementIds((ids) => [
               ...ids,
               elementId,
